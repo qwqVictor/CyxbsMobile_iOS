@@ -10,6 +10,7 @@
 #import "MineAboutContentView.h"
 #import "IntroductionController.h"
 #import <AFNetworking.h>
+#import "PMPFansAndFollowerViewController.h"
 
 @interface MineAboutController () <MineAboutContentViewDelegate>
 
@@ -29,8 +30,16 @@
     MineAboutContentView *contentView = [[MineAboutContentView alloc] init];
     contentView.delegate = self;
     [self.view addSubview:contentView];
+    
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 100, 50)];
+    [self.view addSubview:btn];
+    btn.backgroundColor = [UIColor redColor];
+    [btn addTarget:self action:@selector(jump) forControlEvents:UIControlEventTouchUpInside];
 }
-
+- (void)jump {
+    PMPFansAndFollowerViewController *vc = [[PMPFansAndFollowerViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.hidden = YES;
 }
