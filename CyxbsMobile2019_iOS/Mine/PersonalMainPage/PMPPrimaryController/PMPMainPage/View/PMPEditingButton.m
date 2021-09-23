@@ -29,7 +29,7 @@
     }];
     [self.textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self);
-        make.left.mas_equalTo(self.iconImgView.mas_right);
+        make.left.mas_equalTo(self.iconImgView.mas_right).offset(4);
     }];
 }
 

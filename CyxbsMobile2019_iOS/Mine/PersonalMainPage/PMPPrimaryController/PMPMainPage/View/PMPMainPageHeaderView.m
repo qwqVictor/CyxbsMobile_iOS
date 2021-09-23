@@ -10,19 +10,10 @@
 
 @interface PMPMainPageHeaderView ()
 
-/**
- 大约占 2/5 和3/5
- */
-
-/// 透明层
-@property (nonatomic, strong) UIView * transparentMaskView;
-/// 半透明层
-@property (nonatomic, strong) UIView * translucentMaskView;
-
 /// 昵称下面的按钮
 @property (nonatomic, strong) NSArray <PMPTextButton *> * textButtonAry;
 /// 文字信息
-@property (nonatomic, strong) NSArray * textButtonTitlesAry;
+@property (nonatomic, strong) NSArray <NSString *> * textButtonTitlesAry;
 
 /// 头像
 @property (nonatomic, strong) PMPAvatarImgButton * avatarImgButton;
@@ -49,18 +40,8 @@
 }
 
 - (void)configureView {
-    // self.transparentMaskView and self.translucentMaskView
-    [self addSubview:self.transparentMaskView];
-    
-    [self addSubview:self.translucentMaskView];
-    // 设置圆角, topLeft | topRight
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.translucentMaskView.bounds
-                                                   byRoundingCorners:UIRectCornerTopRight | UIRectCornerTopLeft
-                                                         cornerRadii:CGSizeMake(20, 20)];
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = self.translucentMaskView.bounds;
-    maskLayer.path = maskPath.CGPath;
-    self.translucentMaskView.layer.mask = maskLayer;
+    // self
+    self.backgroundColor = [UIColor colorNamed:@"white_0.95&black"];
     
     //  textButtonAry
     NSMutableArray * tempMAry = [NSMutableArray array];
@@ -71,13 +52,41 @@
     
     // avatarImgButton
     [self addSubview:self.avatarImgButton];
-    self.avatarImgButton.jh_size = CGSizeMake(88, 88);
+    CGFloat width1 = (SCREEN_WIDTH / 375) * 97;
+    CGFloat height1 = width1;
+    self.avatarImgButton.cornerRadius = width1/2;
+    [self.avatarImgButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.mas_top);
+        make.left.mas_equalTo(self).offset(16);
+        make.size.mas_equalTo(CGSizeMake(width1, height1));
+    }];
     
     //  nicknameLabel
     [self addSubview:self.nicknameLabel];
+    [self.nicknameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.mas_top).offset(-4);
+        make.right.mas_equalTo(self).offset(-14);
+        make.left.mas_equalTo(self.avatarImgButton.mas_right).offset(14);
+    }];
+    self.nicknameLabel.text = @"这是一个昵称示例";
+    
+    // _IDLabel
+    [self addSubview:self.IDLabel];
+    [self.IDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.avatarImgButton);
+        make.top.mas_equalTo(self.avatarImgButton.mas_bottom).offset(10);
+    }];
+    self.IDLabel.text = @"ID: 355533";
     
     // editingButton
     [self addSubview:self.editingButton];
+    CGFloat width2 = self.editingButton.textLabel.jh_width + self.editingButton.iconImgView.jh_width + 10;
+    CGFloat height2 = self.editingButton.iconImgView.jh_height + 20;
+    [self.editingButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.IDLabel.mas_centerY);
+        make.left.mas_equalTo(self.IDLabel.mas_right).offset(25);
+        make.size.mas_equalTo(CGSizeMake(width2, height2));
+    }];
 }
 
 #pragma mark - event response
@@ -88,9 +97,15 @@
     }
 }
 
-- (void)avatarImgViewCliced:(PMPTextButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(avatarImgViewCliced:)]) {
+- (void)avatarImgViewClicked {
+    if ([self.delegate respondsToSelector:@selector(avatarImgViewClicked)]) {
         [self.delegate avatarImgButtonClicked];
+    }
+}
+
+- (void)editingButtonClicked {
+    if ([self.delegate respondsToSelector:@selector(editingButtonClicked)]) {
+        [self.delegate editingButtonClicked];
     }
 }
 
@@ -107,22 +122,6 @@
 
 #pragma mark - lazy
 
-- (UIView *)transparentMaskView {
-    if (_transparentMaskView == nil) {
-        _transparentMaskView = [[UIView alloc] init];
-        _transparentMaskView.backgroundColor = [UIColor clearColor];
-    }
-    return _transparentMaskView;
-}
-
-- (UIView *)translucentMaskView {
-    if (_translucentMaskView == nil) {
-        _translucentMaskView = [[UIView alloc] init];
-        _translucentMaskView.backgroundColor = [UIColor colorNamed:@"white_0.95&black"];
-    }
-    return _translucentMaskView;
-}
-
 - (NSArray *)textButtonTitlesAry {
     if (_textButtonTitlesAry == nil) {
         _textButtonTitlesAry = @[
@@ -137,7 +136,7 @@
 - (PMPAvatarImgButton *)avatarImgButton {
     if (_avatarImgButton == nil) {
         _avatarImgButton = [[PMPAvatarImgButton alloc] init];
-        [_avatarImgButton addTarget:self action:@selector(avatarImgViewCliced:)];
+        [_avatarImgButton addTarget:self action:@selector(avatarImgViewClicked)];
     }
     return _avatarImgButton;
 }
@@ -156,6 +155,7 @@
 - (PMPEditingButton *)editingButton {
     if (_editingButton == nil) {
         _editingButton = [[PMPEditingButton alloc] init];
+        [_editingButton addTarget:self action:@selector(editingButtonClicked)];
     }
     return _editingButton;
 }
@@ -165,7 +165,7 @@
         _IDLabel = [[UILabel alloc] init];
         [_IDLabel sizeToFit];
         _IDLabel.font = [UIFont fontWithName:PingFangSCMedium size:14];
-        _IDLabel.textColor = [UIColor colorNamed:@"21_49_91_0.8&"];
+        _IDLabel.textColor = [UIColor colorNamed:@"21_49_91_0.8&240_240_242_0.8"];
     }
     return _IDLabel;
 }

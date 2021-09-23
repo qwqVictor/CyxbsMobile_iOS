@@ -10,6 +10,9 @@
 #import "MineAboutContentView.h"
 #import "IntroductionController.h"
 #import <AFNetworking.h>
+
+
+#import "PMPMainPageViewController.h"
 #import "PMPFansAndFollowerViewController.h"
 
 @interface MineAboutController () <MineAboutContentViewDelegate>
@@ -31,15 +34,24 @@
     contentView.delegate = self;
     [self.view addSubview:contentView];
     
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 100, 50)];
-    [self.view addSubview:btn];
-    btn.backgroundColor = [UIColor redColor];
-    [btn addTarget:self action:@selector(jump) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 100, 50)];
+    [self.view addSubview:btn1];
+    btn1.backgroundColor = [UIColor redColor];
+    [btn1 addTarget:self action:@selector(jump1) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(100, 150, 100, 50)];
+    [self.view addSubview:btn2];
+    btn2.backgroundColor = [UIColor redColor];
+    [btn2 addTarget:self action:@selector(jump2) forControlEvents:UIControlEventTouchUpInside];
 }
-- (void)jump {
+- (void)jump1 {
     PMPFansAndFollowerViewController *vc = [[PMPFansAndFollowerViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
+- (void)jump2 {
+    PMPMainPageViewController * vc = [[PMPMainPageViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.hidden = YES;
 }
