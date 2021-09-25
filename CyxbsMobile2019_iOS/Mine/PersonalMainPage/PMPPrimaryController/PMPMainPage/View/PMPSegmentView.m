@@ -23,9 +23,8 @@
 
 #pragma mark - initial
 
-- (instancetype)initWithFrame:(CGRect)frame titles:(NSArray<NSString *> *)titles
-{
-    self = [super initWithFrame:frame];
+- (instancetype)initWithTitles:(NSArray<NSString *> *)titles {
+    self = [super initWithFrame:CGRectZero];
     if (self) {
         self.titles = titles;
         [self configureView];
@@ -33,28 +32,17 @@
     return self;
 }
 
-+ (instancetype)segmentViewWithFrame:(CGRect)frame titles:(NSArray<NSString *> *)titles
-{
-    return [[self alloc] initWithFrame:frame titles:titles];
-}
-
 - (void)configureView {
     self.backgroundColor = [UIColor colorNamed:@"white&29_29_29_1"];
-    // 设置圆角, topLeft | topRight
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
-                                                   byRoundingCorners:UIRectCornerTopRight | UIRectCornerTopLeft
-                                                         cornerRadii:CGSizeMake(self.height/4, self.height/4)];
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = self.bounds;
-    maskLayer.path = maskPath.CGPath;
-    self.layer.mask = maskLayer;
     
     // config splitLineView
     self.splitLineView = [[UIView alloc] init];
     self.splitLineView.backgroundColor = [UIColor colorNamed:@"42_78_132_0.1&74_80_102_0.4"];
-    self.splitLineView.jh_size = CGSizeMake(self.jh_width, 1);
-    self.splitLineView.jh_origin = CGPointMake(0, self.jh_height -1);
-    [self.layer addSublayer:self.splitLineView.layer];
+    [self addSubview:self.splitLineView];
+    [self.splitLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self);
+        make.height.mas_equalTo(1);
+    }];
 
     // config buttonMAry
     self.buttonMAry = [NSMutableArray array];
@@ -94,7 +82,6 @@
     
     return button;
 }
-
 - (void)setupButtonFrame {
     if (self.buttonMAry.count == 0) {
         return;
@@ -102,7 +89,7 @@
     CGFloat buttonWidth = [UIScreen mainScreen].bounds.size.width / _titles.count;
     for (UIButton * button in self.buttonMAry) {
         button.jh_width = buttonWidth;
-        button.jh_height = self.height;
+        button.jh_height = self.height - 1;
         button.jh_y = 0;
         button.jh_x = buttonWidth * [self indexWithTag:button.tag];
     }
@@ -119,7 +106,15 @@
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    [self configureView];
+    // 设置圆角, topLeft | topRight
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
+                                                   byRoundingCorners:UIRectCornerTopRight | UIRectCornerTopLeft
+                                                         cornerRadii:CGSizeMake(self.jh_height/4, self.jh_height/4)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = self.bounds;
+    maskLayer.path = maskPath.CGPath;
+    self.layer.mask = maskLayer;
+    [self setupButtonFrame];
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex {

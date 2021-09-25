@@ -11,6 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// 一个简单的按钮
+/*
+  ----------
+ |   title  |
+ | subtitle |
+  ----------
+ */
 @interface PMPTextButton : PMPBasicActionView
 
 @property (nonatomic, strong) UILabel * titleLabel;

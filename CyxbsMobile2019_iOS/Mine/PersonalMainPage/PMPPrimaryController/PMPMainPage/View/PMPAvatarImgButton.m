@@ -20,6 +20,8 @@
 }
 
 - (void)configureView {
+    self.backgroundColor = [UIColor colorNamed:@"white&black"];
+    
     [self addSubview:self.avatarImgView];
     [self.avatarImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self).mas_offset(UIEdgeInsetsMake(2, 2, 2, 2));
@@ -30,8 +32,8 @@
 
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     _cornerRadius = cornerRadius;
-    self.layer.cornerRadius = self.jh_size.width / 2;
-    self.avatarImgView.layer.cornerRadius = self.jh_size.width / 2;
+    self.layer.cornerRadius = cornerRadius;
+    self.avatarImgView.layer.cornerRadius = cornerRadius;
 }
 
 #pragma mark - lazy
@@ -40,6 +42,7 @@
     if (_avatarImgView == nil) {
         _avatarImgView = [[UIImageView alloc] init];
         _avatarImgView.contentMode = UIViewContentModeScaleAspectFit;
+        _avatarImgView.userInteractionEnabled = NO;
     }
     return _avatarImgView;
 }

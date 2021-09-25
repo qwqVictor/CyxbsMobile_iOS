@@ -10,13 +10,6 @@
 
 @interface PMPBasicNavBarController ()
 
-/// 顶部的bar
-@property (nonatomic,strong) UIView * topBarView;
-/// 控制器标题
-@property (nonatomic,strong) UILabel * VCTitleLabel;
-/// 返回按钮
-@property (nonatomic,strong) UIButton * backBtn;
-
 @end
 
 @implementation PMPBasicNavBarController
@@ -120,6 +113,11 @@
 - (void)setTopBarBackgroundColor:(UIColor *)topBarBackgroundColor {
     _topBarBackgroundColor = topBarBackgroundColor;
     self.topBarView.backgroundColor = topBarBackgroundColor;
+}
+
+- (void)setBackBtnImage:(UIImage *)backBtnImage {
+    _backBtnImage = backBtnImage;
+    [self.backBtn setImage:_backBtnImage forState:(UIControlStateNormal)];
 }
 
 #pragma mark - getter

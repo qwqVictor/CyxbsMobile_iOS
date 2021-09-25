@@ -27,24 +27,27 @@
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self);
-        make.bottom.mas_equalTo(self.mas_centerY);
+        make.bottom.mas_equalTo(self.subtitleLabel.mas_top);
     }];
     
     [self.subtitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self);
-        make.top.mas_equalTo(self.mas_centerY);
+        make.centerX.bottom.mas_equalTo(self);
     }];
 }
 
 #pragma mark - public method
 
-- (void)setTitle:(NSString *)title subtitle:(NSString *)subtitle {
+- (void)setTitle:(NSString *)title
+        subtitle:(NSString *)subtitle
+           index:(NSUInteger)index {
     
     self.titleLabel.text = title;
     [self.titleLabel sizeToFit];
     
     self.subtitleLabel.text = subtitle;
     [self.subtitleLabel sizeToFit];
+    
+    self.index = index;
 }
 
 #pragma mark - getter

@@ -14,10 +14,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class PMPMainPageHeaderView;
 @protocol PMPMainPageHeaderViewDelegate <NSObject>
 
 - (void)textButtonClickedWithIndex:(NSUInteger)index;
 - (void)avatarImgButtonClicked;
+- (void)editingButtonClicked;
 
 @end
 

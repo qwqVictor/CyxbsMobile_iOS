@@ -25,10 +25,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy)NSString *VCTitleStr;
 /// 标题字体 Font， default is [UIFont fontWithName:PingFangSCSemibold size:21]
 @property (nonatomic, strong) UIFont * titleFont;
-/// 标题颜色，default is Red:21 green:49 blue:91 alpha:1
+/// 标题颜色，default is [UIColor colorNamed:@"white&white"]
 @property (nonatomic, strong) UIColor * titleColor;
 /// 导航栏的颜色
 @property (nonatomic, strong) UIColor * topBarBackgroundColor;
+/// 返回按钮图片
+@property (nonatomic, strong) UIImage * backBtnImage;
+
+/// 顶部的bar
+@property (nonatomic,strong) UIView * topBarView;
+/// 控制器标题
+@property (nonatomic,strong) UILabel * VCTitleLabel;
+/// 返回按钮
+@property (nonatomic,strong) UIButton * backBtn;
 
 /// 整个导航栏的高度，包括状态栏和内容的高度
 /// 状态栏是根据机型不同而变化
