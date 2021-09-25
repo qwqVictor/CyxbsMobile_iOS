@@ -29,7 +29,6 @@
     self.VCTitleStr = @"动态";
     self.articleModel = [[ArticleModel alloc] init];
     self.articleModel.delegate = self;
-//    [self.articleModel loadMoreData];
     [self addTableView];
 }
 

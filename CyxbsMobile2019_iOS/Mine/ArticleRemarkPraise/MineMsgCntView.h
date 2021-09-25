@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 小红点
-@interface RedTipBall : UIView
-@property(nonatomic,assign)NSString *msgCount;
+/// 显示消息数的点，外界可以设置这个类的backgroundColor，默认粉红色。
+@interface MineMsgCntView : UIView
+@property(nonatomic, copy)NSString *msgCount;
 //- (instancetype)initWithOriginCenter:(CGPoint) originCenter;
 @end
 

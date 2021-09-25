@@ -11,13 +11,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TopBlurView : UIView
+@interface MineTopBlurView : UIView
 @property (nonatomic, strong)UIButton *headImgBtn;
 @property (nonatomic, strong)UILabel *nickNameLabel;
 @property (nonatomic, strong)UILabel *mottoLabel;
 @property (nonatomic, strong)MainPageNumBtn *blogBtn;
 @property (nonatomic, strong)MainPageNumBtn *remarkBtn;
 @property (nonatomic, strong)MainPageNumBtn *praiseBtn;
+@property (nonatomic, strong)UIButton *homePageBtn;
 - (instancetype)initWithFrame:(CGRect)frame API_UNAVAILABLE(ios);
 @end
 
