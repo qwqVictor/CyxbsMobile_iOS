@@ -24,6 +24,11 @@
 /// ID文字
 @property (nonatomic, strong) UILabel * IDLabel;
 
+/// 个性签名
+@property (nonatomic, strong) UILabel * PersonalSignatureLabel;
+/// 信息
+@property (nonatomic, strong) UILabel * infoLabel;
+
 @end
 
 @implementation PMPMainPageHeaderView
@@ -87,13 +92,45 @@
         make.left.mas_equalTo(self.IDLabel.mas_right).offset(25);
         make.size.mas_equalTo(CGSizeMake(width2, height2));
     }];
+    
+    //
+    CGFloat textButtonWidth = (SCREEN_WIDTH - 97 - 16) / 3;
+    UIView * leftView = self.avatarImgButton;
+    for (int i = 0; i < self.textButtonAry.count; i++) {
+        PMPTextButton * button = [self createTextButtonWithIndex:i];
+        [self addSubview:button];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(leftView.mas_right);
+            make.top.mas_equalTo(self);
+            make.bottom.mas_equalTo(leftView);
+            make.width.mas_equalTo(textButtonWidth);
+        }];
+        leftView = button;
+    }
+    
+    //
+    [self addSubview:self.infoLabel];
+    [self.infoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.IDLabel);
+        make.top.mas_equalTo(self.IDLabel.mas_bottom).offset(20);
+    }];
+    self.infoLabel.text = @"2019级 | 十三星座 | X星人";
+    
+    //
+    [self addSubview:self.PersonalSignatureLabel];
+    [self.PersonalSignatureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.infoLabel);
+        make.top.mas_equalTo(self.infoLabel.mas_bottom).offset(4);
+    }];
+    self.PersonalSignatureLabel.text = @"这是一条不普通的个性签名签名签名签名签名";
+    
 }
 
 #pragma mark - event response
 
-- (void)textButtonClicked:(PMPTextButton *)sender {
+- (void)textButtonClicked:(UITapGestureRecognizer *)sender {
     if ([self.delegate respondsToSelector:@selector(textButtonClickedWithIndex:)]) {
-        [self.delegate textButtonClickedWithIndex:sender.index];
+        [self.delegate textButtonClickedWithIndex:((PMPTextButton *)sender.view).index];
     }
 }
 
@@ -168,6 +205,26 @@
         _IDLabel.textColor = [UIColor colorNamed:@"21_49_91_0.8&240_240_242_0.8"];
     }
     return _IDLabel;
+}
+
+- (UILabel *)PersonalSignatureLabel {
+    if (_PersonalSignatureLabel == nil) {
+        _PersonalSignatureLabel = [[UILabel alloc] init];
+        [_PersonalSignatureLabel sizeToFit];
+        _PersonalSignatureLabel.font = [UIFont fontWithName:PingFangSCRegular size:13];
+        _PersonalSignatureLabel.textColor = [UIColor colorNamed:@"21_49_91_0.7&240_240_242_0.7"];
+    }
+    return _PersonalSignatureLabel;
+}
+
+- (UILabel *)infoLabel {
+    if (_infoLabel == nil) {
+        _infoLabel = [[UILabel alloc] init];
+        [_infoLabel sizeToFit];
+        _infoLabel.font = [UIFont fontWithName:PingFangSCMedium size:14];
+        _infoLabel.textColor = [UIColor colorNamed:@"21_49_91_0.8&240_240_242_0.8"];
+    }
+    return _infoLabel;
 }
 
 @end

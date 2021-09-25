@@ -103,6 +103,7 @@
 - (PMPMainPageHeaderView *)headerView {
     if (_headerView == nil) {
         _headerView = [[PMPMainPageHeaderView alloc] init];
+        _headerView.layer.cornerRadius = 10;
         _headerView.delegate = self;
     }
     return _headerView;
