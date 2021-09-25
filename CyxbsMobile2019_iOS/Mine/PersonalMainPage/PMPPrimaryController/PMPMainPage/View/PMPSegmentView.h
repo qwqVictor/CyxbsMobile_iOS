@@ -21,8 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 分隔栏视图
  * 必须使用初始化方法
- * 1. segmentViewWithFrame:titles:
- * 2. initWithFrame:(CGRect)frame titles:(NSArray <NSString *> *)titles;
+ * - (instancetype)initWithTitles:(NSArray <NSString *> *)titles;
  */
 @interface PMPSegmentView : UIView
 
@@ -32,8 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 选中的button
 @property (nonatomic, assign) NSInteger selectedIndex;
 
-+ (instancetype)segmentViewWithFrame:(CGRect)frame titles:(NSArray <NSString *> *)titles;
-- (instancetype)initWithFrame:(CGRect)frame titles:(NSArray <NSString *> *)titles;
+- (instancetype)initWithTitles:(NSArray <NSString *> *)titles;
 
 @end
 

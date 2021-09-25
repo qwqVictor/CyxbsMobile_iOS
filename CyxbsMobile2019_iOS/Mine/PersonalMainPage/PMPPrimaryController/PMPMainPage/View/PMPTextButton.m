@@ -38,13 +38,17 @@
 
 #pragma mark - public method
 
-- (void)setTitle:(NSString *)title subtitle:(NSString *)subtitle {
+- (void)setTitle:(NSString *)title
+        subtitle:(NSString *)subtitle
+           index:(NSUInteger)index {
     
     self.titleLabel.text = title;
     [self.titleLabel sizeToFit];
     
     self.subtitleLabel.text = subtitle;
     [self.subtitleLabel sizeToFit];
+    
+    self.index = index;
 }
 
 #pragma mark - getter
