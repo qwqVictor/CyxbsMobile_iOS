@@ -122,6 +122,11 @@
     self.topBarView.backgroundColor = topBarBackgroundColor;
 }
 
+- (void)setBackBtnImage:(UIImage *)backBtnImage {
+    _backBtnImage = backBtnImage;
+    [self.backBtn setImage:_backBtnImage forState:(UIControlStateNormal)];
+}
+
 #pragma mark - getter
 
 - (UIView *)topBarView {

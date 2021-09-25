@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIColor * titleColor;
 /// 导航栏的颜色
 @property (nonatomic, strong) UIColor * topBarBackgroundColor;
+/// 返回按钮图片
+@property (nonatomic, strong) UIImage * backBtnImage;
 
 /// 整个导航栏的高度，包括状态栏和内容的高度
 /// 状态栏是根据机型不同而变化

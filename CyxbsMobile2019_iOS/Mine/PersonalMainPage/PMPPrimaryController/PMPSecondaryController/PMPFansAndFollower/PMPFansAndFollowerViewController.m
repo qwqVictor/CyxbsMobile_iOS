@@ -47,11 +47,12 @@
 #pragma mark - configure
 
 - (void)configureView {
+    self.view.backgroundColor = [UIColor colorNamed:@"251_252_255_1&0_0_0_1"];
     self.VCTitleStr = @"详情";
     self.titleColor = [UIColor colorNamed:@"21_49_91_1&223_223_227_1"];
     self.titleFont = [UIFont fontWithName:PingFangSCBold size:22];
-//    self.splitLineHidden = YES;
-    
+    self.topBarBackgroundColor = [UIColor colorWithWhite:1 alpha:0];
+    self.backBtnImage = [UIImage imageNamed:@"FansAndFollower_navBar_back"]; 
     CGSize size = self.view.frame.size;
     
     // segmentView
@@ -80,8 +81,8 @@
         make.bottom.mas_equalTo(self.noFansLabel.mas_top);
     }];
     
-    self.noFansLabel.hidden = YES;
-    self.noFansImgView.hidden = YES;
+    self.noFansLabel.hidden = NO;
+    self.noFansImgView.hidden = NO;
     
     //无关注
     [self.horizontalScrollView addSubview:self.noFollowingLabel];
@@ -95,8 +96,8 @@
         make.bottom.mas_equalTo(self.noFollowingLabel.mas_top);
     }];
     
-//    self.noFollowingLabel.hidden = YES;
-//    self.noFollowingImgView.hidden = YES;
+    self.noFollowingLabel.hidden = YES;
+    self.noFollowingImgView.hidden = YES;
     
 }
 #pragma mark - KVO
@@ -128,7 +129,7 @@
     if (_segmentView == nil) {
         _segmentView = [[FansAndFollowingSegmentView alloc] initWithFrame:(CGRectZero)];
         _segmentView.titles = @[@"我的粉丝", @"我的关注"];
-//        _segmentView.delegate = self;
+        _segmentView.delegate = self;
     }
     return _segmentView;
 }
@@ -136,7 +137,7 @@
 - (UIScrollView *)horizontalScrollView {
     if (_horizontalScrollView == nil) {
         _horizontalScrollView = [[UIScrollView alloc] initWithFrame:(CGRectZero)];
-        _horizontalScrollView.backgroundColor = [UIColor colorNamed:@"255_255_255_1&29_29_29_1"];
+        _horizontalScrollView.backgroundColor = [UIColor colorNamed:@"white&black"];
         _horizontalScrollView.showsHorizontalScrollIndicator = NO;
         _horizontalScrollView.pagingEnabled = YES;
         _horizontalScrollView.layer.cornerRadius = 20;
