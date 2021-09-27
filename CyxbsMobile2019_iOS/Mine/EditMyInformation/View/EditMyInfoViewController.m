@@ -84,8 +84,9 @@
 }
 
 - (void)backButtonClicked:(UIButton *)sender {
-    [((MineViewController *)self.transitioningDelegate) loadUserData];
-    ((MineViewController *)self.transitioningDelegate).panGesture = nil;
+    //让我的页面控制器刷新数据
+//    [((MineViewController *)self.transitioningDelegate) loadUserData];
+//    ((MineViewController *)self.transitioningDelegate).panGesture = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -141,8 +142,9 @@
 
 - (void)userInfoUploadSuccess {
     [UserItemTool refresh];         // 上传数据后刷新token
-    [((MineViewController *)self.transitioningDelegate) loadUserData];
-    ((MineViewController *)self.transitioningDelegate).panGesture = nil;
+    //让我的页面控制器刷新数据
+//    [((MineViewController *)self.transitioningDelegate) loadUserData];
+//    ((MineViewController *)self.transitioningDelegate).panGesture = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -151,8 +153,9 @@
 - (void)slideToDismiss:(UIPanGestureRecognizer *)sender {
     CGPoint translatedPoint = [self.contentView.contentScrollView.panGestureRecognizer locationInView:self.view];
     if (translatedPoint.y > 0) {
-        [((MineViewController *)self.transitioningDelegate) loadUserData];
-        ((MineViewController *)self.transitioningDelegate).panGesture = sender;
+        //让我的页面控制器刷新数据
+//        [((MineViewController *)self.transitioningDelegate) loadUserData];
+//        ((MineViewController *)self.transitioningDelegate).panGesture = sender;
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 //    self.contentView.contentScrollView

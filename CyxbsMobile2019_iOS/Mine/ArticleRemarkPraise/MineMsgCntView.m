@@ -6,7 +6,7 @@
 //  Copyright © 2021 Redrock. All rights reserved.
 //  小红点
 
-#import "RedTipBall.h"
+#import "MineMsgCntView.h"
 //红点高度、也是消息数为个位数时的红点宽度
 #define ballDiameter  (SCREEN_WIDTH*0.0427)
 
@@ -16,12 +16,12 @@
 //消息数为9+时的红点宽度
 #define ballWidth9P  (SCREEN_WIDTH*0.057)
 
-@interface RedTipBall()
+@interface MineMsgCntView()
 /// 最开始的位置，只初始化一次
 @property(nonatomic,assign)CGPoint originCenter;
 @property(nonatomic,strong)UILabel *msgLabel;
 @end
-@implementation RedTipBall
+@implementation MineMsgCntView
 - (instancetype)init
 {
     self = [super init];
@@ -34,8 +34,8 @@
             make.height.mas_equalTo(0);
         }];
         
-        UIPanGestureRecognizer *PGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(ballMove:)];
-        [self addGestureRecognizer:PGR];
+//        UIPanGestureRecognizer *PGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(ballMove:)];
+//        [self addGestureRecognizer:PGR];
         [self addMsgLabel];
     }
     return self;
@@ -53,15 +53,15 @@
         return;
     }
     
-    int  msgCountInt = msgCount.intValue;
+    int msgCountInt = msgCount.intValue;
     
     if (msgCountInt < 0) {
         return;
     }
     
+    _msgCount = [msgCount copy];
     self.msgLabel.text = msgCount;
     
-    _msgCount = msgCount;
     
     //正确的宽度         正确的高度
     int correctWidth, correctHeight;

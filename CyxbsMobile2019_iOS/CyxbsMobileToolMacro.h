@@ -25,45 +25,44 @@
 
 //++++++++++++++++++Stove的自定义Log˙++++++++++++++++++++  Begain
 #ifdef DEBUG
-//每行的最大长度，行尾分隔符，格式化, ...
-#define CCCLLog(line, separator, format, ...) do{\
-fprintf(stderr,"Stove[%s - %d%s]:\n",\
-[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String],\
-__LINE__,\
-separator);\
-\
-for (__strong NSString *CCLogStr__ in [[NSString stringWithFormat:format, ##__VA_ARGS__] componentsSeparatedByString:@"\n"]) {\
-while (CCLogStr__.length > line) {\
+//每行的最大长度，行尾分隔符，字符串
+#define CCCLog(line, separator, str) do {\
+for (__strong NSString *CCCLogStr__ in [str componentsSeparatedByString:@"\n"]) {\
+while (CCCLogStr__.length > line) {\
 fprintf(stderr, "%s    %s\n",\
-[[CCLogStr__ substringToIndex:line] UTF8String],\
+[[CCCLogStr__ substringToIndex:line] UTF8String],\
 separator);\
-\
-CCLogStr__ = [CCLogStr__ substringFromIndex:line];\
+CCCLogStr__ = [CCCLogStr__ substringFromIndex:line];\
 }\
-while (CCLogStr__.length < line + 4) {\
-CCLogStr__ = [CCLogStr__ stringByAppendingString:@"                                                  "];\
+while (CCCLogStr__.length < line + 4) {\
+CCCLogStr__ = [CCCLogStr__ stringByAppendingString:@"                                                  "];\
 }\
 fprintf(stderr,"%s%s\n",\
-[[[NSString stringWithFormat:@"%@",CCLogStr__] substringToIndex:line+4] UTF8String],\
+[[[NSString stringWithFormat:@"%@", CCCLogStr__] substringToIndex:line + 4] UTF8String],\
 separator);\
 }\
-\
 fprintf(stderr,"\n");\
-}while(0)
-//默认行尾分隔符为"˙"
-#define CCLLog(line, format, ...) CCCLLog(line, "˙", format, ##__VA_ARGS__)
-//默认行尾分隔符为"˙"，且每行长度为77
-#define CCLog77(format, ...) CCLLog(77, format, ##__VA_ARGS__)
-//默认行尾分隔符为"˙"，且每行长度为97
-#define CCLog(format, ...) CCLLog(97, format, ##__VA_ARGS__)
-//只有末尾自动换行
-#define CLog(format, ...) fprintf(stderr,"Stove[%d]:\n%s\n\n",__LINE__,[[NSString stringWithFormat:format, ##__VA_ARGS__] UTF8String])
+} while(0)
+//CCLog(@"Hello, World!"); CCLog(@"˙77Hello, World!");
+#define CCLog(format, ...) do {\
+fprintf(stderr,"Stove[%s - %d˙]:\n",\
+[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String],\
+__LINE__);\
+\
+if ([[format substringToIndex:1] isEqual:@"˙"]) {\
+int CCLogLine__ = [format substringWithRange:NSMakeRange(1, 2)].intValue;\
+if (CCLogLine__==0) CCLogLine__ = 77;\
+char* CCLogSeparator__ = "˙";\
+NSString* CCLogSubStr__ = [[NSString stringWithFormat:format, ##__VA_ARGS__] substringFromIndex:3];\
+CCCLog(CCLogLine__, CCLogSeparator__, CCLogSubStr__);\
+}else {\
+printf("%s\n\n",[[NSString stringWithFormat:format, ##__VA_ARGS__] UTF8String]);\
+}\
+} while (0)
+
 #else
-#define CCCLLog(line, separator, format, ...)
-#define CCLLog(line, format, ...)
-#define CCLog77(format, ...)
+#define CCCLLog(line, separator, str)
 #define CCLog(format, ...)
-#define CLog(format, ...)
 #endif
 //++++++++++++++++++Stove的自定义Log˙++++++++++++++++++++  End
 

@@ -369,8 +369,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "96"
             endingLineNumber = "96"
-            landmarkName = "defaults"
-            landmarkType = "24">
+            landmarkName = "-loginStatus"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1301,7 +1301,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "205"
             endingLineNumber = "205"
-            landmarkName = "-layoutSubviews"
+            landmarkName = "-presentToLogin"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1397,7 +1397,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "122"
             endingLineNumber = "122"
-            landmarkName = "-loginStatus"
+            landmarkName = "-viewWillAppear:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
