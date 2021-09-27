@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSArray <NSString *> * textButtonTitlesAry;
 
 /// 头像
-@property (nonatomic, strong) PMPAvatarImgButton * avatarImgButton;
+@property (nonatomic, strong) PMPAvatarImgView * avatarImgButton;
 /// 昵称
 @property (nonatomic, strong) UILabel * nicknameLabel;
 /// 编辑信息
@@ -134,12 +134,6 @@
     }
 }
 
-- (void)avatarImgViewClicked {
-    if ([self.delegate respondsToSelector:@selector(avatarImgViewClicked)]) {
-        [self.delegate avatarImgButtonClicked];
-    }
-}
-
 - (void)editingButtonClicked {
     if ([self.delegate respondsToSelector:@selector(editingButtonClicked)]) {
         [self.delegate editingButtonClicked];
@@ -170,10 +164,9 @@
     return _textButtonTitlesAry;
 }
 
-- (PMPAvatarImgButton *)avatarImgButton {
+- (PMPAvatarImgView *)avatarImgButton {
     if (_avatarImgButton == nil) {
-        _avatarImgButton = [[PMPAvatarImgButton alloc] init];
-        [_avatarImgButton addTarget:self action:@selector(avatarImgViewClicked)];
+        _avatarImgButton = [[PMPAvatarImgView alloc] init];
     }
     return _avatarImgButton;
 }

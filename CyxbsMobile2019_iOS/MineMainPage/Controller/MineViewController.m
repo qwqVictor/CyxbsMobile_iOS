@@ -20,6 +20,8 @@
 #import "MineAboutController.h"
 #import "MineSettingViewController.h"
 
+#import "PMPMainPageViewController.h"
+
 
 @interface MineViewController ()<
     UITableViewDelegate,
@@ -334,6 +336,9 @@
 /// 点击进入个人主页的按钮后调用
 - (void)homePageBtnClicked {
     CCLog(@"%s",__func__);
+    PMPMainPageViewController * vc = [[PMPMainPageViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 /// 关于我们点击后调用

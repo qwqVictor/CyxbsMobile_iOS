@@ -6,9 +6,9 @@
 //  Copyright © 2021 Redrock. All rights reserved.
 //
 
-#import "PMPAvatarImgButton.h"
+#import "PMPAvatarImgView.h"
 
-@implementation PMPAvatarImgButton
+@implementation PMPAvatarImgView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

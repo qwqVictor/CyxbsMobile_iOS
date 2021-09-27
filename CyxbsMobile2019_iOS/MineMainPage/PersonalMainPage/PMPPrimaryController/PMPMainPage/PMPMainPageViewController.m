@@ -10,9 +10,12 @@
 // view
 #import "PMPMainPageHeaderView.h"
 #import "PMPSegmentView.h"
+// child VC
+#import "PMPDynamicTableViewController.h"
+#import "PMPIdentityTableViewController.h"
 
 @interface PMPMainPageViewController ()
-<UITableViewDelegate, UITableViewDataSource, SegmentViewDelegate, PMPMainPageHeaderViewDelegate>
+<SegmentViewDelegate, PMPMainPageHeaderViewDelegate>
 
 /// 头视图
 @property (nonatomic, strong) PMPMainPageHeaderView * headerView;
@@ -20,6 +23,11 @@
 @property (nonatomic, strong) UIImageView * backgroundImageView;
 /// 选择
 @property (nonatomic, strong) PMPSegmentView * segmentView;
+
+/// 我的动态
+@property (nonatomic, strong) PMPDynamicTableViewController * dynamicTableVC;
+/// 我的身份
+@property (nonatomic, strong) PMPIdentityTableViewController * identityTableVC;
 
 @end
 
@@ -63,6 +71,18 @@
         CGSizeMake(width3, height3)
     };
     
+    // dynamicTableVC
+    [self addChildViewController:self.dynamicTableVC];
+    [self.view addSubview:self.dynamicTableVC.view];
+    self.dynamicTableVC.view.size = self.view.size;
+    self.dynamicTableVC.view.jh_origin = CGPointMake(0, 0);
+    
+    // identityTableVC
+    [self addChildViewController:self.identityTableVC];
+    [self.view addSubview:self.identityTableVC.view];
+    self.identityTableVC.view.size = self.view.size;
+    self.identityTableVC.view.jh_origin = CGPointMake(self.view.jh_width, 0);
+    
     // 布局完成后
     [self.view bringSubviewToFront:self.topBarView];
     [self.view layoutIfNeeded];
@@ -79,10 +99,6 @@
 
 - (void)textButtonClickedWithIndex:(NSUInteger)index {
     NSLog(@"%zd", index);
-}
-
-- (void)avatarImgButtonClicked {
-    NSLog(@"avatarImgClicked");
 }
 
 - (void)editingButtonClicked {
@@ -115,6 +131,20 @@
         _segmentView.delegate = self;
     }
     return _segmentView;
+}
+
+- (PMPDynamicTableViewController *)dynamicTableVC {
+    if (_dynamicTableVC == nil) {
+        _dynamicTableVC = [[PMPDynamicTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    }
+    return _dynamicTableVC;
+}
+
+- (PMPIdentityTableViewController *)identityTableVC {
+    if (_identityTableVC == nil) {
+        _identityTableVC = [[PMPIdentityTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    }
+    return _identityTableVC;
 }
 
 @end
