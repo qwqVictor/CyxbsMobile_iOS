@@ -22,6 +22,7 @@
     self.backgroundColor = [UIColor clearColor];
 }
 
+/// 请注意, 这里 SEL 的第一个对象不是View本身, 是手势, 所以要用 .view 来获取这个控件对象!!!
 - (void)addTarget:(id)target action:(SEL)action {
     self.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:target action:action];
