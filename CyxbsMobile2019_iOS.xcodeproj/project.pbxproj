@@ -404,6 +404,10 @@
 		6464F99326FA05A2008562C5 /* FansTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F98D26FA05A1008562C5 /* FansTableView.m */; };
 		6464F99426FA05A2008562C5 /* FollowingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F99026FA05A1008562C5 /* FollowingTableView.m */; };
 		6464F99526FA05A2008562C5 /* FansAndFollowingSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F99126FA05A2008562C5 /* FansAndFollowingSegmentView.m */; };
+		6464F9A02700585E008562C5 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F99F2700585D008562C5 /* BaseTableViewCell.m */; };
+		6464F9A327008D63008562C5 /* FansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F9A227008D63008562C5 /* FansTableViewCell.m */; };
+		6464F9A627008F0A008562C5 /* FansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F9A527008F0A008562C5 /* FansModel.m */; };
+		6464F9A927009217008562C5 /* FollowersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F9A827009217008562C5 /* FollowersModel.m */; };
 		7311328426CCEC2400EF88C1 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7311327126CCEC2400EF88C1 /* Media.xcassets */; };
 		7311328526CCEC2400EF88C1 /* ExchangeCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7311327326CCEC2400EF88C1 /* ExchangeCenterViewController.m */; };
 		7311328626CCEC2400EF88C1 /* Goods.m in Sources */ = {isa = PBXBuildFile; fileRef = 7311327726CCEC2400EF88C1 /* Goods.m */; };
@@ -1487,6 +1491,14 @@
 		6464F99026FA05A1008562C5 /* FollowingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowingTableView.m; sourceTree = "<group>"; };
 		6464F99126FA05A2008562C5 /* FansAndFollowingSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FansAndFollowingSegmentView.m; sourceTree = "<group>"; };
 		6464F99226FA05A2008562C5 /* FansAndFollowingSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FansAndFollowingSegmentView.h; sourceTree = "<group>"; };
+		6464F99E2700585D008562C5 /* BaseTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
+		6464F99F2700585D008562C5 /* BaseTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
+		6464F9A127008D63008562C5 /* FansTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FansTableViewCell.h; sourceTree = "<group>"; };
+		6464F9A227008D63008562C5 /* FansTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FansTableViewCell.m; sourceTree = "<group>"; };
+		6464F9A427008F0A008562C5 /* FansModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FansModel.h; sourceTree = "<group>"; };
+		6464F9A527008F0A008562C5 /* FansModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FansModel.m; sourceTree = "<group>"; };
+		6464F9A727009217008562C5 /* FollowersModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowersModel.h; sourceTree = "<group>"; };
+		6464F9A827009217008562C5 /* FollowersModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FollowersModel.m; sourceTree = "<group>"; };
 		6F3D5CAF0787713C5281B516 /* Pods-CyxbsMobile2019_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CyxbsMobile2019_iOS.debug.xcconfig"; path = "Target Support Files/Pods-CyxbsMobile2019_iOS/Pods-CyxbsMobile2019_iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		7311327126CCEC2400EF88C1 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		7311327326CCEC2400EF88C1 /* ExchangeCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeCenterViewController.m; sourceTree = "<group>"; };
@@ -4540,6 +4552,10 @@
 			children = (
 				6464F99226FA05A2008562C5 /* FansAndFollowingSegmentView.h */,
 				6464F99126FA05A2008562C5 /* FansAndFollowingSegmentView.m */,
+				6464F99E2700585D008562C5 /* BaseTableViewCell.h */,
+				6464F99F2700585D008562C5 /* BaseTableViewCell.m */,
+				6464F9A127008D63008562C5 /* FansTableViewCell.h */,
+				6464F9A227008D63008562C5 /* FansTableViewCell.m */,
 				6464F98F26FA05A1008562C5 /* FansTableView.h */,
 				6464F98D26FA05A1008562C5 /* FansTableView.m */,
 				6464F98E26FA05A1008562C5 /* FollowingTableView.h */,
@@ -4551,6 +4567,10 @@
 		73613F6426F0CD2A00A88357 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6464F9A427008F0A008562C5 /* FansModel.h */,
+				6464F9A527008F0A008562C5 /* FansModel.m */,
+				6464F9A727009217008562C5 /* FollowersModel.h */,
+				6464F9A827009217008562C5 /* FollowersModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6468,7 +6488,9 @@
 				D03E59D123DB30AA00E0F34D /* QAAskModel.m in Sources */,
 				1A5A5EE52360100B00543BAE /* UserItem.m in Sources */,
 				73AAA1D026C918250084E44D /* DetailsTaskTableViewCell.m in Sources */,
+				6464F9A927009217008562C5 /* FollowersModel.m in Sources */,
 				18CDF6B5257F91BD006E8E5C /* SCBar.m in Sources */,
+				6464F9A02700585E008562C5 /* BaseTableViewCell.m in Sources */,
 				1AF4B6072362EBFE00A0823A /* NSDate+Timestamp.m in Sources */,
 				18CDF6C5257F91BE006E8E5C /* IdsBindingView.m in Sources */,
 				180DA9B726B440900094B8DC /* StarPostModel.m in Sources */,
@@ -6543,6 +6565,7 @@
 				6464F99426FA05A2008562C5 /* FollowingTableView.m in Sources */,
 				1AD038C423F6C7FF00D5C90E /* MineQAPresenter.m in Sources */,
 				B82CA6AB26315BD800786685 /* CircleLabelBtn.m in Sources */,
+				6464F9A627008F0A008562C5 /* FansModel.m in Sources */,
 				73BAFFB726F21C42007290B1 /* PMPBasicTableViewCell.m in Sources */,
 				D0101F65243587A1004337ED /* GKPhoto.m in Sources */,
 				1A30F40423D494A900FBBD83 /* IntegralStoreDataItem.m in Sources */,
@@ -6681,6 +6704,7 @@
 				DB4065002466D889006CE5BC /* DLHistodyButton.m in Sources */,
 				18CDF4BF257F8DBD006E8E5C /* questionAndAnswerModel.m in Sources */,
 				D0011A7923F09422009A242C /* QADetailView.m in Sources */,
+				6464F9A327008D63008562C5 /* FansTableViewCell.m in Sources */,
 				DB4064F62466D889006CE5BC /* DLReminderViewController.m in Sources */,
 				AA86E38B2635B04A00756F05 /* ColorManager.m in Sources */,
 				738C15B126E0B35600E24F8C /* FeedBackDefaultView.m in Sources */,
