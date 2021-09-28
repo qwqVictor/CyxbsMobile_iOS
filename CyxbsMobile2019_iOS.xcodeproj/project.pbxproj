@@ -404,6 +404,11 @@
 		6464F99326FA05A2008562C5 /* FansTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F98D26FA05A1008562C5 /* FansTableView.m */; };
 		6464F99426FA05A2008562C5 /* FollowingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F99026FA05A1008562C5 /* FollowingTableView.m */; };
 		6464F99526FA05A2008562C5 /* FansAndFollowingSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F99126FA05A2008562C5 /* FansAndFollowingSegmentView.m */; };
+		6464F9B227030030008562C5 /* FollowersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F9AE2703002C008562C5 /* FollowersModel.m */; };
+		6464F9B327030030008562C5 /* FansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F9AF2703002F008562C5 /* FansModel.m */; };
+		6464F9BB2703008F008562C5 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F9B52703008E008562C5 /* BaseTableViewCell.m */; };
+		6464F9BC2703008F008562C5 /* FollowersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F9B72703008E008562C5 /* FollowersTableViewCell.m */; };
+		6464F9BD2703008F008562C5 /* FansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F9B82703008E008562C5 /* FansTableViewCell.m */; };
 		7311328426CCEC2400EF88C1 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7311327126CCEC2400EF88C1 /* Media.xcassets */; };
 		7311328526CCEC2400EF88C1 /* ExchangeCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7311327326CCEC2400EF88C1 /* ExchangeCenterViewController.m */; };
 		7311328626CCEC2400EF88C1 /* Goods.m in Sources */ = {isa = PBXBuildFile; fileRef = 7311327726CCEC2400EF88C1 /* Goods.m */; };
@@ -1487,6 +1492,16 @@
 		6464F99026FA05A1008562C5 /* FollowingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowingTableView.m; sourceTree = "<group>"; };
 		6464F99126FA05A2008562C5 /* FansAndFollowingSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FansAndFollowingSegmentView.m; sourceTree = "<group>"; };
 		6464F99226FA05A2008562C5 /* FansAndFollowingSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FansAndFollowingSegmentView.h; sourceTree = "<group>"; };
+		6464F9AE2703002C008562C5 /* FollowersModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FollowersModel.m; path = CyxbsMobile2019_iOS/MineMainPage/PersonalMainPage/PMPPrimaryController/PMPSecondaryController/PMPFansAndFollower/Model/FollowersModel.m; sourceTree = SOURCE_ROOT; };
+		6464F9AF2703002F008562C5 /* FansModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FansModel.m; path = CyxbsMobile2019_iOS/MineMainPage/PersonalMainPage/PMPPrimaryController/PMPSecondaryController/PMPFansAndFollower/Model/FansModel.m; sourceTree = SOURCE_ROOT; };
+		6464F9B02703002F008562C5 /* FansModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FansModel.h; path = CyxbsMobile2019_iOS/MineMainPage/PersonalMainPage/PMPPrimaryController/PMPSecondaryController/PMPFansAndFollower/Model/FansModel.h; sourceTree = SOURCE_ROOT; };
+		6464F9B127030030008562C5 /* FollowersModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FollowersModel.h; path = CyxbsMobile2019_iOS/MineMainPage/PersonalMainPage/PMPPrimaryController/PMPSecondaryController/PMPFansAndFollower/Model/FollowersModel.h; sourceTree = SOURCE_ROOT; };
+		6464F9B52703008E008562C5 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
+		6464F9B62703008E008562C5 /* FansTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FansTableViewCell.h; sourceTree = "<group>"; };
+		6464F9B72703008E008562C5 /* FollowersTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowersTableViewCell.m; sourceTree = "<group>"; };
+		6464F9B82703008E008562C5 /* FansTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FansTableViewCell.m; sourceTree = "<group>"; };
+		6464F9B92703008E008562C5 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
+		6464F9BA2703008E008562C5 /* FollowersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowersTableViewCell.h; sourceTree = "<group>"; };
 		6F3D5CAF0787713C5281B516 /* Pods-CyxbsMobile2019_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CyxbsMobile2019_iOS.debug.xcconfig"; path = "Target Support Files/Pods-CyxbsMobile2019_iOS/Pods-CyxbsMobile2019_iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		7311327126CCEC2400EF88C1 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		7311327326CCEC2400EF88C1 /* ExchangeCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeCenterViewController.m; sourceTree = "<group>"; };
@@ -4259,6 +4274,31 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		6464F9B42703008E008562C5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6464F9B52703008E008562C5 /* BaseTableViewCell.m */,
+				6464F9B92703008E008562C5 /* BaseTableViewCell.h */,
+				6464F9B62703008E008562C5 /* FansTableViewCell.h */,
+				6464F9B82703008E008562C5 /* FansTableViewCell.m */,
+				6464F9BA2703008E008562C5 /* FollowersTableViewCell.h */,
+				6464F9B72703008E008562C5 /* FollowersTableViewCell.m */,
+			);
+			name = Cell;
+			path = CyxbsMobile2019_iOS/Mine/PersonalMainPage/PMPPrimaryController/PMPSecondaryController/PMPFansAndFollower/View/Cell;
+			sourceTree = SOURCE_ROOT;
+		};
+		6464F9BE270300D0008562C5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6464F9B02703002F008562C5 /* FansModel.h */,
+				6464F9AF2703002F008562C5 /* FansModel.m */,
+				6464F9B127030030008562C5 /* FollowersModel.h */,
+				6464F9AE2703002C008562C5 /* FollowersModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		7311321C26CCEB9C00EF88C1 /* StampCenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -4507,7 +4547,7 @@
 			children = (
 				73613F6026F0CCFA00A88357 /* PMPFansAndFollowingViewController.h */,
 				73613F6126F0CCFA00A88357 /* PMPFansAndFollowingViewController.m */,
-				73613F6426F0CD2A00A88357 /* Model */,
+				6464F9BE270300D0008562C5 /* Model */,
 				73613F6326F0CD2800A88357 /* View */,
 			);
 			path = PMPFansAndFollower;
@@ -4538,6 +4578,7 @@
 		73613F6326F0CD2800A88357 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6464F9B42703008E008562C5 /* Cell */,
 				6464F99226FA05A2008562C5 /* FansAndFollowingSegmentView.h */,
 				6464F99126FA05A2008562C5 /* FansAndFollowingSegmentView.m */,
 				6464F98F26FA05A1008562C5 /* FansTableView.h */,
@@ -4546,13 +4587,6 @@
 				6464F99026FA05A1008562C5 /* FollowingTableView.m */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		73613F6426F0CD2A00A88357 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		73613F6526F0CD3500A88357 /* View */ = {
@@ -6361,12 +6395,14 @@
 				D026A80523D4E054001A4774 /* QAListViewController.m in Sources */,
 				18CDF6A5257F91BD006E8E5C /* CQUPTMapDetailView.m in Sources */,
 				1A141321235F521C0001417E /* BaseViewController.m in Sources */,
+				6464F9BC2703008F008562C5 /* FollowersTableViewCell.m in Sources */,
 				7F101AC2260613E800F2034C /* YYZTopicGroupVC.m in Sources */,
 				B82CA681263159BA00786685 /* UIColor+SYColor.m in Sources */,
 				D0101F6A243587A1004337ED /* GKPanGestureRecognizer.m in Sources */,
 				AA29928226FAC264000E0DD1 /* MineTopBlurView.m in Sources */,
 				18CDF4B7257F8DBD006E8E5C /* SetQuestionViewController.m in Sources */,
 				4931630B26CD7B6800140412 /* MyCollectionViewCell.m in Sources */,
+				6464F9BB2703008F008562C5 /* BaseTableViewCell.m in Sources */,
 				DB4065032466D889006CE5BC /* DLReminderView.m in Sources */,
 				DB4064F72466D889006CE5BC /* DLReminderSetDetailVC.m in Sources */,
 				18CDF6BF257F91BE006E8E5C /* GPA.m in Sources */,
@@ -6434,6 +6470,7 @@
 				73AAA1CF26C918250084E44D /* DetailsGoodsTableView.m in Sources */,
 				4931631326CD7B6800140412 /* TableHeaderView.m in Sources */,
 				DB34EB24239BD4550052B65E /* LessonController.m in Sources */,
+				6464F9BD2703008F008562C5 /* FansTableViewCell.m in Sources */,
 				736096F12701CA790052DF23 /* PMPIdentityTableViewController.m in Sources */,
 				1A16592D23D880BE0039BA46 /* MyQuestionsReleasedCell.m in Sources */,
 				1893DC9526EA3887007E871E /* MGDTimer.m in Sources */,
@@ -6608,6 +6645,7 @@
 				18CDF6A2257F91BD006E8E5C /* CQUPTMapImageLayout.m in Sources */,
 				DB34EB38239BD4550052B65E /* MainView.m in Sources */,
 				18CDF70F257F91BE006E8E5C /* BackgroundTableViewCell.m in Sources */,
+				6464F9B227030030008562C5 /* FollowersModel.m in Sources */,
 				1A14136D235F524B0001417E /* UIImage+Helper.m in Sources */,
 				DB34EB3A239BD4550052B65E /* CoverView.m in Sources */,
 				18CDF68F257F91BD006E8E5C /* CQUPTMapPlaceRect.m in Sources */,
@@ -6662,6 +6700,7 @@
 				180DA9AF26B440900094B8DC /* DeletePostModel.m in Sources */,
 				4931631226CD7B6800140412 /* MainScrollView.m in Sources */,
 				18CDF4BC257F8DBD006E8E5C /* selfSafeViewController.m in Sources */,
+				6464F9B327030030008562C5 /* FansModel.m in Sources */,
 				18CDF698257F91BD006E8E5C /* CQUPTMapHotPlaceButton.m in Sources */,
 				AA29927E26FA14CC000E0DD1 /* MineViewController.m in Sources */,
 				B82CA67F263159BA00786685 /* DynamicDetailTopBarView.m in Sources */,

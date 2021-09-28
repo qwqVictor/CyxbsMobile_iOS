@@ -11,6 +11,13 @@
 @implementation FollowingTableView
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
+    if ([super initWithFrame:frame style:style]) {
+        [self configure];
+    }
+    return self;
+}
+
+- (void)configure {
     
 }
 
