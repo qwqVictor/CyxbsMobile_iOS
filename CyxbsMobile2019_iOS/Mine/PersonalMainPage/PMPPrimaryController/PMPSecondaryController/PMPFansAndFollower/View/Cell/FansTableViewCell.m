@@ -35,7 +35,13 @@
     _cellModel = cellModel;
     self.nameLabel.text = cellModel.nickname;
     self.bioLabel.text = cellModel.introduction;
-    
+    if ([cellModel.isfocus  isEqual: @"true"]) {
+        self.followBtn.backgroundColor = [UIColor colorNamed:@"232_240_252_1&72_72_72_1"];
+        [self.followBtn setTitle:@"互相关注" forState:UIControlStateNormal];
+    }else{
+        self.followBtn.backgroundColor = [UIColor colorNamed:@"74_68_228_1"];
+        [self.followBtn setTitle:@"+关注" forState:UIControlStateNormal];
+    }
 }
 
 
