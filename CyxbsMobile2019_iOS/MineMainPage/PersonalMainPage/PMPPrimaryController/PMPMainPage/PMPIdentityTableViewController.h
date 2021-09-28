@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PMPIdentityTableViewController : UITableViewController
 
+@property (nonatomic, assign) CGFloat headerHeight;
+
 @end
 
 NS_ASSUME_NONNULL_END

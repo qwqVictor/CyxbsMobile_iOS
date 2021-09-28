@@ -24,6 +24,8 @@
 /// 选择
 @property (nonatomic, strong) PMPSegmentView * segmentView;
 
+/// 水平滑动背景
+@property (nonatomic, strong) UIScrollView * horizontalScrollView;
 /// 我的动态
 @property (nonatomic, strong) PMPDynamicTableViewController * dynamicTableVC;
 /// 我的身份
@@ -42,6 +44,11 @@
 - (void)configureView {
     self.VCTitleStr = @"个人主页";
     self.topBarBackgroundColor = [UIColor clearColor];
+    
+    // scroll
+    [self.view addSubview:self.horizontalScrollView];
+    self.horizontalScrollView.jh_size = self.view.jh_size;
+    self.horizontalScrollView.contentSize = CGSizeMake(self.horizontalScrollView.jh_width * 2, 0);
     
     // config backgroundImageView
     [self.view addSubview:self.backgroundImageView];
@@ -73,19 +80,35 @@
     
     // dynamicTableVC
     [self addChildViewController:self.dynamicTableVC];
-    [self.view addSubview:self.dynamicTableVC.view];
-    self.dynamicTableVC.view.size = self.view.size;
+    [self.horizontalScrollView addSubview:self.dynamicTableVC.view];
+    self.dynamicTableVC.view.jh_size = self.horizontalScrollView.jh_size;
     self.dynamicTableVC.view.jh_origin = CGPointMake(0, 0);
+    self.dynamicTableVC.headerHeight = height1;
     
     // identityTableVC
     [self addChildViewController:self.identityTableVC];
-    [self.view addSubview:self.identityTableVC.view];
-    self.identityTableVC.view.size = self.view.size;
-    self.identityTableVC.view.jh_origin = CGPointMake(self.view.jh_width, 0);
+    [self.horizontalScrollView addSubview:self.identityTableVC.view];
+    self.identityTableVC.view.jh_size = self.horizontalScrollView.jh_size;
+    self.identityTableVC.view.jh_origin = CGPointMake(self.horizontalScrollView.jh_width, 0);
+    self.identityTableVC.headerHeight = height1;
     
     // 布局完成后
     [self.view bringSubviewToFront:self.topBarView];
     [self.view layoutIfNeeded];
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context {
+    CGPoint offset = [[change objectForKey:NSKeyValueChangeNewKey] CGPointValue];
+    NSInteger currentIndex = (NSInteger)offset.x / self.horizontalScrollView.frame.size.width + 0.5;
+    if (self.segmentView.selectedIndex == currentIndex) {
+        return;
+    }
+    self.segmentView.selectedIndex = currentIndex;
 }
 
 #pragma mark - segment view delegate
@@ -131,6 +154,18 @@
         _segmentView.delegate = self;
     }
     return _segmentView;
+}
+
+- (UIScrollView *)horizontalScrollView {
+    if (_horizontalScrollView == nil) {
+        _horizontalScrollView = [[UIScrollView alloc] initWithFrame:(CGRectZero)];
+        _horizontalScrollView.backgroundColor = [UIColor clearColor];
+        _horizontalScrollView.showsHorizontalScrollIndicator = NO;
+        _horizontalScrollView.pagingEnabled = YES;
+        _horizontalScrollView.layer.cornerRadius = 20;
+        [_horizontalScrollView addObserver:self forKeyPath:@"contentOffset" options:(NSKeyValueObservingOptionNew) context:nil];
+    }
+    return _horizontalScrollView;
 }
 
 - (PMPDynamicTableViewController *)dynamicTableVC {

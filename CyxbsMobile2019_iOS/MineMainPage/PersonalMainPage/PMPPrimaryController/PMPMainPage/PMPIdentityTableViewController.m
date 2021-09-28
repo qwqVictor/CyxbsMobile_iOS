@@ -24,15 +24,20 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+#pragma mark - setter
+
+- (void)setHeaderHeight:(CGFloat)headerHeight {
+    _headerHeight = headerHeight;
+    ((UITableView *)self.view).contentInset = UIEdgeInsetsMake(self.headerHeight, 0, 0, 0);
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
     return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
     return 0;
 }
 
