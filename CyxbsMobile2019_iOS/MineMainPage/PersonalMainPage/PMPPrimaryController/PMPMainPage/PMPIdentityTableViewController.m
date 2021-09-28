@@ -8,6 +8,8 @@
 
 #import "PMPIdentityTableViewController.h"
 
+#import "PMPIdentityTableViewCell.h"
+
 @interface PMPIdentityTableViewController ()
 
 @end
@@ -22,6 +24,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.tableView registerClass:[PMPIdentityTableViewCell class] forCellReuseIdentifier:[PMPIdentityTableViewCell reuseIdentifier]];
 }
 
 #pragma mark - setter
@@ -34,22 +37,20 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return 20;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
+    PMPIdentityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[PMPIdentityTableViewCell reuseIdentifier] forIndexPath:indexPath];
+
     // Configure the cell...
     
     return cell;
 }
-*/
 
 /*
 // Override to support conditional editing of the table view.

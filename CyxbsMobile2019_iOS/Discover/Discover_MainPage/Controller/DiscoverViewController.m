@@ -100,7 +100,7 @@ typedef NS_ENUM(NSUInteger, LoginStates) {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-//    self.tabBarController.tabBar.translucent = NO;
+    //    self.tabBarController.tabBar.translucent = NO;
     self.tabBarController.tabBar.tintColor = [UIColor colorWithHexString:@"2527C8"];
     if (@available(iOS 11.0, *)) {
         self.tabBarController.tabBar.barTintColor = [UIColor colorNamed:@"Color#FFFFFF&#2D2D2D"];
@@ -114,7 +114,7 @@ typedef NS_ENUM(NSUInteger, LoginStates) {
     } else {
         [self RequestCheckinInfo];
     }
-     self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.translucent = NO;
     self.classTabbarHeight = 58;
     self.classTabbarCornerRadius = 16;
     if(((ClassTabBar *)(self.tabBarController.tabBar)).classScheduleTabBarView==nil){
@@ -123,7 +123,7 @@ typedef NS_ENUM(NSUInteger, LoginStates) {
         [(ClassTabBar *)(self.tabBarController.tabBar) addSubview:classTabBarView];
         ((ClassTabBar *)(self.tabBarController.tabBar)).classScheduleTabBarView = classTabBarView;
         ((ClassTabBar *)(self.tabBarController.tabBar)).classScheduleTabBarView.userInteractionEnabled = YES;
-            
+        
         if(![[NSUserDefaults standardUserDefaults] objectForKey:@"Mine_LaunchingWithClassScheduleView"]&&classTabBarView.mySchedul!=nil){
             [classTabBarView.mySchedul setModalPresentationStyle:(UIModalPresentationCustom)];
             classTabBarView.mySchedul.fakeBar.alpha = 0;
@@ -153,7 +153,7 @@ typedef NS_ENUM(NSUInteger, LoginStates) {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestElectricFeeFailed) name:@"electricFeeRequestFailed" object:nil];//服务器可能有问题，电费信息请求失败
     //志愿服务绑定完成后重新加载发现主页
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadVolViewIdNeeded) name:@"LoginVolunteerAccountSucceed" object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateElectricFeeUI) name:@"electricFeeDataSucceed" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNewsUI) name:@"oneNewsSucceed" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFinderViewUI) name:@"customizeMainPageViewSuccess" object:nil];
@@ -164,7 +164,7 @@ typedef NS_ENUM(NSUInteger, LoginStates) {
     [self requestData];
 }
 -(void)layoutSubviews {
-
+    
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         if(IS_IPHONEX) {
             make.top.equalTo(self.view).offset(44);
@@ -198,10 +198,10 @@ typedef NS_ENUM(NSUInteger, LoginStates) {
     }];
 }
 - (void)presentToLogin {
-//    LoginViewController *loginVC = [[LoginViewController alloc] init];
-  //  UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginVC];
-   // [self presentViewController:nav animated:NO completion:nil];
-//   [self presentViewController:loginVC animated:NO completion:nil];
+    //    LoginViewController *loginVC = [[LoginViewController alloc] init];
+    //  UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginVC];
+    // [self presentViewController:nav animated:NO completion:nil];
+    //   [self presentViewController:loginVC animated:NO completion:nil];
     LoginViewController *loginVC = [[LoginViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginVC];
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -261,7 +261,7 @@ static int requestCheckinInfo = 0;
 
 - (void)configNavagationBar {
     self.navigationController.navigationBar.translucent = NO;
-
+    
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.backgroundColor = [UIColor colorNamed:@"color242_243_248&#000000" inBundle:[NSBundle mainBundle] compatibleWithTraitCollection:nil];
     }
@@ -284,7 +284,7 @@ static int requestCheckinInfo = 0;
     self.contentView.showsVerticalScrollIndicator = NO;
     self.contentView.contentInset = UIEdgeInsetsMake(0, 0, 70, 0);
     [self.view addSubview:self.contentView];
-
+    
 }
 
 - (void)addFinderView {
@@ -293,7 +293,7 @@ static int requestCheckinInfo = 0;
     self.finderView.delegate = self;
     [self.contentView addSubview:finderView];
     [self refreshBannerViewIfNeeded];
-
+    
 }
 -(void) refreshBannerViewIfNeeded {
     //更新bannerView
@@ -316,7 +316,7 @@ static int requestCheckinInfo = 0;
     self.eleView = eleView;
     eleView.delegate = self;
     [self.contentView addSubview:eleView];
-
+    
 }
 - (void)addVolView {
     VolunteerView *volView = [[VolunteerView alloc]init];
@@ -354,22 +354,22 @@ static int requestCheckinInfo = 0;
     self.bannerModel = bannerModel;
 }
 - (void)bindingRoomFailed {
-      MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-      [hud setMode:(MBProgressHUDModeText)];
-      hud.labelText = @"绑定的宿舍号可能有问题哦，请重新绑定";
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud setMode:(MBProgressHUDModeText)];
+    hud.labelText = @"绑定的宿舍号可能有问题哦，请重新绑定";
     [UserItem defaultItem].building = NULL;
     [UserItem defaultItem].room = NULL;
     
-      [hud hide:YES afterDelay:1.2];
-      return;
+    [hud hide:YES afterDelay:1.2];
+    return;
 }
 -(void)requestElectricFeeFailed {
-//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    [hud setMode:(MBProgressHUDModeText)];
-//    hud.labelText = @"电费查询服务器开小差了哦，请稍后重试";
-//    [hud hide:YES afterDelay:1];
-//    return;
-//    [NewQAHud showHudWith:@"电费查询服务器开小差了哦，请稍后重试" AddView:self.view];
+    //    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    [hud setMode:(MBProgressHUDModeText)];
+    //    hud.labelText = @"电费查询服务器开小差了哦，请稍后重试";
+    //    [hud hide:YES afterDelay:1];
+    //    return;
+    //    [NewQAHud showHudWith:@"电费查询服务器开小差了哦，请稍后重试" AddView:self.view];
 }
 - (void)updateElectricFeeUI {
     //先写入缓存
@@ -391,9 +391,9 @@ static int requestCheckinInfo = 0;
 }
 
 - (void) bindingBuildingAndRoom {
-//    NSLog(@"点击了绑定宿舍房间号");
-//    InstallRoomViewController *vc = [[InstallRoomViewController alloc]init];
-//    [self.navigationController pushViewController:vc animated:YES];
+    //    NSLog(@"点击了绑定宿舍房间号");
+    //    InstallRoomViewController *vc = [[InstallRoomViewController alloc]init];
+    //    [self.navigationController pushViewController:vc animated:YES];
     [self getPickerViewData];
     //添加灰色背景板
     UIButton * contentView = [[UIButton alloc]initWithFrame:self.view.frame];
@@ -410,7 +410,7 @@ static int requestCheckinInfo = 0;
     [UIView animateWithDuration:0.3 animations:^{
         contentView.alpha = 1;
         hideTabbarView.alpha = 1;
-//        self.tabBarController.tabBar.hidden=YES;
+        //        self.tabBarController.tabBar.hidden=YES;
         [self.tabBarController.tabBar addSubview:hideTabbarView];
         [UIApplication.sharedApplication.keyWindow bringSubviewToFront:hideTabbarView];
         self.view.backgroundColor = self.finderView.backgroundColor;
@@ -467,7 +467,7 @@ static int requestCheckinInfo = 0;
     if([UserItem defaultItem].room) {
         textField.text = [UserItem defaultItem].room;
     }
-
+    
     textField.inputAccessoryView = [self addToolbar];
     textField.font = roomNumberLabel.font;
     self.roomTextField = textField;
@@ -478,7 +478,7 @@ static int requestCheckinInfo = 0;
     }
     UILabel *buildingNumberLabel = [[UILabel alloc]init];
     buildingNumberLabel.text = @"01栋";
-
+    
     if (@available(iOS 11.0, *)) {
         buildingNumberLabel.textColor = TextColorShallow;
     } else {
@@ -513,16 +513,16 @@ static int requestCheckinInfo = 0;
     [button addTarget:self action:@selector(bindingDormitory) forControlEvents:UIControlEventTouchUpInside];
 }
 -(void)cancelSettingDormitory {
-//    self.tabBarController.tabBar.hidden=NO;
+    //    self.tabBarController.tabBar.hidden=NO;
     [self.bindingDormitoryContentView removeFromSuperview];
     [self.hideTabbarView removeFromSuperview];
-
+    
 }
 - (UIToolbar *)addToolbar
 {
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 35)];
     toolbar.tintColor = [UIColor blueColor];
-//    toolbar.backgroundColor = [UIColor sy_grayColor];
+    //    toolbar.backgroundColor = [UIColor sy_grayColor];
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     UIBarButtonItem *bar = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(textFieldDone)];
     toolbar.items = @[space, bar];
@@ -534,12 +534,12 @@ static int requestCheckinInfo = 0;
 - (void)bindingDormitory {
     UserItem *item = [UserItem defaultItem];
     if (self.buildingNumberLabel.text != nil) {
-//        NSString *building = [NSString stringWithFormat:@"%d",self.buildingNumberLabel.text.intValue];//这里隐式的去掉了“栋”字
+        //        NSString *building = [NSString stringWithFormat:@"%d",self.buildingNumberLabel.text.intValue];//这里隐式的去掉了“栋”字
         NSString *building = [self.buildingNumberLabel.text stringByReplacingOccurrencesOfString:@"栋" withString:@""];
-
+        
         item.building = building;
     }
-        NSLog(@"*%@*",self.roomTextField.text);
+    NSLog(@"*%@*",self.roomTextField.text);
     if(self.roomTextField.text != nil && ![self.roomTextField.text isEqual: @""]) {
         item.room = self.roomTextField.text;
     }else {
@@ -549,7 +549,7 @@ static int requestCheckinInfo = 0;
         [hud hide:YES afterDelay:1];
         return;
     }
-//    self.tabBarController.tabBar.hidden=NO;
+    //    self.tabBarController.tabBar.hidden=NO;
     [self.bindingDormitoryContentView removeAllSubviews];
     [self.bindingDormitoryContentView removeFromSuperview];
     [self.hideTabbarView removeFromSuperview];
@@ -576,7 +576,7 @@ static int requestCheckinInfo = 0;
     if (component == 0) {
         return self.pickerModel.placeArray[row];
     }else {
-//        self.placeArray = @[@"宁静苑",@"明理苑",@"知行苑",@"兴业苑",@"四海苑"];
+        //        self.placeArray = @[@"宁静苑",@"明理苑",@"知行苑",@"兴业苑",@"四海苑"];
         NSInteger selectedRow = [pickerView selectedRowInComponent:0];
         NSArray *arr = [self.pickerModel.allArray objectAtIndex:selectedRow];
         if (row < arr.count){
@@ -589,20 +589,20 @@ static int requestCheckinInfo = 0;
 
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-       if (component == 0) {
+    if (component == 0) {
         //如果滑动的是第 0 列, 刷新第 1 列
         //在执行完这句代码之后, 会重新计算第 1 列的行数, 重新加载第 1 列的标题内容
         [pickerView reloadComponent:1];//重新加载指定列的数据
-       self.selectedArrays = row;
+        self.selectedArrays = row;
         [pickerView selectRow:0 inComponent:1 animated:YES];
         //
         //重新加载数据
         [pickerView reloadAllComponents];
-       }else {
-           //如果滑动的是右侧列，刷新上方label
-
-//           [PickerModel getNumberOfDormitoryWith:self.pickerModel.placeArray[row] andPlace:self.pickerModel.allArray[row][row]];
-       }
+    }else {
+        //如果滑动的是右侧列，刷新上方label
+        
+        //           [PickerModel getNumberOfDormitoryWith:self.pickerModel.placeArray[row] andPlace:self.pickerModel.allArray[row][row]];
+    }
     NSInteger row0 = [pickerView selectedRowInComponent:0];
     NSInteger row1 = [pickerView selectedRowInComponent:1];
     self.buildingNumberLabel.text = [self.pickerModel getNumberOfDormitoryWith:self.pickerModel.placeArray[row0] andPlace:self.pickerModel.allArray[row0][row1]];
@@ -739,7 +739,7 @@ static int requestCheckinInfo = 0;
     [self.navigationController pushViewController:vc animated:YES];
 }
 //MARK: - 监听键盘事件
- //当键盘出现或改变时调用
+//当键盘出现或改变时调用
 - (void)keyboardWillShow:(NSNotification *)aNotification
 {
     //获取键盘的高度

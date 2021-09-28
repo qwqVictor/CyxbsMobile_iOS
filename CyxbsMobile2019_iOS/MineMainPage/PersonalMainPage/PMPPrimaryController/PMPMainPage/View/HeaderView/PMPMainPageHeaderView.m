@@ -97,7 +97,8 @@
     CGFloat textButtonWidth = (SCREEN_WIDTH - 97 - 16) / 3;
     UIView * leftView = self.avatarImgButton;
     for (int i = 0; i < self.textButtonAry.count; i++) {
-        PMPTextButton * button = [self createTextButtonWithIndex:i];
+//        PMPTextButton * button = [self createTextButtonWithIndex:i];
+        PMPTextButton * button = self.textButtonAry[i];
         [self addSubview:button];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(leftView.mas_right);

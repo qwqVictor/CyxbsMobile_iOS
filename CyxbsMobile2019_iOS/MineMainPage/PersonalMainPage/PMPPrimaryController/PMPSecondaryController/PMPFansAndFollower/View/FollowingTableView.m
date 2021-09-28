@@ -10,8 +10,6 @@
 
 @implementation FollowingTableView
 
-- (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
-    
-}
+
 
 @end

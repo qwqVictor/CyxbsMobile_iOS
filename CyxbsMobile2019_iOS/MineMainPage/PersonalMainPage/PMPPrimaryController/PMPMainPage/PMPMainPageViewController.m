@@ -15,14 +15,18 @@
 #import "PMPIdentityTableViewController.h"
 
 @interface PMPMainPageViewController ()
-<SegmentViewDelegate, PMPMainPageHeaderViewDelegate>
+<SegmentViewDelegate, PMPMainPageHeaderViewDelegate, PMPDynamicTableViewScrollDelegate>
 
 /// 头视图
 @property (nonatomic, strong) PMPMainPageHeaderView * headerView;
+/// 个人资料后面的点击
+@property (nonatomic, strong) PMPBasicActionView * maskView;
 /// 背景图片
 @property (nonatomic, strong) UIImageView * backgroundImageView;
 /// 选择
 @property (nonatomic, strong) PMPSegmentView * segmentView;
+/// 选择的Y
+@property (nonatomic, assign) CGFloat segmentViewOriginY;
 
 /// 水平滑动背景
 @property (nonatomic, strong) UIScrollView * horizontalScrollView;
@@ -45,11 +49,6 @@
     self.VCTitleStr = @"个人主页";
     self.topBarBackgroundColor = [UIColor clearColor];
     
-    // scroll
-    [self.view addSubview:self.horizontalScrollView];
-    self.horizontalScrollView.jh_size = self.view.jh_size;
-    self.horizontalScrollView.contentSize = CGSizeMake(self.horizontalScrollView.jh_width * 2, 0);
-    
     // config backgroundImageView
     [self.view addSubview:self.backgroundImageView];
     CGFloat width1 = self.view.jh_width;
@@ -57,6 +56,22 @@
     [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.centerX.mas_equalTo(self.view);
         make.size.mas_equalTo(CGSizeMake(width1, height1));
+    }];
+    
+    // scroll
+    [self.view addSubview:self.horizontalScrollView];
+    self.horizontalScrollView.frame = (CGRect){
+        CGPointMake(0, [self getTopBarViewHeight]),
+        CGSizeMake(self.view.jh_width, self.view.jh_height - [self getTopBarViewHeight])
+    };
+    self.horizontalScrollView.contentSize = CGSizeMake(self.horizontalScrollView.jh_width * 2, 0);
+    
+    // mask view
+    [self.view addSubview:self.maskView];
+    [self.maskView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.topBarView.mas_bottom);
+        make.left.right.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(self.backgroundImageView.mas_bottom);
     }];
     
     // config headerView
@@ -72,29 +87,43 @@
     // config segmentView
     [self.view addSubview:self.segmentView];
     CGFloat width3 = self.view.jh_width;
-    CGFloat height3 = self.view.jh_width * (56.f / 375);
+    CGFloat height3 = self.view.jh_height * (56.f / 812);
     self.segmentView.frame = (CGRect){
         CGPointMake(0, height1 - height3),
         CGSizeMake(width3, height3)
     };
+    //
+    self.segmentViewOriginY = self.segmentView.jh_y;
     
     // dynamicTableVC
     [self addChildViewController:self.dynamicTableVC];
     [self.horizontalScrollView addSubview:self.dynamicTableVC.view];
     self.dynamicTableVC.view.jh_size = self.horizontalScrollView.jh_size;
     self.dynamicTableVC.view.jh_origin = CGPointMake(0, 0);
-    self.dynamicTableVC.headerHeight = height1;
+    self.dynamicTableVC.headerHeight = height1 - [self getTopBarViewHeight];
     
     // identityTableVC
     [self addChildViewController:self.identityTableVC];
     [self.horizontalScrollView addSubview:self.identityTableVC.view];
     self.identityTableVC.view.jh_size = self.horizontalScrollView.jh_size;
     self.identityTableVC.view.jh_origin = CGPointMake(self.horizontalScrollView.jh_width, 0);
-    self.identityTableVC.headerHeight = height1;
+    self.identityTableVC.headerHeight = height1 - [self getTopBarViewHeight];
     
     // 布局完成后
     [self.view bringSubviewToFront:self.topBarView];
     [self.view layoutIfNeeded];
+
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches
+           withEvent:(UIEvent *)event {
+    
+}
+
+#pragma mark - event response
+
+- (void)backgroundImageViewClicked {
+    NSLog(@"");
 }
 
 #pragma mark - KVO
@@ -103,12 +132,26 @@
                       ofObject:(id)object
                         change:(NSDictionary<NSKeyValueChangeKey,id> *)change
                        context:(void *)context {
-    CGPoint offset = [[change objectForKey:NSKeyValueChangeNewKey] CGPointValue];
-    NSInteger currentIndex = (NSInteger)offset.x / self.horizontalScrollView.frame.size.width + 0.5;
-    if (self.segmentView.selectedIndex == currentIndex) {
-        return;
+//    CGPoint offset = [[change objectForKey:NSKeyValueChangeNewKey] CGPointValue];
+//    NSInteger currentIndex = (NSInteger)offset.x / self.horizontalScrollView.frame.size.width + 0.5;
+//    if (self.segmentView.selectedIndex == currentIndex) {
+//        return;
+//    }
+//    self.segmentView.selectedIndex = currentIndex;
+}
+
+#pragma mark - PMPDynamicTableViewScollDelegate
+
+- (void)PMPDynamicTableViewScollView:(PMPDynamicTableViewController *)vc
+            ScrollWithContentOffsetY:(CGFloat)y {
+//    NSLog(@"%f--%f", y, self.segmentViewOriginY);
+    if (y < 0) {
+        self.segmentView.jh_y = self.segmentViewOriginY;
+    } else if (y > self.segmentViewOriginY - [self getTopBarViewHeight]) {
+        self.segmentView.jh_y = [self getTopBarViewHeight];
+    } else {
+        self.segmentView.jh_y = self.segmentViewOriginY - y;
     }
-    self.segmentView.selectedIndex = currentIndex;
 }
 
 #pragma mark - segment view delegate
@@ -137,6 +180,14 @@
         _backgroundImageView.backgroundColor = [UIColor redColor];
     }
     return _backgroundImageView;
+}
+
+- (PMPBasicActionView *)maskView {
+    if (_maskView == nil) {
+        _maskView = [[PMPBasicActionView alloc] init];
+        [_maskView addTarget:self action:@selector(backgroundImageViewClicked)];
+    }
+    return _maskView;
 }
 
 - (PMPMainPageHeaderView *)headerView {
@@ -171,6 +222,7 @@
 - (PMPDynamicTableViewController *)dynamicTableVC {
     if (_dynamicTableVC == nil) {
         _dynamicTableVC = [[PMPDynamicTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        _dynamicTableVC.scrollDelegate = self;
     }
     return _dynamicTableVC;
 }
