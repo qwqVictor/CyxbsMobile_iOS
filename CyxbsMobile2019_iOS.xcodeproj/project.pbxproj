@@ -410,6 +410,7 @@
 		6464F9A327008D63008562C5 /* FansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F9A227008D63008562C5 /* FansTableViewCell.m */; };
 		6464F9A627008F0A008562C5 /* FansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F9A527008F0A008562C5 /* FansModel.m */; };
 		6464F9A927009217008562C5 /* FollowersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F9A827009217008562C5 /* FollowersModel.m */; };
+		6464F9AD2702FB67008562C5 /* FollowersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F9AC2702FB67008562C5 /* FollowersTableViewCell.m */; };
 		7311328426CCEC2400EF88C1 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7311327126CCEC2400EF88C1 /* Media.xcassets */; };
 		7311328526CCEC2400EF88C1 /* ExchangeCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7311327326CCEC2400EF88C1 /* ExchangeCenterViewController.m */; };
 		7311328626CCEC2400EF88C1 /* Goods.m in Sources */ = {isa = PBXBuildFile; fileRef = 7311327726CCEC2400EF88C1 /* Goods.m */; };
@@ -1497,6 +1498,8 @@
 		6464F9A527008F0A008562C5 /* FansModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FansModel.m; sourceTree = "<group>"; };
 		6464F9A727009217008562C5 /* FollowersModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowersModel.h; sourceTree = "<group>"; };
 		6464F9A827009217008562C5 /* FollowersModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FollowersModel.m; sourceTree = "<group>"; };
+		6464F9AB2702FB66008562C5 /* FollowersTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowersTableViewCell.h; sourceTree = "<group>"; };
+		6464F9AC2702FB67008562C5 /* FollowersTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FollowersTableViewCell.m; sourceTree = "<group>"; };
 		6F3D5CAF0787713C5281B516 /* Pods-CyxbsMobile2019_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CyxbsMobile2019_iOS.debug.xcconfig"; path = "Target Support Files/Pods-CyxbsMobile2019_iOS/Pods-CyxbsMobile2019_iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		7311327126CCEC2400EF88C1 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		7311327326CCEC2400EF88C1 /* ExchangeCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeCenterViewController.m; sourceTree = "<group>"; };
@@ -4282,6 +4285,19 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		6464F9AA2702FAC4008562C5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6464F99E2700585D008562C5 /* BaseTableViewCell.h */,
+				6464F99F2700585D008562C5 /* BaseTableViewCell.m */,
+				6464F9A127008D63008562C5 /* FansTableViewCell.h */,
+				6464F9A227008D63008562C5 /* FansTableViewCell.m */,
+				6464F9AB2702FB66008562C5 /* FollowersTableViewCell.h */,
+				6464F9AC2702FB67008562C5 /* FollowersTableViewCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		7311321C26CCEB9C00EF88C1 /* StampCenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -4555,12 +4571,9 @@
 		73613F6326F0CD2800A88357 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6464F9AA2702FAC4008562C5 /* Cell */,
 				6464F99226FA05A2008562C5 /* FansAndFollowingSegmentView.h */,
 				6464F99126FA05A2008562C5 /* FansAndFollowingSegmentView.m */,
-				6464F99E2700585D008562C5 /* BaseTableViewCell.h */,
-				6464F99F2700585D008562C5 /* BaseTableViewCell.m */,
-				6464F9A127008D63008562C5 /* FansTableViewCell.h */,
-				6464F9A227008D63008562C5 /* FansTableViewCell.m */,
 				6464F98F26FA05A1008562C5 /* FansTableView.h */,
 				6464F98D26FA05A1008562C5 /* FansTableView.m */,
 				6464F98E26FA05A1008562C5 /* FollowingTableView.h */,
@@ -6679,6 +6692,7 @@
 				D0011A7923F09422009A242C /* QADetailView.m in Sources */,
 				6464F9A327008D63008562C5 /* FansTableViewCell.m in Sources */,
 				DB4064F62466D889006CE5BC /* DLReminderViewController.m in Sources */,
+				6464F9AD2702FB67008562C5 /* FollowersTableViewCell.m in Sources */,
 				AA86E38B2635B04A00756F05 /* ColorManager.m in Sources */,
 				738C15B126E0B35600E24F8C /* FeedBackDefaultView.m in Sources */,
 				D0101D5D2433C885004337ED /* SDMaskView.m in Sources */,
