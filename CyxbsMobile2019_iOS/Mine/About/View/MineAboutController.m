@@ -13,7 +13,7 @@
 
 
 #import "PMPMainPageViewController.h"
-#import "PMPFansAndFollowerViewController.h"
+#import "PMPFansAndFollowingViewController.h"
 
 @interface MineAboutController () <MineAboutContentViewDelegate>
 
@@ -44,7 +44,7 @@
     [btn2 addTarget:self action:@selector(jump2) forControlEvents:UIControlEventTouchUpInside];
 }
 - (void)jump1 {
-    PMPFansAndFollowerViewController *vc = [[PMPFansAndFollowerViewController alloc]init];
+    PMPFansAndFollowingViewController *vc = [[PMPFansAndFollowingViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)jump2 {
