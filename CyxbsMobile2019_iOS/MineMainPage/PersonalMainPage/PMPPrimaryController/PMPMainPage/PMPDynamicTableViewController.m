@@ -27,6 +27,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.showsVerticalScrollIndicator = NO;
     [self.tableView registerClass:[PMPDynamicTableViewCell class] forCellReuseIdentifier:[PMPDynamicTableViewCell reuseIdentifier]];
     [self configureView];
 }
@@ -66,10 +67,18 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([self.scrollDelegate respondsToSelector:@selector(PMPDynamicTableViewScollView:ScrollWithContentOffsetY:)]) {
         // 对于头视图的偏移量
-        NSLog(@"%f--%f", self.tableView.contentOffset.y, self.headerHeight);
+//        NSLog(@"%f--%f", self.tableView.contentOffset.y, self.headerHeight);
+//        NSLog(@"%f", self.tableView.contentOffset.y);
         CGFloat contentOffsetY = self.tableView.contentOffset.y + self.headerHeight;
         [self.scrollDelegate PMPDynamicTableViewScollView:self
                                  ScrollWithContentOffsetY:contentOffsetY];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
+                  willDecelerate:(BOOL)decelerate {
+    if ([self.scrollDelegate respondsToSelector:@selector(PMPDynamicTableViewScollViewDidEndDragging:)]) {
+        [self.scrollDelegate PMPDynamicTableViewScollViewDidEndDragging:self];
     }
 }
 

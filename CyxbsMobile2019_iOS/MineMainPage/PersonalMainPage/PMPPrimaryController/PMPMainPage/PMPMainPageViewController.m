@@ -15,7 +15,7 @@
 #import "PMPIdentityTableViewController.h"
 
 @interface PMPMainPageViewController ()
-<SegmentViewDelegate, PMPMainPageHeaderViewDelegate, PMPDynamicTableViewScrollDelegate>
+<SegmentViewDelegate, PMPMainPageHeaderViewDelegate, PMPDynamicTableViewScrollDelegate, PMPIdentityTableViewScrollDelegate>
 
 /// 头视图
 @property (nonatomic, strong) PMPMainPageHeaderView * headerView;
@@ -108,6 +108,7 @@
     self.identityTableVC.view.jh_size = self.horizontalScrollView.jh_size;
     self.identityTableVC.view.jh_origin = CGPointMake(self.horizontalScrollView.jh_width, 0);
     self.identityTableVC.headerHeight = height1 - [self getTopBarViewHeight];
+
     
     // 布局完成后
     [self.view bringSubviewToFront:self.topBarView];
@@ -146,11 +147,70 @@
             ScrollWithContentOffsetY:(CGFloat)y {
 //    NSLog(@"%f--%f", y, self.segmentViewOriginY);
     if (y < 0) {
+        // segment在最底部
         self.segmentView.jh_y = self.segmentViewOriginY;
-    } else if (y > self.segmentViewOriginY - [self getTopBarViewHeight]) {
-        self.segmentView.jh_y = [self getTopBarViewHeight];
+        [self.identityTableVC.tableView scrollToTopAnimated:NO];
+    } else if (y > self.segmentViewOriginY - ([self getTopBarViewHeight] - self.segmentView.jh_height / 4)) {
+        // segment在最顶部
+
+        self.segmentView.jh_y = [self getTopBarViewHeight] - self.segmentView.jh_height / 4;
+//        self.identityTableVC.tableView.jh_contentOffset_y = self.segmentView.jh_height;
     } else {
+        
         self.segmentView.jh_y = self.segmentViewOriginY - y;
+        self.identityTableVC.tableView.jh_contentOffset_y = vc.tableView.jh_contentOffset_y;
+    }
+}
+
+- (void)PMPDynamicTableViewScollViewDidEndDragging:(PMPDynamicTableViewController *)vc {
+    if (!vc.tableView) {
+        return;
+    }
+    // 相对于 segment 底部的便宜量
+    CGFloat offsetY = - (vc.tableView.jh_contentOffset_y + self.segmentView.jh_height * 3 / 4);
+//    NSLog(@"%f", offsetY);
+    CGFloat height = self.backgroundImageView.jh_height - [self getTopBarViewHeight] - self.segmentView.jh_height * 3 / 4;
+    if (offsetY <= 0) {
+        return;
+    }
+    if (offsetY >= height) {
+        return;
+    }
+    if (offsetY <= height / 3) {
+        vc.tableView.jh_contentOffset_y;
+    }
+}
+
+#pragma mark - PMPIdentityTableViewScollDelegate
+
+- (void)PMPIdentityTableViewScollView:(PMPIdentityTableViewController *)vc
+             ScrollWithContentOffsetY:(CGFloat)y {
+//    NSLog(@"%f--%f", y, self.segmentViewOriginY);
+    if (y < 0) {
+        // segment在最底部
+        self.segmentView.jh_y = self.segmentViewOriginY;
+        [self.dynamicTableVC.tableView scrollToTopAnimated:NO];
+    } else if (y > self.segmentViewOriginY - ([self getTopBarViewHeight] - self.segmentView.jh_height / 4)) {
+        // segment在最顶部
+        
+        self.segmentView.jh_y = [self getTopBarViewHeight] - self.segmentView.jh_height / 4;
+//        self.dynamicTableVC.tableView.jh_contentOffset_y = self.segmentView.jh_height;
+    } else {
+
+        self.segmentView.jh_y = self.segmentViewOriginY - y;
+        self.dynamicTableVC.tableView.jh_contentOffset_y = vc.tableView.jh_contentOffset_y;
+    }
+}
+
+- (void)PMPIdentityTableViewScollViewDidEndDragging:(PMPIdentityTableViewController *)vc {
+    NSLog(@"%f", vc.tableView.jh_contentOffset_y);
+    if (!vc.tableView) {
+        return;
+    }
+    if (vc.tableView.jh_contentOffset_y) {
+        
+    } else {
+        
     }
 }
 
@@ -230,6 +290,7 @@
 - (PMPIdentityTableViewController *)identityTableVC {
     if (_identityTableVC == nil) {
         _identityTableVC = [[PMPIdentityTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        _identityTableVC.scrollDelegate = self;
     }
     return _identityTableVC;
 }

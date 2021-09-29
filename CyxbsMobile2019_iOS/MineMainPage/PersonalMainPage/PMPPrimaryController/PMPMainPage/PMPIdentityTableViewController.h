@@ -10,9 +10,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class PMPIdentityTableViewController;
+@protocol PMPIdentityTableViewScrollDelegate <NSObject>
+
+- (void)PMPIdentityTableViewScollView:(PMPIdentityTableViewController *_Nullable)vc
+            ScrollWithContentOffsetY:(CGFloat)y;
+- (void)PMPIdentityTableViewScollViewDidEndDragging:(PMPIdentityTableViewController *_Nullable)vc;
+
+@end
+
 @interface PMPIdentityTableViewController : UITableViewController
 
 @property (nonatomic, assign) CGFloat headerHeight;
+
+@property (nonatomic, weak) id <PMPIdentityTableViewScrollDelegate> scrollDelegate;
 
 @end
 

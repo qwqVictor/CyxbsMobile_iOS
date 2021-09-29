@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 // 有必要放在这里
 #import "UIView+JHFrameExtension.h"
+#import "UIScrollView+JHContentExtension.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

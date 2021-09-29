@@ -13,6 +13,7 @@
 
 - (void)PMPDynamicTableViewScollView:(PMPDynamicTableViewController *_Nullable)vc
             ScrollWithContentOffsetY:(CGFloat)y;
+- (void)PMPDynamicTableViewScollViewDidEndDragging:(PMPDynamicTableViewController *_Nullable)vc;
 
 @end
 
