@@ -8,7 +8,7 @@
 #import "DetailsMainViewController.h"
 // views
 //#import "DetailsCustomizeNavigationBar.h"
-#import "SegmentView.h"
+#import "SegmentedPageViewK.h"
 #import "DetailsGoodsTableView.h"
 #import "DetailsGoodsTableViewCell.h"
 #import "DetailsTasksTableView.h"
@@ -25,7 +25,7 @@
 <UITableViewDelegate, SegmentViewDelegate>
 
 /// 分隔栏
-@property (nonatomic, strong) SegmentView * segmentView;
+@property (nonatomic, strong) SegmentedPageViewK * segmentView;
 /// 水平滑动背景
 @property (nonatomic, strong) UIScrollView * horizontalScrollView;
 /// 兑换记录
@@ -197,7 +197,7 @@
 
 #pragma mark - delegate
 //MARK:SegmentViewDelegate
-- (void)segmentView:(SegmentView *)segmentView alertWithIndex:(NSInteger)index {
+- (void)segmentView:(SegmentedPageViewK *)segmentView alertWithIndex:(NSInteger)index {
     [UIView animateWithDuration:0.5 animations:^{
         self.horizontalScrollView.contentOffset = CGPointMake(self.view.frame.size.width * index, 0);
     }];
@@ -291,9 +291,9 @@
 
 #pragma mark - getter
 
-- (SegmentView *)segmentView {
+- (SegmentedPageViewK *)segmentView {
     if (_segmentView == nil) {
-        _segmentView = [[SegmentView alloc] initWithFrame:(CGRectZero)];
+        _segmentView = [[SegmentedPageViewK alloc] initWithFrame:(CGRectZero)];
         _segmentView.titles = @[@"兑换记录", @"获取记录"];
         _segmentView.delegate = self;
     }

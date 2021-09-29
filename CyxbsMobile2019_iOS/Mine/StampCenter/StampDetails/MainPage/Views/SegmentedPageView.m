@@ -5,18 +5,18 @@
 //  Created by Edioth Jin on 2021/8/5.
 //
 
-#import "SegmentView.h"
+#import "SegmentedPageViewK.h"
 // category
 #import "UIView+FrameTool.h"
 
-@interface SegmentView ()
+@interface SegmentedPageViewK ()
 
 /// 存放按钮的数组
 @property (nonatomic, strong) NSMutableArray <UIButton *> * buttonMAry;
 
 @end
 
-@implementation SegmentView
+@implementation SegmentedPageViewK
 
 #pragma mark - initial
 
