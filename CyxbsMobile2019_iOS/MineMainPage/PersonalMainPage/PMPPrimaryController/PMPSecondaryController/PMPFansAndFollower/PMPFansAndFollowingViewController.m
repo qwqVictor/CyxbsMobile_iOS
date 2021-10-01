@@ -6,12 +6,12 @@
 //  Copyright © 2021 Redrock. All rights reserved.
 //
 
-#import "PMPFansAndFollowerViewController.h"
+#import "PMPFansAndFollowingViewController.h"
 #import "FansAndFollowingSegmentView.h"
 #import "FansTableView.h"
 #import "FollowingTableView.h"
 
-@interface PMPFansAndFollowerViewController () <UITableViewDelegate, SegmentViewDelegate>
+@interface PMPFansAndFollowingViewController () <UITableViewDelegate, SegmentViewDelegate>
 
 /// 分隔栏
 @property (nonatomic, strong) FansAndFollowingSegmentView *segmentView;
@@ -33,7 +33,7 @@
 
 @end
 
-@implementation PMPFansAndFollowerViewController
+@implementation PMPFansAndFollowingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -6,11 +6,11 @@
 //  Copyright © 2021 Redrock. All rights reserved.
 //
 
-#import "PMPBasicActionView.h"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PMPAvatarImgButton : PMPBasicActionView
+@interface PMPAvatarImgView : UIView
 
 @property (nonatomic, strong) UIImageView * avatarImgView;
 
