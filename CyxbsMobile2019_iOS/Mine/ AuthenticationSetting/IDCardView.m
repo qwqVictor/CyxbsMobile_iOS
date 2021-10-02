@@ -7,6 +7,7 @@
 //
 
 #import "IDCardView.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface IDCardView ()
 @property (atomic, assign)BOOL isLockingWithAnimation;
@@ -42,8 +43,16 @@
     return self;
 }
 
+- (void)setBackgroundImg:(UIImage *)backgroundImg {
+    self.backgroundImgView.image = backgroundImg;
+}
+
+- (UIImage *)backgroundImg {
+    return _backgroundImgView.image;
+}
+
 - (void)addBackgroundImgView {
-    UIImageView *view = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hywxgs"]];
+    UIImageView *view = [[UIImageView alloc] init];
     [self addSubview:view];
     self.backgroundImgView = view;
     
@@ -56,6 +65,7 @@
     if (pgr.state==UIGestureRecognizerStateBegan) {
         self.beganTransform = self.transform;
         self.isLockedBegan = self.isLocked;
+        CCLog(@"Hettttttt");
     }
     CGPoint p = [pgr translationInView:self.superview];
     CGAffineTransform transform = CGAffineTransformMakeTranslation(_beganTransform.tx + p.x, _beganTransform.ty + p.y);
@@ -84,6 +94,7 @@
         }else {
             self.isLocked = NO;
             self.transform = transform;
+            [self dragCardOutImpact];
         }
     }else {
         //判定是否要吸住
@@ -93,12 +104,21 @@
             [pgr setTranslation:CGPointMake(_destinationTransform.tx - _beganTransform.tx, _destinationTransform.ty - _beganTransform.ty) inView:self.superview];
             if (self.isLockingWithAnimation==NO) {
                 self.isLockingWithAnimation = YES;
-                [UIView animateWithDuration:0.4 animations:^{
+                CGFloat t = fabs(self.lockDistance/vv.y);
+                if (t>0.4) {
+                    t = 0.4;
+                }
+                if (t<0.2) {
+                    t = 0.2;
+                }
+                [UIView animateWithDuration:t animations:^{
                     self.transform = self->_destinationTransform;
                 }completion:^(BOOL finished) {
                     self.isLockingWithAnimation = NO;
                 }];
+                
                 CCLog(@"吸，就硬吸！");
+                [self cardAttachImpact];
             }
         }else {
             self.transform = transform;
@@ -112,6 +132,9 @@
             //如果没有，那么回弹
             [UIView animateWithDuration:0.5 animations:^{
                 self.transform = CGAffineTransformIdentity;
+            } completion:^(BOOL finished) {
+                [self cardAttachImpact];
+                [self removeFromSuperview];
             }];
         }else {
             //吸住
@@ -124,10 +147,16 @@
                     self.isLockingWithAnimation = NO;
                 }];
                 CCLog(@"吸，就硬吸！");
+                [self cardAttachImpact];
             }
         }
         
         if (self.isLocked&&self.isLockedBegan==NO) {
+            
+            UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle: UIImpactFeedbackStyleMedium];
+            [generator prepare];
+            [generator impactOccurred];
+            
             CCLog(@"我都说我能吸了，你👂🐲？👂🐲？");
             //如果吸住了，那么通知代理
             [self.delegate idCardDidLock:self];
@@ -139,4 +168,54 @@
     [super layoutSubviews];
     self.destinationTransform = CGAffineTransformMakeTranslation(_destinationPoint.x - self.frame.origin.x, _destinationPoint.y - self.frame.origin.y);
 }
+
+
+
+
+
+
+/// 长按卡片后的震动
+- (void)longTouchCardImpact {
+    AudioServicesPlaySystemSound(1519);
+}
+
+/// 卡片吸附住后的震动
+- (void)cardAttachImpact {
+    UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle: UIImpactFeedbackStyleLight];
+    [generator prepare];
+    [generator impactOccurred];
+    
+}
+
+/// 从已选择的身份框拖离时调用
+- (void)dragCardOutImpact {
+    UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle: UIImpactFeedbackStyleMedium];
+    [generator prepare];
+    [generator impactOccurred];
+    
+    //++++
+//    AudioServicesPlaySystemSound(1520);
+    
+}
+
+/// 拖拽已过期的卡片到框后震动
+- (void)cardAttachFailureImpact {
+    UINotificationFeedbackGenerator *notificationFeedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
+
+    [notificationFeedbackGenerator notificationOccurred:UINotificationFeedbackTypeError];
+    
+    
+    ///
+//    {
+//        UINotificationFeedbackGenerator *notificationFeedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
+//
+//        [notificationFeedbackGenerator notificationOccurred:UINotificationFeedbackTypeWarning];
+//    }
+}
+
+//- (void)cardBounceBackImpact {
+//
+//}
+
+
 @end

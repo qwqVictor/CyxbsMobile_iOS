@@ -489,6 +489,7 @@
 		AA3B73DC27018DA0004FF8EE /* SegmentedPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B73DB27018DA0004FF8EE /* SegmentedPageView.m */; };
 		AA3B73DF270218CC004FF8EE /* IDDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B73DE270218CC004FF8EE /* IDDisplayView.m */; };
 		AA3B73E22702325A004FF8EE /* IDCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B73E12702325A004FF8EE /* IDCardView.m */; };
+		AA3B73E527070445004FF8EE /* IDCardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B73E427070445004FF8EE /* IDCardTableViewCell.m */; };
 		AA3F82DA24E8E03C00B65042 /* ClassDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3F82D924E8E03C00B65042 /* ClassDetailView.m */; };
 		AA3F82DD24E9343A00B65042 /* DayBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3F82DC24E9343A00B65042 /* DayBarView.m */; };
 		AA3F82E024E992C000B65042 /* LessonView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3F82DF24E992C000B65042 /* LessonView.m */; };
@@ -1658,6 +1659,8 @@
 		AA3B73DE270218CC004FF8EE /* IDDisplayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDDisplayView.m; sourceTree = "<group>"; };
 		AA3B73E02702325A004FF8EE /* IDCardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDCardView.h; sourceTree = "<group>"; };
 		AA3B73E12702325A004FF8EE /* IDCardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDCardView.m; sourceTree = "<group>"; };
+		AA3B73E327070445004FF8EE /* IDCardTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDCardTableViewCell.h; sourceTree = "<group>"; };
+		AA3B73E427070445004FF8EE /* IDCardTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDCardTableViewCell.m; sourceTree = "<group>"; };
 		AA3F82D824E8E03C00B65042 /* ClassDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassDetailView.h; sourceTree = "<group>"; };
 		AA3F82D924E8E03C00B65042 /* ClassDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassDetailView.m; sourceTree = "<group>"; };
 		AA3F82DB24E9343A00B65042 /* DayBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DayBarView.h; sourceTree = "<group>"; };
@@ -4844,6 +4847,8 @@
 			children = (
 				AA3B73D427018442004FF8EE /* AuthenticViewController.h */,
 				AA3B73D527018442004FF8EE /* AuthenticViewController.m */,
+				AA3B73E327070445004FF8EE /* IDCardTableViewCell.h */,
+				AA3B73E427070445004FF8EE /* IDCardTableViewCell.m */,
 				AA3B73DA27018DA0004FF8EE /* SegmentedPageView.h */,
 				AA3B73DB27018DA0004FF8EE /* SegmentedPageView.m */,
 				AA3B73DD270218CC004FF8EE /* IDDisplayView.h */,
@@ -6444,6 +6449,7 @@
 				73BAFFBA26F21D49007290B1 /* PMPBasicActionView.m in Sources */,
 				18CDF69E257F91BD006E8E5C /* CQUPTMapBeforeSearchCell.m in Sources */,
 				1A30F3FF23D4910900FBBD83 /* IntegralStorePresenter.m in Sources */,
+				AA3B73E527070445004FF8EE /* IDCardTableViewCell.m in Sources */,
 				7FBF3A13257CBCCC0077494E /* YYZpopView.m in Sources */,
 				1A1691F82430DEE70076EDC7 /* ClassScheduleTabBarView.m in Sources */,
 				AA4CD68325F28A32002D9394 /* NSArray+ChineseCharacterLog.m in Sources */,

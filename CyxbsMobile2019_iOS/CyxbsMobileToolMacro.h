@@ -246,6 +246,7 @@ for(NSString *fontFamilyName in [UIFont familyNames]){
 
 #define PingFangSCBold @"PingFangSC-Semibold"
 
+#define YouSheBiaoTiHei @"YouSheBiaoTiHei"
 
 // Bahnschrift字体
 #define BahnschriftBold @"Bahnschrift_Bold"
