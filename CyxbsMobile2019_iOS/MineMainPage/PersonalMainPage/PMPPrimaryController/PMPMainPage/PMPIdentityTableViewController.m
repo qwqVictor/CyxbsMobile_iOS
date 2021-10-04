@@ -8,6 +8,8 @@
 
 #import "PMPIdentityTableViewController.h"
 
+#import "PMPIdentityTableViewCell.h"
+
 @interface PMPIdentityTableViewController ()
 
 @end
@@ -22,77 +24,54 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.showsVerticalScrollIndicator = NO;
+    [self.tableView registerClass:[PMPIdentityTableViewCell class] forCellReuseIdentifier:[PMPIdentityTableViewCell reuseIdentifier]];
 }
 
 #pragma mark - setter
 
 - (void)setHeaderHeight:(CGFloat)headerHeight {
     _headerHeight = headerHeight;
-    ((UITableView *)self.view).contentInset = UIEdgeInsetsMake(self.headerHeight, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(self.headerHeight, 0, 0, 0);
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return 20;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
+    PMPIdentityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[PMPIdentityTableViewCell reuseIdentifier] forIndexPath:indexPath];
+
     // Configure the cell...
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+#pragma mark - scroll delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if ([self.scrollDelegate respondsToSelector:@selector(PMPIdentityTableViewScollView:ScrollWithContentOffsetY:)]) {
+        // 对于头视图的偏移量
+//        NSLog(@"%f--%f", self.tableView.contentOffset.y, self.headerHeight);
+//        NSLog(@"%f", self.tableView.contentOffset.y);
+        CGFloat contentOffsetY = self.tableView.contentOffset.y + self.headerHeight;
+        [self.scrollDelegate PMPIdentityTableViewScollView:self
+                                 ScrollWithContentOffsetY:contentOffsetY];
+    }
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
+                  willDecelerate:(BOOL)decelerate {
+    if ([self.scrollDelegate respondsToSelector:@selector(PMPIdentityTableViewScollViewDidEndDragging:)]) {
+        [self.scrollDelegate PMPIdentityTableViewScollViewDidEndDragging:self];
+    }
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

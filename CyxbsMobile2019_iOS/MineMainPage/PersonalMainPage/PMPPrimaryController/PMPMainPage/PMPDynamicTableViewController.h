@@ -8,11 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+@class PMPDynamicTableViewController;
+@protocol PMPDynamicTableViewScrollDelegate <NSObject>
+
+- (void)PMPDynamicTableViewScollView:(PMPDynamicTableViewController *_Nullable)vc
+            ScrollWithContentOffsetY:(CGFloat)y;
+- (void)PMPDynamicTableViewScollViewDidEndDragging:(PMPDynamicTableViewController *_Nullable)vc;
+
+@end
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PMPDynamicTableViewController : UITableViewController
 
 @property (nonatomic, assign) CGFloat headerHeight;
+
+@property (nonatomic, weak) id <PMPDynamicTableViewScrollDelegate> scrollDelegate;
 
 @end
 

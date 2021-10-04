@@ -5,7 +5,7 @@
 //  Created by Stove on 2021/9/21.
 //  Copyright © 2021 Redrock. All rights reserved.
 //
-
+#import "AuthenticViewController.h"
 #import "MineViewController.h"
 #import "MineTopBlurView.h"
 #import "MineSignView.h"
@@ -61,6 +61,7 @@
     [self addSuggesstionBtn];
     [self addTableView];
     [self addSignView];
+    [self addAuthenticBtn];
 }
 - (void)addScrollView {
     UIScrollView *scrollView = [[UIScrollView alloc] init];
@@ -228,6 +229,26 @@
         make.left.right.bottom.equalTo(self.view);
         make.height.mas_equalTo(0.5*SCREEN_HEIGHT);
     }];
+}
+
+- (void)addAuthenticBtn {
+    UIButton *btn = [[UIButton alloc] init];
+    [self.view addSubview:btn];
+    
+    btn.frame = CGRectMake(100, 100, 100, 100);
+    
+    [btn setBackgroundColor:RGBColor(190, 215, 65, 1)];
+    
+    [btn addTarget:self action:@selector(jumpAuthenticPage) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)jumpAuthenticPage {
+    AuthenticViewController *vc = [[AuthenticViewController alloc] init];
+    
+    vc.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 2;
