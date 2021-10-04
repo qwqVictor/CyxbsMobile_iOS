@@ -4277,8 +4277,8 @@
 		6464F9B42703008E008562C5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				6464F9B52703008E008562C5 /* BaseTableViewCell.m */,
 				6464F9B92703008E008562C5 /* BaseTableViewCell.h */,
+				6464F9B52703008E008562C5 /* BaseTableViewCell.m */,
 				6464F9B62703008E008562C5 /* FansTableViewCell.h */,
 				6464F9B82703008E008562C5 /* FansTableViewCell.m */,
 				6464F9BA2703008E008562C5 /* FollowersTableViewCell.h */,

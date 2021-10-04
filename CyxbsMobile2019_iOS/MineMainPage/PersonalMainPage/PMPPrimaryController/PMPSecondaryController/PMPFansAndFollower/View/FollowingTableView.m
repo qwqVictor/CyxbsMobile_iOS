@@ -7,6 +7,12 @@
 //
 
 #import "FollowingTableView.h"
+//view
+#import "FollowersTableViewCell.h"
+
+@interface FollowingTableView()<UITableViewDataSource>
+
+@end
 
 @implementation FollowingTableView
 
@@ -18,7 +24,32 @@
 }
 
 - (void)configure {
+    self.dataSource = self;
+    self.backgroundColor = [UIColor clearColor];
+    self.rowHeight = 74;
+    self.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self registerClass:[FollowersTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FollowersTableViewCell class])];
     
 }
 
+#pragma mark - delegate
+//MARK:table view delegate & data source
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    FollowersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FollowersTableViewCell.reuseIdentifier];
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.dataAry.count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+#pragma mark - setter
+- (void)setDataAry:(NSArray *)dataAry {
+    _dataAry = dataAry;
+    [self reloadData];
+}
 @end

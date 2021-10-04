@@ -23,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 ///是否回关
 @property (nonatomic, copy) NSString *isbefocus;
 
+/// 复用标识
++ (NSString *)reuseIdentifier;
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

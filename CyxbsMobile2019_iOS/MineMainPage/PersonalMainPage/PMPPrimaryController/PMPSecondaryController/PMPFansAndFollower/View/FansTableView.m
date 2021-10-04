@@ -7,6 +7,8 @@
 //
 
 #import "FansTableView.h"
+//view
+#import "FansTableViewCell.h"
 
 @interface FansTableView () <UITableViewDataSource>
 
@@ -28,7 +30,7 @@
     self.backgroundColor = [UIColor clearColor];
     self.rowHeight = 74;
     
-//    [self registerClass:[DetailsGoodsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([DetailsGoodsTableViewCell class])];
+    [self registerClass:[FansTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FansTableViewCell class])];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
@@ -42,6 +44,11 @@
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
     return self.dataAry.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    FansTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FansTableViewCell.reuseIdentifier];
+    return cell;
 }
 
 #pragma mark - setter

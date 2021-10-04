@@ -34,5 +34,6 @@
     _cellModel = cellModel;
     self.nameLabel.text = cellModel.nickname;
     self.bioLabel.text = cellModel.introduction;
+    self.followBtn.hidden = YES;
 }
 @end
