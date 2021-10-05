@@ -7,10 +7,12 @@
 //
 
 #import "PMPFansAndFollowingViewController.h"
+//view
 #import "FansAndFollowingSegmentView.h"
 #import "FansTableView.h"
 #import "FollowingTableView.h"
-
+// pod
+#import <MJRefresh.h>
 @interface PMPFansAndFollowingViewController () <UITableViewDelegate, SegmentViewDelegate>
 
 /// 分隔栏
@@ -20,7 +22,7 @@
 ///我的粉丝
 @property (nonatomic, strong) FansTableView *fansTableView;
 ///我的关注
-@property (nonatomic, strong) FollowingTableView *followingTableView;
+@property (nonatomic, strong) FollowingTableView *followersTableView;
 ///无粉丝文字
 @property (nonatomic, strong) UILabel *noFansLabel;
 ///无粉丝图片
@@ -29,7 +31,12 @@
 @property (nonatomic, strong) UILabel *noFollowingLabel;
 ///无关注图片
 @property (nonatomic, strong) UIImageView *noFollowingImgView;
-
+/// 粉丝界面的下拉刷新
+@property (nonatomic, strong) MJRefreshStateHeader *fansRefreshHeader;
+/// 关注界面的下拉刷新
+@property (nonatomic, strong) MJRefreshStateHeader *followersRefreshHeader;
+/// 获取记录界面的上拉加载更多
+@property (nonatomic, strong) MJRefreshAutoStateFooter *fansLoadMoreFooter;
 
 @end
 
@@ -99,6 +106,9 @@
     self.noFollowingLabel.hidden = YES;
     self.noFollowingImgView.hidden = YES;
     
+    //动画
+    
+    
 }
 #pragma mark - KVO
 
@@ -155,13 +165,14 @@
     }
     return _fansTableView;
 }
-- (FollowingTableView *)followingTableView {
-    if (_followingTableView == nil) {
-        _followingTableView = [[FollowingTableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
-        _followingTableView.delegate = self;
-        _followingTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+- (FollowingTableView *)followersTableView {
+    if (_followersTableView == nil) {
+        _followersTableView = [[FollowingTableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
+        _followersTableView.delegate = self;
+        _followersTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
-    return _followingTableView;
+    return _followersTableView;
 }
 ///无粉丝图片与文字
 - (UILabel *)noFansLabel {
@@ -195,4 +206,5 @@
     }
     return _noFollowingImgView;
 }
+
 @end
