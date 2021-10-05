@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IDCardView : UIView
 @property(nonatomic, assign)CGPoint destinationPoint;
 @property(nonatomic, weak)id <IDCardViewDelegate> delegate;
-- (void)panSelfWithPGR:(UIPanGestureRecognizer*)pgr;
+- (void)panWithPGR:(UIPanGestureRecognizer*)pgr;
 @property (nonatomic, strong)UIImage *backgroundImg;
 @end
 

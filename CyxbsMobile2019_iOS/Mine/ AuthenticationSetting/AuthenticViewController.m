@@ -145,10 +145,10 @@
             make.left.equalTo(self.view).offset(origin.x);
         }];
         
-        [pgr addTarget:view action:@selector(panSelfWithPGR:)];
+        [pgr addTarget:view action:@selector(panWithPGR:)];
         [self.view setNeedsLayout];
         [self.view layoutIfNeeded];
-        [view panSelfWithPGR:pgr];
+        [view panWithPGR:pgr];
         
         //++++++++++++++++++<#说明#>++++++++++++++++++++  Begain
         CGRect cellFrame = cell.frame;
@@ -166,7 +166,7 @@
         //++++++++++++++++++<#说明#>++++++++++++++++++++  End
     }
     if (pgr.state==UIGestureRecognizerStateEnded) {
-        [pgr removeTarget:self.currentIDCardView action:@selector(panSelfWithPGR:)];
+        [pgr removeTarget:self.currentIDCardView action:@selector(panWithPGR:)];
         [UIView animateWithDuration:1 animations:^{
             self.bottomImgView.transform = CGAffineTransformMakeScale(0.2, 0.2);
         }completion:^(BOOL finished) {

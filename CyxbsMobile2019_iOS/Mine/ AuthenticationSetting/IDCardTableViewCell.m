@@ -8,13 +8,17 @@
 
 #import "IDCardTableViewCell.h"
 #import "IDCardView.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface IDCardTableViewCell ()
+@interface IDCardTableViewCell ()<
+    UIGestureRecognizerDelegate
+>
 @property (nonatomic, strong)UIImageView *backImgView;
 @property (nonatomic, strong)UILabel *departmentLabel;
 @property (nonatomic, strong)UILabel *positionLabel;
 @property (nonatomic, strong)UILabel *validTimeLabel;
 @property (nonatomic, strong)UIPanGestureRecognizer *pgr;
+@property (atomic, assign)BOOL isLongPressed;
 @end
 
 @implementation IDCardTableViewCell
@@ -49,20 +53,28 @@
 }
 
 - (void)addBackImgView {
-    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:RGBColor(90, arc4random_uniform(256), arc4random_uniform(256), 0.5)]];
+    UIImageView *imgView = [[UIImageView alloc] init];
     //  @"IDCardCut"   @"身份卡片"
     self.backImgView = imgView;
     [self.containerView addSubview:imgView];
+    imgView.backgroundColor =  RGBColor(90, arc4random_uniform(256), arc4random_uniform(256), 0.5);
+    
     CCLog(@"%p",self);
     imgView.layer.cornerRadius = 8;
     imgView.userInteractionEnabled = YES;
     [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.containerView);
     }];
-    
     UIPanGestureRecognizer *pgr = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panWithPGR:)];
     self.pgr = pgr;
     [imgView addGestureRecognizer:pgr];
+    pgr.delegate = self;
+//    pgr.cancelsTouchesInView = NO;
+    
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressWithLPGR:)];
+    [imgView addGestureRecognizer:lpgr];
+    lpgr.delegate = self;
+//    lpgr.cancelsTouchesInView = NO;
 }
 
 - (void)addDepartmentLabel {
@@ -110,7 +122,23 @@
 }
 
 - (void)panWithPGR:(UIPanGestureRecognizer*)pgr {
+    CCLog(@"Pan");
+    if (self.isLongPressed==NO) {
+        return;
+    }
     [self.delegate idCardTableViewCell:self panWithPGR:pgr];
+    if (pgr.state==UIGestureRecognizerStateEnded) {
+        self.isLongPressed = NO;
+    }
+}
+
+- (void)longPressWithLPGR:(UILongPressGestureRecognizer*)lpgr {
+    if (lpgr.state==UIGestureRecognizerStateBegan) {
+        AudioServicesPlaySystemSound(1520);
+        self.isLongPressed = YES;
+    }else if (lpgr.state==UIGestureRecognizerStateEnded) {
+        self.isLongPressed = NO;
+    }
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
@@ -118,5 +146,25 @@
         return self.backImgView;
     }
     return nil;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if (gestureRecognizer==self.pgr) {
+        //避免底下的scrollView也产生滑动
+        return NO;
+    }else {
+        // UITouch UIEvent UIPress
+        //为了让lpgr和pgr可以同时响应
+        return YES;
+    }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer==self.pgr&&self.isLongPressed==NO) {
+        //让pgr只有在长按后才可以响应
+        return NO;
+    }else {
+        return YES;
+    }
 }
 @end
