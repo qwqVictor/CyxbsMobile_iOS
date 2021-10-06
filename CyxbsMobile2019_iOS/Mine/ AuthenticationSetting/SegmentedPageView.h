@@ -10,6 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SegmentedPageView;
+
+@protocol SegmentedPageViewDelegate <NSObject>
+
+- (void)segmentedPageView:(SegmentedPageView*)view didChangeIndexFrom:(NSInteger)oldIndex;
+
+@end
+
 @interface SegmentedPageView : UIView
 
 /// 各顶部按钮的名字
@@ -24,11 +32,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// 按钮底部小蓝条的宽度
 @property (nonatomic, assign)CGFloat tipViewWidth;
 
+@property (nonatomic, weak)id <SegmentedPageViewDelegate>delegate;
+
 /// 配置好上面的属性后，由外界调用
 - (void)reLoadUI;
 
-/// 往某一个页面添加控件的方法
+/// 往某一个页面添加控件的方法之一，在block里面参照pageView进行布局，pageView是对应下标的那个页面的view，
 - (void)addSubview:(UIView *)view atIndex:(NSInteger)index layout:(void(^)(UIView* pageView))layoutCode;
+
+/// 往某一个页面添加控件的方法之二，参照返回的view进行布局，它是对应下标的那个页面的view，
+- (UIView*)addSubview:(UIView *)view atIndex:(NSInteger)index;
 @end
 
 NS_ASSUME_NONNULL_END

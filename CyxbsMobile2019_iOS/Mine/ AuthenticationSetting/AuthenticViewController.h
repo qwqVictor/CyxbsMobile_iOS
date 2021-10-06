@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// 身份认证页面的控制器
 @interface AuthenticViewController : TopBarBasicViewController
 
 @end

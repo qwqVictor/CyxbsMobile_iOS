@@ -13,19 +13,23 @@
     UIGestureRecognizerDelegate
 >
 @property (atomic, assign)BOOL isLockingWithAnimation;
-/// 是否是吸住的状态
-@property (nonatomic, assign)BOOL isLocked;
-/// 吸住状态时的形变
-@property (nonatomic, assign)CGAffineTransform destinationTransform;
-/// 背景图片
-@property (nonatomic, strong)UIImageView *backgroundImgView;
-/// 手势开始时的形变
-@property (nonatomic, assign)CGAffineTransform beganTransform;
-/// 会被吸住的距离
-@property (nonatomic, assign)CGFloat lockDistance;
+
+
 /// 手势开始时是否已经是lock的状态
 @property (nonatomic, assign)BOOL isLockedBegan;
+/// 吸住状态时的形变
+@property (nonatomic, assign)CGAffineTransform destinationTransform;
 
+/// 背景图片
+@property (nonatomic, strong)UIImageView *backgroundImgView;
+
+/// 手势开始时的形变
+@property (nonatomic, assign)CGAffineTransform beganTransform;
+
+/// 会被吸住的距离
+@property (nonatomic, assign)CGFloat lockDistance;
+
+/// 是否可以识别pan手势
 @property (atomic, assign)BOOL shouldPan;
 
 @property (nonatomic, strong)UIPanGestureRecognizer *pgr;
@@ -97,7 +101,7 @@
         UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle: UIImpactFeedbackStyleSoft];
         [generator prepare];
         [generator impactOccurred];
-        CCLog(@"Hettttttt");
+        [self.delegate idCardPanGestureDidBegan:self];
     }
     CGPoint p = [pgr translationInView:self.superview];
     CGAffineTransform transform = CGAffineTransformMakeTranslation(_beganTransform.tx + p.x, _beganTransform.ty + p.y);
@@ -158,6 +162,7 @@
         }
     }
     
+    [self.delegate idCardPanGestureDidChange:self];
     //在手势终止时，做一些收尾工作：判定要吸住还是弹回原位
     if (pgr.state==UIGestureRecognizerStateEnded) {
         //这里选取值为2/3的self高度
@@ -184,13 +189,9 @@
             }
         }
         
-        if (self.isLocked&&self.isLockedBegan==NO) {
-            CCLog(@"我都说我能吸了，你👂🐲？👂🐲？");
-            //如果吸住了，那么通知代理
-            [self.delegate idCardDidLock:self];
-        }
-        
-        self.shouldPan = NO;
+        //当前的锁住状态和手势开始时的锁住状态不一样，那么需要通知代理
+        CCLog(@"我都说我能吸了，你👂🐲？👂🐲？");
+        [self.delegate idCardPanGestureDidLoose:self];
     }
 }
 
@@ -200,7 +201,6 @@
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    CCLog(@"%p, %p, %p", gestureRecognizer, self.pgr, self.lpgr);
     if ([gestureRecognizer isEqual:self.pgr]&&self.shouldPan==NO) {
         return NO;
     }else {
@@ -212,6 +212,9 @@
     return YES;
 }
 
+- (IDCardViewStateOption)getStateOption {
+    return self.isLockedBegan*2 + self.isLocked;
+}
 
 
 /// 长按卡片后的震动

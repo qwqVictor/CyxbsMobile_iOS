@@ -13,12 +13,25 @@
 @interface IDCardTableViewCell ()<
     UIGestureRecognizerDelegate
 >
+
+/// 背景图片
 @property (nonatomic, strong)UIImageView *backImgView;
+
+/// 身份所属组织的label
 @property (nonatomic, strong)UILabel *departmentLabel;
+
+/// 身份的职位label
 @property (nonatomic, strong)UILabel *positionLabel;
+
+/// 身份有效期label
 @property (nonatomic, strong)UILabel *validTimeLabel;
+
+/// 拖拽手势
 @property (nonatomic, strong)UIPanGestureRecognizer *pgr;
+
+/// 用来标记是否已经长按过了，用于决定是否响应拖拽手势
 @property (atomic, assign)BOOL isLongPressed;
+
 @end
 
 @implementation IDCardTableViewCell
@@ -26,6 +39,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.backgroundColor = UIColor.clearColor;
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         [self addContainerView];
         [self addBackImgView];
@@ -33,7 +47,6 @@
         [self addPositionLabel];
         [self addValidTimeLabel];
         
-
     }
     return self;
 }
@@ -44,7 +57,7 @@
     
     view.layer.cornerRadius = 8;
     view.clipsToBounds = YES;
-    view.backgroundColor = UIColor.whiteColor;
+    view.backgroundColor = UIColor.clearColor;
     
     [view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self);
@@ -57,9 +70,7 @@
     //  @"IDCardCut"   @"身份卡片"
     self.backImgView = imgView;
     [self.containerView addSubview:imgView];
-    imgView.backgroundColor =  RGBColor(90, arc4random_uniform(256), arc4random_uniform(256), 0.5);
     
-    CCLog(@"%p",self);
     imgView.layer.cornerRadius = 8;
     imgView.userInteractionEnabled = YES;
     [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -69,12 +80,10 @@
     self.pgr = pgr;
     [imgView addGestureRecognizer:pgr];
     pgr.delegate = self;
-//    pgr.cancelsTouchesInView = NO;
     
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressWithLPGR:)];
     [imgView addGestureRecognizer:lpgr];
     lpgr.delegate = self;
-//    lpgr.cancelsTouchesInView = NO;
 }
 
 - (void)addDepartmentLabel {
@@ -122,10 +131,6 @@
 }
 
 - (void)panWithPGR:(UIPanGestureRecognizer*)pgr {
-    CCLog(@"Pan");
-    if (self.isLongPressed==NO) {
-        return;
-    }
     [self.delegate idCardTableViewCell:self panWithPGR:pgr];
     if (pgr.state==UIGestureRecognizerStateEnded) {
         self.isLongPressed = NO;
@@ -134,18 +139,12 @@
 
 - (void)longPressWithLPGR:(UILongPressGestureRecognizer*)lpgr {
     if (lpgr.state==UIGestureRecognizerStateBegan) {
+        //设备震动
         AudioServicesPlaySystemSound(1520);
         self.isLongPressed = YES;
     }else if (lpgr.state==UIGestureRecognizerStateEnded) {
         self.isLongPressed = NO;
     }
-}
-
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    if ([self.backImgView pointInside:point withEvent:event]) {
-        return self.backImgView;
-    }
-    return nil;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
