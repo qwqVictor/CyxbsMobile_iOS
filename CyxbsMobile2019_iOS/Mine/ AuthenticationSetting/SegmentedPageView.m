@@ -21,6 +21,8 @@
 @property (nonatomic, assign)CGFloat spacing;
 
 @property (nonatomic, strong)NSArray <UIView*> *viewArr;
+
+@property (nonatomic, strong, nullable)void (^scrollViewEndScrollCallBack)(void);
 @end
 
 @implementation SegmentedPageView
@@ -149,11 +151,13 @@
     }
     UIView *pageView = self.viewArr[index];
     [pageView addSubview:view];
-    layoutCode(pageView);
+    if (layoutCode!=nil) {
+        layoutCode(pageView);
+    }
 }
 
 - (UIView*)addSubview:(UIView *)view atIndex:(NSInteger)index {
-    if (self.viewArr==nil||index>=self.viewArr.count) {
+    if (self.viewArr==nil||index>=self.viewArr.count||self.viewArr.count<=index) {
         return nil;
     }
     UIView *pageView = self.viewArr[index];
@@ -161,27 +165,52 @@
     return pageView;
 }
 
+- (void)moveToPageOfIndex:(NSInteger)index animated:(BOOL)is completion:(nullable void (^)(void))callBack {
+    if (index==self.index) {
+        if (callBack!=nil){
+            callBack();
+        }
+        return;
+    }
+    if (is) {
+        [self.scrollView setContentOffset:CGPointMake(index*self.width, 0) animated:YES];
+        self.scrollViewEndScrollCallBack = callBack;
+    }else {
+        [self.scrollView setContentOffset:CGPointMake(index*self.width, 0) animated:NO];
+        self.index = (NSInteger)(self.scrollView.contentOffset.x/self.width + 0.5);
+        if (callBack!=nil){
+            callBack();
+        }
+    }
+}
+
 - (void)setIndex:(NSInteger)index {
-    if (_index==index) {
+    if (index==_index) {
         return;
     }
     NSInteger oldIndex = _index;
     _index = index;
-    [self.scrollView setContentOffset:CGPointMake(index*self.width, 0) animated:YES];
+    CCLog(@"index Change");
     [self.delegate segmentedPageView:self didChangeIndexFrom:oldIndex];
 }
 
 - (void)viewNameBtnClicked:(UIButton*)btn {
-    self.index = btn.tag;
+    [self moveToPageOfIndex:btn.tag animated:YES completion:nil];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self.delegate segmentedPageView:self didChangeIndexFrom:self.index];
     self.index = (NSInteger)(scrollView.contentOffset.x/self.width + 0.5);
     CCLog(@"%s", __func__);
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    [self.delegate segmentedPageView:self didChangeIndexFrom:self.index];
     self.index = (NSInteger)(scrollView.contentOffset.x/self.width + 0.5);
+    if (self.scrollViewEndScrollCallBack!=nil) {
+        self.scrollViewEndScrollCallBack();
+        self.scrollViewEndScrollCallBack = nil;
+    }
     CCLog(@"%s", __func__);
 }
 

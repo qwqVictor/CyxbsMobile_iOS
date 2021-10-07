@@ -22,10 +22,12 @@ typedef enum : NSUInteger {
 @protocol IDCardViewDelegate <NSObject>
 /// 手势开始时调用
 - (void)idCardPanGestureDidBegan:(IDCardView*) view;
-/// 手势结束后调用
-- (void)idCardPanGestureDidLoose:(IDCardView*) view;
+
 /// 手势结束变化时调用
 - (void)idCardPanGestureDidChange:(IDCardView*) view;
+
+/// 手势结束后调用
+- (void)idCardPanGestureDidLoose:(IDCardView*) view;
 @end
 
 
@@ -39,6 +41,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign)CGPoint contentOffsetBeganOfTableView;
 @property (nonatomic, assign)NSInteger indexOfPageView;
 @property (nonatomic, strong)NSIndexPath *indexPathOfCell;
+@property (nonatomic, assign)CGRect cellFrameInTableView;
+@property (nonatomic, assign)CGPoint beganOriginOfCellInSelfView;
+//@property (nonatomic, strong)UITableViewCell *cell;
 - (void)panWithPGR:(UIPanGestureRecognizer*)pgr;
 - (IDCardViewStateOption)getStateOption;
 @end

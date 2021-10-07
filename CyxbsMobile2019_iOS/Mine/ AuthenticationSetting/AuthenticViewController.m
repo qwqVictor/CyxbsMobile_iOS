@@ -21,9 +21,6 @@
 >
 {
     CGPoint idDisplayViewOrigin;
-    CGPoint idViewBegainOrigin;
-    CGPoint beganOriginOfCellInSelfView;
-    CGAffineTransform loackedTransform;
 }
 
 /// 上方带虚线框的一个view
@@ -31,6 +28,8 @@
 
 /// 手指拖动的身份卡片view
 @property (nonatomic, strong)IDCardView *operatingIDCardView;
+
+@property (nonatomic, strong, nullable)IDCardView *beganIDCardView;
 
 /// 分页view
 @property (nonatomic, strong)SegmentedPageView *segmentView;
@@ -48,12 +47,17 @@
 @property (nonatomic, strong)UIImageView *bottomImgView;
 
 /// bottomImgView跟着身份卡片一起往上走的最大y值(以self.view为参考系)
-@property (nonatomic, assign)CGFloat bottomImgViewDestinationOriginY;
 
 /// 拖动卡片后，用于挡住部分tableView的背景板
 @property (nonatomic, weak)UIView *tableViewBlockView;
 
 @property (nonatomic, strong)NSArray<UITableView*> *tableViewArr;
+
+@property (nonatomic, strong)UIPanGestureRecognizer *cellPGR;
+
+@property (nonatomic, strong, nullable)void (^cellBeganBlock)(void);
+
+@property (nonatomic, assign)BOOL needExecuteCellBeganBlockAfterScroll;
 @end
 
 @implementation AuthenticViewController
@@ -68,6 +72,13 @@
     [self addAuthenticTableView];
     [self addPersonalizeTableView];
     self.tableViewArr = @[self.authenticTableView, self.personalizeTableView];
+    /*
+     func:  animations:(void (^)(void))animations
+            block:(void (^)(NSTimer *timer))block
+     prop: @property (nonatomic, strong)void (^block)(void);
+     ^(int a){return a}
+     */
+    
 }
 
 /// 使用父类控制器的API，自定义顶部的导航栏
@@ -168,105 +179,163 @@
     return _cellHeight;
 }
 
-/// IDCardTableViewCell的拖拽代理
-- (void)idCardTableViewCell:(IDCardTableViewCell *)cell panWithPGR:(UIPanGestureRecognizer *)pgr {
+- (void)idCardTableViewCell:(IDCardTableViewCell *)cell PGRWillBegan:(UIPanGestureRecognizer *)pgr {
     UITableView *tableView = self.tableViewArr[self.segmentView.index];
-    if (pgr.state==UIGestureRecognizerStateBegan) {
-        
-        //以self.view为参考系时，cell.origin的坐标
-        beganOriginOfCellInSelfView = [self.view convertPoint:cell.frame.origin fromView:cell.superview];
-        
-        //++++++++++++++++++添加挡住部分tableView的白板++++++++++++++++++++  Begain
-        UIView *whiteView = [[UIView alloc] init];
-        self.tableViewBlockView = whiteView;
-        [self.view addSubview:whiteView];
-        
-        whiteView.origin = beganOriginOfCellInSelfView;
-        whiteView.size = tableView.size;
-        whiteView.backgroundColor = [UIColor colorNamed:@"255_255_255&29_29_29"];
-        //++++++++++++++++++添加挡住部分tableView的白板++++++++++++++++++++  End
-        
-        //++++++++++++++++++添加随手指移动的卡片++++++++++++++++++++  Begain
-        IDCardView *view = [[IDCardView alloc] init];
-        self.operatingIDCardView = view;
-        [self.view addSubview:view];
-        
-        view.backgroundImg = [self getImgOfView:cell.containerView inFrame:cell.containerView.bounds];
-        view.delegate = self;
-        view.destinationPoint = idDisplayViewOrigin;
-        view.indexOfPageView = self.segmentView.index;
-        view.contentOffsetBeganOfTableView = [tableView contentOffset];
-        view.indexPathOfCell = [tableView indexPathForCell:cell];
-        
-        
-        self.bottomImgViewDestinationOriginY = beganOriginOfCellInSelfView.y - (_cellHeight-cell.containerView.height);
-        
-        [view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).offset(beganOriginOfCellInSelfView.y);
-            make.left.equalTo(self.view).offset(beganOriginOfCellInSelfView.x);
-        }];
-        
-        //马上刷新一下布局，不然卡片最终会和虚线框有些不重合
-        [self.view setNeedsLayout];
-        [self.view layoutIfNeeded];
-        
-        [view panWithPGR:pgr];
-        [pgr addTarget:view action:@selector(panWithPGR:)];
-        
-        //++++++++++++++++++添加随手指移动的卡片++++++++++++++++++++  End
-        
-        
-        //++++++++++++++++++添加下半截view++++++++++++++++++++  Begain
-        CGRect cellFrame = cell.frame;
-        CGRect rect = CGRectMake(cellFrame.origin.x, cellFrame.origin.y+cell.containerView.height, cellFrame.size.width, SCREEN_HEIGHT-beganOriginOfCellInSelfView.y+(_cellHeight-cell.containerView.height));
-        UIImage *img = [self getImgOfView:tableView inFrame:rect];;
-        
-        self.bottomImgView.image = img;
-        [self.view addSubview:self.bottomImgView];
-        [self.bottomImgView sizeToFit];
-        self.bottomImgView.frame = CGRectMake(beganOriginOfCellInSelfView.x, self.operatingIDCardView.y + self.operatingIDCardView.height,
-                                              self.bottomImgView.width,
-                                              self.bottomImgView.height);
-        //++++++++++++++++++添加下半截view++++++++++++++++++++  End
-        
-        
-    }else if (pgr.state==UIGestureRecognizerStateEnded) {
-        [pgr removeTarget:self.operatingIDCardView action:@selector(panWithPGR:)];
-    }else {
-        //让bottomImgView的顶部贴着operatingIDCardView的底部
-        CGRect frame = self.bottomImgView.frame;
-        frame.origin.y = self.operatingIDCardView.frame.origin.y + self.operatingIDCardView.frame.size.height;
-        
-        //y不允许超过self.bottomImgViewDestinationOriginY
-        if (frame.origin.y < self.bottomImgViewDestinationOriginY) {
-            frame.origin.y = self.bottomImgViewDestinationOriginY;
-        }
-        self.bottomImgView.frame = frame;
-    }
+    
+    //以self.view为参考系时，cell.origin的坐标
+//    beganOriginOfCellInSelfView = [self.view convertPoint:cell.frame.origin fromView:cell.superview];
+    self.cellPGR = pgr;
+    self.beganIDCardView = self.operatingIDCardView;
+    //++++++++++++++++++添加随手指移动的卡片++++++++++++++++++++  Begain
+    IDCardView *view = [[IDCardView alloc] init];
+    self.operatingIDCardView = view;
+    [self.view addSubview:view];
+    
+    view.backgroundImg = [self getImgOfView:cell.containerView inFrame:cell.containerView.bounds];
+    view.delegate = self;
+    
+    view.destinationPoint = idDisplayViewOrigin;
+    view.indexOfPageView = self.segmentView.index;
+    view.contentOffsetBeganOfTableView = [tableView contentOffset];
+    view.indexPathOfCell = [tableView indexPathForCell:cell];
+    view.cellFrameInTableView = cell.frame;
+    view.beganOriginOfCellInSelfView = [self.view convertPoint:cell.frame.origin fromView:cell.superview];
+    
+    
+    
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(view.beganOriginOfCellInSelfView.y);
+        make.left.equalTo(self.view).offset(view.beganOriginOfCellInSelfView.x);
+    }];
+    
+    //马上刷新一下布局，不然卡片最终会和虚线框有些不重合
+    [self.view setNeedsLayout];
+    [self.view layoutIfNeeded];
+    
+    [pgr addTarget:view action:@selector(panWithPGR:)];
+    
+    //++++++++++++++++++添加随手指移动的卡片++++++++++++++++++++  End
+    
 }
 
 - (void)idCardPanGestureDidBegan:(IDCardView *)view {
-    if (view.isLocked==YES) {
-        UITableView *tableView = self.tableViewArr[self.segmentView.index];
-        [self.segmentView setIndex:view.indexOfPageView];
-        [tableView setContentOffset:view.contentOffsetBeganOfTableView animated:YES];
-        CGRect cellFrame = [tableView rectForRowAtIndexPath:view.indexPathOfCell];
-        CGPoint p = [self.view convertPoint:cellFrame.origin fromView:tableView];
-        self.bottomImgView.image = [self getImgOfView:tableView inFrame:CGRectMake(cellFrame.origin.x, cellFrame.origin.y, tableView.frame.size.width, SCREEN_HEIGHT-p.y)];
-        [UIImagePNGRepresentation(self.bottomImgView.image) writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/xx.png"] atomically:YES];
-        CCLog(@"%@", [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/xx.png"]);
+    UITableView *tableView = self.tableViewArr[view.indexOfPageView];
+    __weak typeof(self) weakSelf = self;
+    BOOL isLocked = view.isLocked;
+    self.cellBeganBlock = ^(void) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        CGRect cellFrame = view.cellFrameInTableView;
+        //++++++++++++++++++添加挡住部分tableView的白板++++++++++++++++++++  Begain
+        UIView *whiteView = [[UIView alloc] init];
+        strongSelf.tableViewBlockView = whiteView;
+        [strongSelf.view addSubview:whiteView];
+        
+        whiteView.origin = view.beganOriginOfCellInSelfView;
+        whiteView.size = tableView.size;
+        whiteView.backgroundColor = [UIColor colorNamed:@"255_255_255&29_29_29"];
+        //++++++++++++++++++添加挡住部分tableView的白板++++++++++++++++++++  End
+        [strongSelf.view insertSubview:strongSelf.operatingIDCardView aboveSubview:whiteView];
+        
+        CGRect rect;
+        
+        if (isLocked==YES) {
+            rect = CGRectMake(cellFrame.origin.x,
+                              cellFrame.origin.y,
+                              tableView.frame.size.width,
+                              SCREEN_HEIGHT-view.beganOriginOfCellInSelfView.y);
+        }else {
+            
+            rect = CGRectMake(cellFrame.origin.x,
+                              cellFrame.origin.y+cellFrame.size.height,
+                              cellFrame.size.width,
+                              SCREEN_HEIGHT-view.beganOriginOfCellInSelfView.y);
+            
+        }
+        
+        //++++++++++++++++++添加下半截view++++++++++++++++++++  Begain
+        strongSelf.bottomImgView.image = [strongSelf getImgOfView:tableView inFrame:rect];
+        [strongSelf.view addSubview:strongSelf.bottomImgView];
+        [strongSelf.bottomImgView sizeToFit];
+        CGRect bottomImgViewFrame = [strongSelf.view convertRect:rect fromView:tableView];
+        bottomImgViewFrame.origin.x = view.beganOriginOfCellInSelfView.x;
+        strongSelf.bottomImgView.frame = bottomImgViewFrame;
+        [strongSelf.view insertSubview:strongSelf.operatingIDCardView aboveSubview:strongSelf.bottomImgView];
+        //++++++++++++++++++添加下半截view++++++++++++++++++++  End
+        strongSelf.cellBeganBlock = nil;
+        [UIImagePNGRepresentation(strongSelf.bottomImgView.image) writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/xx.png"] atomically:YES];
+        CCLog(@"callBack");
+    };
+    
+    
+    if (isLocked==YES) {
+        int flag = 2*(self.segmentView.index!=view.indexOfPageView) +
+        !CGPointEqualToPoint(tableView.contentOffset, view.contentOffsetBeganOfTableView);
+        
+        CCLog(@"%d",flag);
+        
+        switch (flag) {
+            case 0:
+                self.cellBeganBlock();
+                break;
+            case 1:
+                [tableView setContentOffset:view.contentOffsetBeganOfTableView animated:YES];
+                self.needExecuteCellBeganBlockAfterScroll = YES;
+                break;
+            case 2: {
+                [self.segmentView moveToPageOfIndex:view.indexOfPageView animated:YES completion:^{
+                    self.cellBeganBlock();
+                }];
+            }
+                break;
+            case 3:{
+                [tableView setContentOffset:view.contentOffsetBeganOfTableView animated:YES];
+                [self.segmentView moveToPageOfIndex:view.indexOfPageView animated:YES completion:^{
+                    self.cellBeganBlock();
+                }];
+            }
+                break;
+            default:
+                break;
+        }
+    }else {
+        self.cellBeganBlock();
+        CCLog(@"unlock");
+        
     }
 }
-- (void)idCardPanGestureDidChange:(IDCardView *)view {
-    
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    if (self.needExecuteCellBeganBlockAfterScroll&&[scrollView isEqual: self.tableViewArr[self.segmentView.index]]) {
+        [scrollView setContentOffset:self.operatingIDCardView.contentOffsetBeganOfTableView];
+        if (self.cellBeganBlock!=nil) {
+            self.cellBeganBlock();
+        }
+        self.needExecuteCellBeganBlockAfterScroll = NO;
+        CCLog(@"hj");
+    }
+    CCLog(@"%d, %d", self.needExecuteCellBeganBlockAfterScroll, [scrollView isEqual: self.tableViewArr[self.segmentView.index]]);
 }
-/// IDCardView的代理方法，卡片的吸住状态发生变化后调用，isLocked为卡片的最终状态
+
+- (void)idCardPanGestureDidChange:(IDCardView *)view {
+    CCLog(@"2");
+    //让bottomImgView的顶部贴着operatingIDCardView的底部
+    CGRect frame = self.bottomImgView.frame;
+    frame.origin.y = self.operatingIDCardView.frame.origin.y + _cellHeight;
+    
+    //y不允许超过self.bottomImgViewDestinationOriginY
+    if (frame.origin.y < view.beganOriginOfCellInSelfView.y) {
+        frame.origin.y = view.beganOriginOfCellInSelfView.y;
+    }
+    self.bottomImgView.frame = frame;
+}
+
+/// IDCardView的代理方法，手势结束后调用
 - (void)idCardPanGestureDidLoose:(IDCardView *)view {
     switch ([view getStateOption]) {
         case IDCardViewStateOptionU2U: {
             [UIView animateWithDuration:0.5 animations:^{
                 CGRect frame = self.bottomImgView.frame;
-                frame.origin.y = self.bottomImgViewDestinationOriginY + self->_cellHeight;
+                frame.origin.y = view.beganOriginOfCellInSelfView.y + self->_cellHeight;
                 frame.origin.x = self.authenticTableView.origin.x;
                 self.bottomImgView.frame = frame;
             }completion:^(BOOL finished) {
@@ -274,35 +343,52 @@
                 [self.bottomImgView removeFromSuperview];
                 [self.tableViewBlockView removeFromSuperview];
             }];
+            [self.cellPGR removeTarget:self.operatingIDCardView action:@selector(panWithPGR:)];
+            self.operatingIDCardView = self.beganIDCardView;
         }
             break;
         case IDCardViewStateOptionU2L:
             [self.bottomImgView removeFromSuperview];
             [self.tableViewBlockView removeFromSuperview];
+            [self.cellPGR removeTarget:self.operatingIDCardView action:@selector(panWithPGR:)];
             [self idCardDidLock];
             break;
         case IDCardViewStateOptionL2U: {
-            
-//            UITableView *tableView = self.tableViewArr[self.segmentView.index];
-//            [tableView setContentOffset:view.contentOffsetBeganOfTableView animated:YES];
+            [UIView animateWithDuration:0.5 animations:^{
+                CGRect frame = self.bottomImgView.frame;
+                frame.origin.y = view.beganOriginOfCellInSelfView.y + self->_cellHeight;
+                frame.origin.x = self.authenticTableView.origin.x;
+                self.bottomImgView.frame = frame;
+            }completion:^(BOOL finished) {
+                //回弹后移除
+                [self.bottomImgView removeFromSuperview];
+                [self.tableViewBlockView removeFromSuperview];
+            }];
             [self idCardDidUnLock];
         }
             break;
         case IDCardViewStateOptionL2L:
+            [self.bottomImgView removeFromSuperview];
+            [self.tableViewBlockView removeFromSuperview];
             break;
     }
     CCLog(@"雀食蟀，雀食👍，雀 - 食 - 蟀");
 }
+
 - (void)idCardDidUnLock {
     
 }
 
 - (void)idCardDidLock {
-    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.beganIDCardView removeFromSuperview];
+        self.beganIDCardView = nil;
+    });
 }
 /// 获取view中，frame对应的矩形区域的截图
 - (UIImage*)getImgOfView:(UIView*)view inFrame:(CGRect)frame {
-    UIGraphicsBeginImageContextWithOptions(frame.size, NO, 1.0);
+    //参数scale要填0，不然图片有些糊
+    UIGraphicsBeginImageContextWithOptions(frame.size, NO, 0);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextTranslateCTM(ctx, -frame.origin.x, -frame.origin.y);
     [view.layer renderInContext:ctx];

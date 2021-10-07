@@ -14,8 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol IDCardTableViewCellDelegate <NSObject>
 
-- (void)idCardTableViewCell:(IDCardTableViewCell*)cell panWithPGR:(UIPanGestureRecognizer*)pgr;
+//- (void)idCardTableViewCell:(IDCardTableViewCell*)cell panWithPGR:(UIPanGestureRecognizer*)pgr;
 
+- (void)idCardTableViewCell:(IDCardTableViewCell*)cell PGRWillBegan:(UIPanGestureRecognizer*)pgr;
 @end
 
 @interface IDCardTableViewCell : UITableViewCell

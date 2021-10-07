@@ -102,6 +102,7 @@
         [generator prepare];
         [generator impactOccurred];
         [self.delegate idCardPanGestureDidBegan:self];
+        CCLog(@"began");
     }
     CGPoint p = [pgr translationInView:self.superview];
     CGAffineTransform transform = CGAffineTransformMakeTranslation(_beganTransform.tx + p.x, _beganTransform.ty + p.y);
