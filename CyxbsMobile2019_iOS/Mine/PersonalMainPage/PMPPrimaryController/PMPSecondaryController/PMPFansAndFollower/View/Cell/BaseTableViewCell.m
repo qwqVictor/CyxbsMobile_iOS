@@ -99,4 +99,10 @@
     return _followBtn;
 }
 
+#pragma mark - private
+
++ (NSString *)reuseIdentifier {
+    return NSStringFromClass([self class]);
+}
+
 @end

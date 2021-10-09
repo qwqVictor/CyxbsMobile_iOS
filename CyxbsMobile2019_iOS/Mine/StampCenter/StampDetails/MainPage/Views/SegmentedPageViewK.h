@@ -9,10 +9,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SegmentView;
+@class SegmentedPageViewK;
 @protocol SegmentViewDelegate <NSObject>
 
-- (void)segmentView:(SegmentView *)segmentView
+- (void)segmentView:(SegmentedPageViewK *)segmentView
      alertWithIndex:(NSInteger)index;
 
 @end
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
  * 1. segmentViewWithFrame:titles:
  * 2. initWithFrame:(CGRect)frame titles:(NSArray <NSString *> *)titles;
  */
-@interface SegmentView : UIView
+@interface SegmentedPageViewK : UIView
 
 @property (nonatomic, weak) id <SegmentViewDelegate> delegate;
 /// 所有的标题
