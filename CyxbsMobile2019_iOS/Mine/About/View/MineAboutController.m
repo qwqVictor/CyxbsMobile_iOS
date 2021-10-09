@@ -12,7 +12,7 @@
 #import <AFNetworking.h>
 
 
-#import "PMPMainPageViewController.h"
+#import "PMPHomePageViewController.h"
 #import "PMPFansAndFollowingViewController.h"
 
 @interface MineAboutController () <MineAboutContentViewDelegate>
@@ -48,7 +48,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)jump2 {
-    PMPMainPageViewController * vc = [[PMPMainPageViewController alloc] init];
+    PMPHomePageViewController * vc = [[PMPHomePageViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

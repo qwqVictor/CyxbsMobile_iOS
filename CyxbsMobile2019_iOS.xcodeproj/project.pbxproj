@@ -399,7 +399,6 @@
 		49C2E78326D563AF00AFBE6F /* TypeSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C2E78226D563AF00AFBE6F /* TypeSelectView.m */; };
 		49F47CD226D423A100084196 /* FeedBackMainPage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49F47CD126D423A100084196 /* FeedBackMainPage.xcassets */; };
 		6464F93426E4F6EE008562C5 /* BuyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F93326E4F6EE008562C5 /* BuyModel.m */; };
-		6464F98A26F9F720008562C5 /* PMPMainPageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F98826F9F720008562C5 /* PMPMainPageHeaderView.m */; };
 		6464F98C26F9F775008562C5 /* PMPSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F98B26F9F775008562C5 /* PMPSegmentView.m */; };
 		6464F99326FA05A2008562C5 /* FansTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F98D26FA05A1008562C5 /* FansTableView.m */; };
 		6464F99426FA05A2008562C5 /* FollowingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F99026FA05A1008562C5 /* FollowingTableView.m */; };
@@ -435,7 +434,6 @@
 		736096EE2701CA660052DF23 /* PMPDynamicTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 736096ED2701CA660052DF23 /* PMPDynamicTableViewController.m */; };
 		736096F12701CA790052DF23 /* PMPIdentityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 736096F02701CA790052DF23 /* PMPIdentityTableViewController.m */; };
 		7360973827030AF20052DF23 /* PMPIdentityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7360973727030AF20052DF23 /* PMPIdentityTableViewCell.m */; };
-		73613F4426EF3CD300A88357 /* PMPMainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73613F4326EF3CD300A88357 /* PMPMainPageViewController.m */; };
 		73613F4926EF3DCB00A88357 /* UIView+JHFrameExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 73613F4826EF3DCB00A88357 /* UIView+JHFrameExtension.m */; };
 		73613F5526F0B3A200A88357 /* PMPInformationEditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73613F5426F0B3A200A88357 /* PMPInformationEditingViewController.m */; };
 		73613F5826F0B47000A88357 /* PMPBasicNavBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73613F5726F0B47000A88357 /* PMPBasicNavBarController.m */; };
@@ -1488,8 +1486,6 @@
 		49F47CD126D423A100084196 /* FeedBackMainPage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = FeedBackMainPage.xcassets; sourceTree = "<group>"; };
 		6464F93226E4F6EE008562C5 /* BuyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyModel.h; sourceTree = "<group>"; };
 		6464F93326E4F6EE008562C5 /* BuyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuyModel.m; sourceTree = "<group>"; };
-		6464F98826F9F720008562C5 /* PMPMainPageHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPMainPageHeaderView.m; sourceTree = "<group>"; };
-		6464F98926F9F720008562C5 /* PMPMainPageHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMPMainPageHeaderView.h; sourceTree = "<group>"; };
 		6464F98B26F9F775008562C5 /* PMPSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPSegmentView.m; sourceTree = "<group>"; };
 		6464F98D26FA05A1008562C5 /* FansTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FansTableView.m; sourceTree = "<group>"; };
 		6464F98E26FA05A1008562C5 /* FollowingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowingTableView.h; sourceTree = "<group>"; };
@@ -1558,8 +1554,6 @@
 		736096F02701CA790052DF23 /* PMPIdentityTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMPIdentityTableViewController.m; sourceTree = "<group>"; };
 		7360973627030AF10052DF23 /* PMPIdentityTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMPIdentityTableViewCell.h; sourceTree = "<group>"; };
 		7360973727030AF20052DF23 /* PMPIdentityTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMPIdentityTableViewCell.m; sourceTree = "<group>"; };
-		73613F4226EF3CD300A88357 /* PMPMainPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMPMainPageViewController.h; sourceTree = "<group>"; };
-		73613F4326EF3CD300A88357 /* PMPMainPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMPMainPageViewController.m; sourceTree = "<group>"; };
 		73613F4726EF3DCB00A88357 /* UIView+JHFrameExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+JHFrameExtension.h"; sourceTree = "<group>"; };
 		73613F4826EF3DCB00A88357 /* UIView+JHFrameExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+JHFrameExtension.m"; sourceTree = "<group>"; };
 		73613F5326F0B3A200A88357 /* PMPInformationEditingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMPInformationEditingViewController.h; sourceTree = "<group>"; };
@@ -4463,15 +4457,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		7360973E270348330052DF23 /* HeaderView */ = {
-			isa = PBXGroup;
-			children = (
-				6464F98926F9F720008562C5 /* PMPMainPageHeaderView.h */,
-				6464F98826F9F720008562C5 /* PMPMainPageHeaderView.m */,
-			);
-			path = HeaderView;
-			sourceTree = "<group>";
-		};
 		7360973F270348A10052DF23 /* SegmentView */ = {
 			isa = PBXGroup;
 			children = (
@@ -4536,9 +4521,8 @@
 				736096EA2701B4150052DF23 /* PMPDynamicTableViewCell.m */,
 				7360973627030AF10052DF23 /* PMPIdentityTableViewCell.h */,
 				7360973727030AF20052DF23 /* PMPIdentityTableViewCell.m */,
-				7363B46A27106F7C00D667D5 /* NewHeaderView */,
+				7363B46A27106F7C00D667D5 /* HeaderView */,
 				7360973F270348A10052DF23 /* SegmentView */,
-				7360973E270348330052DF23 /* HeaderView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4596,8 +4580,6 @@
 			children = (
 				7363B467271068F200D667D5 /* PMPHomePageViewController.h */,
 				7363B468271068F200D667D5 /* PMPHomePageViewController.m */,
-				73613F4226EF3CD300A88357 /* PMPMainPageViewController.h */,
-				73613F4326EF3CD300A88357 /* PMPMainPageViewController.m */,
 				7363B4662710683F00D667D5 /* ChildrenController */,
 				73613F4F26F0AC5E00A88357 /* View */,
 				73613F4E26F0AC5000A88357 /* Model */,
@@ -4653,7 +4635,7 @@
 			path = ChildrenController;
 			sourceTree = "<group>";
 		};
-		7363B46A27106F7C00D667D5 /* NewHeaderView */ = {
+		7363B46A27106F7C00D667D5 /* HeaderView */ = {
 			isa = PBXGroup;
 			children = (
 				7363B46B2710709100D667D5 /* PMPHomePageHeaderView.h */,
@@ -4665,7 +4647,7 @@
 				73BAFFBE26F22445007290B1 /* PMPTextButton.h */,
 				73BAFFBF26F22445007290B1 /* PMPTextButton.m */,
 			);
-			path = NewHeaderView;
+			path = HeaderView;
 			sourceTree = "<group>";
 		};
 		73AAA1A826C918240084E44D /* StampDetails */ = {
@@ -6507,7 +6489,6 @@
 				4931630926CD7B6800140412 /* MyTableViewCellWithProgress.m in Sources */,
 				18CDF6B4257F91BD006E8E5C /* UICountingLabel.m in Sources */,
 				7F9A212726218E8800CA86B2 /* YYZTopicModel.m in Sources */,
-				6464F98A26F9F720008562C5 /* PMPMainPageHeaderView.m in Sources */,
 				18CDF712257F91BE006E8E5C /* TimeTableViewController.m in Sources */,
 				18CDF711257F91BE006E8E5C /* ActivityTableViewController.m in Sources */,
 				180DA9B526B440900094B8DC /* FollowGroupModel.m in Sources */,
@@ -6842,7 +6823,6 @@
 				18CDF4B9257F8DBD006E8E5C /* sendCodeViewController.m in Sources */,
 				735BC54426D3B64500F22678 /* FeedBackDetailsTableViewCell.m in Sources */,
 				18CDF68E257F91BD006E8E5C /* CQUPTMapModel.m in Sources */,
-				73613F4426EF3CD300A88357 /* PMPMainPageViewController.m in Sources */,
 				7311328726CCEC2400EF88C1 /* Balance.m in Sources */,
 				B845737925C0408E005EFB91 /* SZHSearchDataModel.m in Sources */,
 				1A141370235F524B0001417E /* UILabel+Adapter.m in Sources */,
