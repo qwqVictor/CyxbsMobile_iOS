@@ -11,6 +11,9 @@
 #import "UIScrollView+Gesture.h"
 // view
 #import "PMPHomePageHeaderView.h"
+#import "JHPageController.h"
+#import "PMPDynamicTableViewController.h"
+#import "PMPIdentityTableViewController.h"
 
 @interface PMPHomePageViewController ()
 <UIScrollViewDelegate, PMPHomePageHeaderViewDelegate>
@@ -22,10 +25,17 @@
 @property (nonatomic, strong) PMPHomePageHeaderView * headerView;
 /// pageController的容器
 @property (nonatomic, strong) UIView * contentView;
+/// 下方的页面
+@property (nonatomic, strong) JHPageController * pageController;
 
 // 数据
 @property (nonatomic, assign) CGFloat headerViewHeight;
+@property (nonatomic, strong) NSArray * titles;
 
+@property (nonatomic, strong) PMPDynamicTableViewController * dynamicTVC;
+@property (nonatomic, strong) PMPIdentityTableViewController * identityTVC;
+
+@property (nonatomic, assign) BOOL canScroll;
 
 @end
 
@@ -37,6 +47,7 @@
     if (self) {
         // 经过严密的计算, headerView 在 iPhone X 的高度为 335
         _headerViewHeight = (335 / 812.f) * MAIN_SCREEN_H;
+        _canScroll = YES;
     }
     return self;
 }
@@ -45,6 +56,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self configureView];
+    [self addNotification];
 }
 
 - (void)configureView {
@@ -62,9 +74,10 @@
     // self.containerScrollView
     [self.view addSubview:self.containerScrollView];
     [self.containerScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(self.view);
-        make.top.mas_equalTo(self.topBarView.mas_bottom);
+        make.left.bottom.top.right.equalTo(self.view);
     }];
+    /// 这样设置才能成为 没有隐藏navigationBar时的高度
+    self.containerScrollView.jh_contentInset_top = 44;
     
     // self.headerView
     [self.containerScrollView addSubview:self.headerView];
@@ -79,22 +92,41 @@
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(self.containerScrollView);
         make.top.mas_equalTo(self.headerView.mas_bottom).offset(- self.headerViewHeight / 2);
-        make.height.width.mas_equalTo(self.containerScrollView);
+        make.width.mas_equalTo(self.containerScrollView);
+        make.height.mas_equalTo(self.containerScrollView).offset(-self.getTopBarViewHeight);
+    }];
+    
+    [self.contentView addSubview:self.pageController.view];
+    [self.pageController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.left.bottom.mas_equalTo(self.contentView);
     }];
     
     [self.view bringSubviewToFront:self.topBarView];
 }
 
+#pragma mark - notification
+
+- (void)addNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(acceptMsg:) name:kHomeLeaveTopNotification object:nil];
+}
+
+- (void)acceptMsg : (NSNotification *)notification {
+    NSDictionary * userInfo = notification.userInfo;
+    NSString * canScroll = userInfo[@"canScroll"];
+    if ([canScroll isEqualToString:@"1"]) {
+        _canScroll = YES;
+    }
+}
+
 #pragma mark - scrollview delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat maxOffsetY = self.headerViewHeight;
+    CGFloat maxOffsetY = self.headerViewHeight - self.getTopBarViewHeight;
     CGFloat offsetY = scrollView.jh_contentOffset_y;
-    
     // 透明度
-    self.topBarView.alpha = 1 - offsetY / maxOffsetY;
+    self.topBarView.alpha = 1 - (offsetY + self.getTopBarViewHeight) / self.headerViewHeight;
     // 头视图的大小
-    CGFloat scale = 1 - offsetY  / maxOffsetY;
+    CGFloat scale = 1 - (offsetY + self.getTopBarViewHeight)  / self.headerViewHeight;
     if (scale < 0) {
         scale = 0;
     } else if (scale > 1) {
@@ -105,6 +137,14 @@
     if (offsetY >= maxOffsetY) {
         //将头视图滑动到刚好隐藏及其继续上划的位置
         scrollView.contentOffset = CGPointMake(0, maxOffsetY);
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHomeGoTopNotification object:nil userInfo:@{@"canScroll":@"1"}];
+        _canScroll = NO;
+    } else {
+        if (_canScroll == NO) {
+            // 这个代码的作用:将底部的因safeArea而存在的偏移量抵消
+            scrollView.contentOffset = CGPointMake(0, maxOffsetY);
+        }
+
     }
 }
 
@@ -155,9 +195,40 @@
 - (UIView *)contentView {
     if (_contentView == nil) {
         _contentView = [[UIView alloc] init];
-        _contentView.backgroundColor = [UIColor blueColor];
+        _contentView.backgroundColor = [UIColor clearColor];
     }
     return _contentView;
+}
+
+- (JHPageController *)pageController {
+    if (_pageController == nil) {
+        _pageController = [[JHPageController alloc] initWithTitles:self.titles Controllers:@[self.dynamicTVC, self.identityTVC]];
+    }
+    return _pageController;
+}
+
+- (NSArray *)titles {
+    if (_titles == nil) {
+        _titles = @[
+            @"我的动态",
+            @"我的身份",
+        ];
+    }
+    return _titles;
+}
+
+- (PMPDynamicTableViewController *)dynamicTVC {
+    if (_dynamicTVC == nil) {
+        _dynamicTVC = [[PMPDynamicTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    }
+    return _dynamicTVC;
+}
+
+- (PMPIdentityTableViewController *)identityTVC {
+    if (_identityTVC == nil) {
+        _identityTVC = [[PMPIdentityTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    }
+    return _identityTVC;
 }
 
 @end

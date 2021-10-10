@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PMPDynamicTableViewCell.h"
+#import "UIViewController+CanScroll.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

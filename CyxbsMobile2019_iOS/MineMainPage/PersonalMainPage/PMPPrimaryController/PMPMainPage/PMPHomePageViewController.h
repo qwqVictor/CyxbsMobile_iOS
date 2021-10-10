@@ -8,6 +8,8 @@
 
 #import "PMPBasicNavBarController.h"
 
+#import "UIViewController+CanScroll.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PMPHomePageViewController : PMPBasicNavBarController
