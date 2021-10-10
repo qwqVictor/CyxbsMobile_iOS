@@ -45,8 +45,8 @@
 {
     self = [super init];
     if (self) {
-        // 经过严密的计算, headerView 在 iPhone X 的高度为 335
-        _headerViewHeight = (335 / 812.f) * MAIN_SCREEN_H;
+        // 经过严密的计算, headerView 在 iPhone X 的高度为 380
+        _headerViewHeight = (380 / 812.f) * MAIN_SCREEN_H;
         _canScroll = YES;
     }
     return self;
@@ -90,8 +90,8 @@
     
     [self.containerScrollView addSubview:self.contentView];
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.headerView.mas_bottom).offset(- self.headerViewHeight / 2 - self.pageController.menuHeight);
         make.left.right.bottom.mas_equalTo(self.containerScrollView);
-        make.top.mas_equalTo(self.headerView.mas_bottom).offset(- self.headerViewHeight / 2);
         make.width.mas_equalTo(self.containerScrollView);
         make.height.mas_equalTo(self.containerScrollView).offset(-self.getTopBarViewHeight);
     }];
@@ -121,7 +121,7 @@
 #pragma mark - scrollview delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat maxOffsetY = self.headerViewHeight - self.getTopBarViewHeight;
+    CGFloat maxOffsetY = self.headerViewHeight - self.getTopBarViewHeight - self.pageController.menuHeight;
     CGFloat offsetY = scrollView.jh_contentOffset_y;
     // 透明度
     self.topBarView.alpha = 1 - (offsetY + self.getTopBarViewHeight) / self.headerViewHeight;
