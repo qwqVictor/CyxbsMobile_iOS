@@ -6,13 +6,13 @@
 //  Copyright © 2019 Redrock. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "PMPBasicNavBarController.h"
 #import "EditMyInfoViewProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class EditMyInfoContentView;
-@interface EditMyInfoViewController : UIViewController <EditMyInfoViewProtocol>
+@interface EditMyInfoViewController : PMPBasicNavBarController <EditMyInfoViewProtocol>
 
 @property (nonatomic, weak) EditMyInfoContentView *contentView;
 

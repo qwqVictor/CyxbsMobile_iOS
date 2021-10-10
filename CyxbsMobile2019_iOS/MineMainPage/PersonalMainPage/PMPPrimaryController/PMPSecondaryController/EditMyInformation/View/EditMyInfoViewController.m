@@ -10,7 +10,6 @@
 #import "EditMyInfoContentView.h"
 #import "EditMyInfoPresenter.h"
 #import "MineViewController.h"
-#import "EditMyInfoView.h"
 #import "UserInformationIntorductionView.h"
 
 @interface EditMyInfoViewController () <EditMyInfoContentViewDelegate, UIScrollViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
@@ -25,36 +24,27 @@
 
 @implementation EditMyInfoViewController
 
-
-//#pragma mark - Getter & Setter
-//- (UIPanGestureRecognizer *)panGesture {
-//    if (!_panGesture) {
-//        _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(slideToDismiss:)];
-//    }
-//    return _panGesture;
-//}
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.presenter = [[EditMyInfoPresenter alloc] init];
     [self.presenter attachView:self];
     
-    EditMyInfoView *editMyInfoView = [[EditMyInfoView alloc] init];
-    self.view = editMyInfoView;
+    self.titleColor = [UIColor colorNamed:@"color21_49_91&#F0F0F2"];
+    self.VCTitleStr = @"资料详情";
+    self.view.backgroundColor = [UIColor colorNamed:@"251_252_255_1&black"];
+    self.backBtnImage = [UIImage imageNamed:@"navBar_back"];
     
     EditMyInfoContentView *contentView = [[EditMyInfoContentView alloc] init];
     [self.view addSubview:contentView];
     self.contentView = contentView;
     contentView.delegate = self;
     contentView.contentScrollView.delegate = self;
-    contentView.contentScrollView.delegate = self;
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.leading.trailing.equalTo(self.view);
+        make.bottom.leading.trailing.equalTo(self.view);
+        make.top.mas_equalTo(self.topBarView.mas_bottom);
     }];
-    
-    editMyInfoView.backButton = contentView.backButton;
+    self.contentView.transform = CGAffineTransformMakeScale(0.9, 0.95);
 }
 
 - (void)dealloc
@@ -81,13 +71,6 @@
         // 头像没有改变，直接上传其他信息
         [self profileUploadSuccess];  // 这个方法是头像上传成功的回调，里面的内容就是上传个人信息
     }
-}
-
-- (void)backButtonClicked:(UIButton *)sender {
-    //让我的页面控制器刷新数据
-//    [((MineViewController *)self.transitioningDelegate) loadUserData];
-//    ((MineViewController *)self.transitioningDelegate).panGesture = nil;
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)headerImageTapped:(UIImageView *)sender {

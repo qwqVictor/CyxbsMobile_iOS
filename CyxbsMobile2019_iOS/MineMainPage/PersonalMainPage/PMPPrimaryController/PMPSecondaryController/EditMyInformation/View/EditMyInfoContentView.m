@@ -50,35 +50,10 @@
         }
         self.layer.cornerRadius = 16;
         
-        [self addTitleLabel];
-        [self addBackButton];
+
         [self addContentScrollView];
     }
     return self;
-}
-
-- (void)addTitleLabel {
-        UILabel *titleLabel = [[UILabel alloc] init];
-        titleLabel.text = @"资料编辑";
-        titleLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size: 21];
-        if (@available(iOS 11.0, *)) {
-            titleLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
-        } else {
-            titleLabel.textColor = [UIColor colorWithRed:21/255.0 green:49/255.0 blue:91/255.0 alpha:1.0];
-        }
-        [self addSubview:titleLabel];
-        self.titleLabel = titleLabel;
-}
-
-- (void)addBackButton {
-        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        backButton.imageEdgeInsets = UIEdgeInsetsMake(5, 0, 5, 17);
-        [backButton setImage:[UIImage imageNamed:@"我的返回"] forState:UIControlStateNormal];
-        [backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:backButton];
-        self.backButton = backButton;
-        
-        
 }
 
 - (void)addContentScrollView{
@@ -134,7 +109,7 @@
 
 - (void)addNicknameLabel{
         UILabel *nicknameLabel = [[UILabel alloc] init];
-        nicknameLabel.text = @"昵称";
+        nicknameLabel.text = @"昵称(0/10)";
         if (@available(iOS 11.0, *)) {
             nicknameLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
         } else {
@@ -175,7 +150,7 @@
 
 - (void)addIntroductionLabel{
         UILabel *introductionLabel = [[UILabel alloc] init];
-        introductionLabel.text = @"个性签名";
+        introductionLabel.text = @"个性签名(0/20)";
         if (@available(iOS 11.0, *)) {
             introductionLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
         } else {
@@ -344,18 +319,6 @@
 #pragma mark - 添加约束
 - (void)layoutSubviews {
     [super layoutSubviews];
-
-    [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self).offset(-10);
-        make.centerY.equalTo(self.titleLabel);
-        make.height.equalTo(@24);
-        make.width.equalTo(@24);
-    }];
-    
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self).offset(13);
-        make.top.equalTo(self).offset(-48);
-    }];
     
     [self.gestureView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentScrollView);
@@ -485,14 +448,6 @@
 #pragma mark - Hit test
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *view = [super hitTest:point withEvent:event];
-    
-    if (view == nil) {
-        CGPoint hitPoint = [self.backButton convertPoint:point fromView:self];
-        if (CGRectContainsPoint(self.backButton.bounds, hitPoint)) {
-            view = self.backButton;
-        }
-    }
-    
     return view;
 }
 

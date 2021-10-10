@@ -347,7 +347,6 @@
 		1ABE8026238D01EC00E88C4E /* CheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABE8025238D01EC00E88C4E /* CheckInViewController.m */; };
 		1AC2550523C9AB3700DF0475 /* CheckedInDot.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC2550423C9AB3700DF0475 /* CheckedInDot.m */; };
 		1AC2550823C9B14F00DF0475 /* DidNotCheckInDot.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC2550723C9B14F00DF0475 /* DidNotCheckInDot.m */; };
-		1AD038C023F6BF6B00D5C90E /* EditMyInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD038BF23F6BF6B00D5C90E /* EditMyInfoView.m */; };
 		1AD038C423F6C7FF00D5C90E /* MineQAPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD038C323F6C7FF00D5C90E /* MineQAPresenter.m */; };
 		1AD038CA23F8301B00D5C90E /* MineQAModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD038C923F8301B00D5C90E /* MineQAModel.m */; };
 		1AD038CE23F91C3D00D5C90E /* MineQAMyQuestionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD038CD23F91C3D00D5C90E /* MineQAMyQuestionItem.m */; };
@@ -1392,8 +1391,6 @@
 		1AC2550623C9B14F00DF0475 /* DidNotCheckInDot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DidNotCheckInDot.h; sourceTree = "<group>"; };
 		1AC2550723C9B14F00DF0475 /* DidNotCheckInDot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DidNotCheckInDot.m; sourceTree = "<group>"; };
 		1AC2550923C9B23200DF0475 /* TodaysDot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodaysDot.h; sourceTree = "<group>"; };
-		1AD038BE23F6BF6B00D5C90E /* EditMyInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditMyInfoView.h; sourceTree = "<group>"; };
-		1AD038BF23F6BF6B00D5C90E /* EditMyInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditMyInfoView.m; sourceTree = "<group>"; };
 		1AD038C223F6C7FF00D5C90E /* MineQAPresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineQAPresenter.h; sourceTree = "<group>"; };
 		1AD038C323F6C7FF00D5C90E /* MineQAPresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineQAPresenter.m; sourceTree = "<group>"; };
 		1AD038C623F6C87E00D5C90E /* MineQAProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineQAProtocol.h; sourceTree = "<group>"; };
@@ -3404,7 +3401,6 @@
 				1A30F38E23D0574F00FBBD83 /* IntegralStore */,
 				1AFD152C23819505004D9CEA /* CustomTransition */,
 				1ABE801F238D01A600E88C4E /* CheckIn */,
-				1AFD1513237D8166004D9CEA /* EditMyInformation */,
 				AA3B73D327018336004FF8EE /*  AuthenticationSetting */,
 			);
 			path = Mine;
@@ -3950,8 +3946,6 @@
 				1AFD1523237D826A004D9CEA /* EditMyInfoContentView.m */,
 				1AFD1525237D9A7E004D9CEA /* MineEditTextField.h */,
 				1AFD1526237D9A7E004D9CEA /* MineEditTextField.m */,
-				1AD038BE23F6BF6B00D5C90E /* EditMyInfoView.h */,
-				1AD038BF23F6BF6B00D5C90E /* EditMyInfoView.m */,
 				1A4A467524D16A800033734E /* UserInformationIntorductionView.h */,
 				1A4A467624D16A800033734E /* UserInformationIntorductionView.m */,
 			);
@@ -4565,6 +4559,7 @@
 		73613F5126F0AE8500A88357 /* PMPSecondaryController */ = {
 			isa = PBXGroup;
 			children = (
+				1AFD1513237D8166004D9CEA /* EditMyInformation */,
 				73613F5926F0B63E00A88357 /* PMPFansAndFollower */,
 				73613F5226F0B34200A88357 /* PMPInformationEditing */,
 				73613F5C26F0B88700A88357 /* PMPTertiaryController */,
@@ -6709,7 +6704,6 @@
 				4999FA8326D44EA8005D0ADE /* HintView.m in Sources */,
 				18CDF6C1257F91BE006E8E5C /* ABScoreView.m in Sources */,
 				18CDF6D2257F91BE006E8E5C /* MGDSliderContentView.m in Sources */,
-				1AD038C023F6BF6B00D5C90E /* EditMyInfoView.m in Sources */,
 				18CDF6D0257F91BE006E8E5C /* MGDSliderBarItem.m in Sources */,
 				18CDF715257F91BE006E8E5C /* VolunteerActivity.m in Sources */,
 				18CDF71A257F91BE006E8E5C /* ActivityView.m in Sources */,
@@ -7007,7 +7001,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -7061,7 +7055,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

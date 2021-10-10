@@ -26,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) UIView *gestureView;
 
-@property (nonatomic, weak) UIButton *backButton;
-@property (nonatomic, weak) UILabel *titleLabel;
 @property (nonatomic, weak) UIScrollView *contentScrollView;
 @property (nonatomic, weak) UIImageView *headerImageView;
 

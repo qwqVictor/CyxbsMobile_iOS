@@ -47,8 +47,8 @@
             }
         }
         
-        ((EditMyInfoViewController *)to).contentView.titleLabel.alpha = 0;
-        ((EditMyInfoViewController *)to).contentView.backButton.alpha = 0;
+//        ((EditMyInfoViewController *)to).contentView.titleLabel.alpha = 0;
+//        ((EditMyInfoViewController *)to).contentView.backButton.alpha = 0;
         
 //        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:1 initialSpringVelocity:15 options:UIViewAnimationOptionCurveEaseOut animations:^{
 //            ((UITabBarController *)from).tabBar.alpha = 0;
