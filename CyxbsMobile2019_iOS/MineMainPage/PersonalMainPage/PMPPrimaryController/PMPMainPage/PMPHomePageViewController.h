@@ -10,6 +10,8 @@
 
 #import "UIViewController+CanScroll.h"
 
+#import "EditMyInfoViewController.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PMPHomePageViewController : PMPBasicNavBarController

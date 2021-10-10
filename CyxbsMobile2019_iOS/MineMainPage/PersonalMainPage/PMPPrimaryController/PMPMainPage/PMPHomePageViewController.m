@@ -144,7 +144,6 @@
             // 这个代码的作用:将底部的因safeArea而存在的偏移量抵消
             scrollView.contentOffset = CGPointMake(0, maxOffsetY);
         }
-
     }
 }
 
@@ -156,6 +155,8 @@
 
 - (void)editingButtonClicked {
     NSLog(@"editing");
+    EditMyInfoViewController *vc = [[EditMyInfoViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)backgroundViewClicked {
