@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// 这是主页邮问的 cell 子类. 
 @interface PMPDynamicTableViewCell : PostTableViewCell
 
 + (NSString *)reuseIdentifier;

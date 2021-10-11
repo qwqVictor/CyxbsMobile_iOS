@@ -347,7 +347,6 @@
 		1ABE8026238D01EC00E88C4E /* CheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABE8025238D01EC00E88C4E /* CheckInViewController.m */; };
 		1AC2550523C9AB3700DF0475 /* CheckedInDot.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC2550423C9AB3700DF0475 /* CheckedInDot.m */; };
 		1AC2550823C9B14F00DF0475 /* DidNotCheckInDot.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC2550723C9B14F00DF0475 /* DidNotCheckInDot.m */; };
-		1AD038C023F6BF6B00D5C90E /* EditMyInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD038BF23F6BF6B00D5C90E /* EditMyInfoView.m */; };
 		1AD038C423F6C7FF00D5C90E /* MineQAPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD038C323F6C7FF00D5C90E /* MineQAPresenter.m */; };
 		1AD038CA23F8301B00D5C90E /* MineQAModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD038C923F8301B00D5C90E /* MineQAModel.m */; };
 		1AD038CE23F91C3D00D5C90E /* MineQAMyQuestionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD038CD23F91C3D00D5C90E /* MineQAMyQuestionItem.m */; };
@@ -399,7 +398,6 @@
 		49C2E78326D563AF00AFBE6F /* TypeSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C2E78226D563AF00AFBE6F /* TypeSelectView.m */; };
 		49F47CD226D423A100084196 /* FeedBackMainPage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49F47CD126D423A100084196 /* FeedBackMainPage.xcassets */; };
 		6464F93426E4F6EE008562C5 /* BuyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F93326E4F6EE008562C5 /* BuyModel.m */; };
-		6464F98A26F9F720008562C5 /* PMPMainPageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F98826F9F720008562C5 /* PMPMainPageHeaderView.m */; };
 		6464F98C26F9F775008562C5 /* PMPSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F98B26F9F775008562C5 /* PMPSegmentView.m */; };
 		6464F99326FA05A2008562C5 /* FansTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F98D26FA05A1008562C5 /* FansTableView.m */; };
 		6464F99426FA05A2008562C5 /* FollowingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6464F99026FA05A1008562C5 /* FollowingTableView.m */; };
@@ -435,13 +433,18 @@
 		736096EE2701CA660052DF23 /* PMPDynamicTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 736096ED2701CA660052DF23 /* PMPDynamicTableViewController.m */; };
 		736096F12701CA790052DF23 /* PMPIdentityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 736096F02701CA790052DF23 /* PMPIdentityTableViewController.m */; };
 		7360973827030AF20052DF23 /* PMPIdentityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7360973727030AF20052DF23 /* PMPIdentityTableViewCell.m */; };
-		73613F4426EF3CD300A88357 /* PMPMainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73613F4326EF3CD300A88357 /* PMPMainPageViewController.m */; };
 		73613F4926EF3DCB00A88357 /* UIView+JHFrameExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 73613F4826EF3DCB00A88357 /* UIView+JHFrameExtension.m */; };
 		73613F5526F0B3A200A88357 /* PMPInformationEditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73613F5426F0B3A200A88357 /* PMPInformationEditingViewController.m */; };
 		73613F5826F0B47000A88357 /* PMPBasicNavBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73613F5726F0B47000A88357 /* PMPBasicNavBarController.m */; };
 		73613F5B26F0B86100A88357 /* PMPColorSets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73613F5A26F0B86100A88357 /* PMPColorSets.xcassets */; };
 		73613F5F26F0C40400A88357 /* PMPImagesSets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73613F5E26F0C40400A88357 /* PMPImagesSets.xcassets */; };
 		73613F6226F0CCFA00A88357 /* PMPFansAndFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73613F6126F0CCFA00A88357 /* PMPFansAndFollowingViewController.m */; };
+		7363B4652710681500D667D5 /* UIScrollView+Gesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 7363B4642710681500D667D5 /* UIScrollView+Gesture.m */; };
+		7363B469271068F200D667D5 /* PMPHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7363B468271068F200D667D5 /* PMPHomePageViewController.m */; };
+		7363B46D2710709100D667D5 /* PMPHomePageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7363B46C2710709100D667D5 /* PMPHomePageHeaderView.m */; };
+		7363B4772711956A00D667D5 /* JHPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7363B4762711956A00D667D5 /* JHPageController.m */; };
+		7363B47C27119C6700D667D5 /* JHMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7363B47B27119C6700D667D5 /* JHMenuView.m */; };
+		7363B47F27119F1000D667D5 /* JHMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7363B47E27119F1000D667D5 /* JHMenuItem.m */; };
 		738C15B126E0B35600E24F8C /* FeedBackDefaultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 738C15B026E0B35600E24F8C /* FeedBackDefaultView.m */; };
 		738C15B426E0BDFE00E24F8C /* HistoricalFBDefaultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 738C15B326E0BDFE00E24F8C /* HistoricalFBDefaultView.m */; };
 		738C15CA26E2176700E24F8C /* ImgViewCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 738C15C926E2176700E24F8C /* ImgViewCollectionViewCell.m */; };
@@ -1388,8 +1391,6 @@
 		1AC2550623C9B14F00DF0475 /* DidNotCheckInDot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DidNotCheckInDot.h; sourceTree = "<group>"; };
 		1AC2550723C9B14F00DF0475 /* DidNotCheckInDot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DidNotCheckInDot.m; sourceTree = "<group>"; };
 		1AC2550923C9B23200DF0475 /* TodaysDot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodaysDot.h; sourceTree = "<group>"; };
-		1AD038BE23F6BF6B00D5C90E /* EditMyInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditMyInfoView.h; sourceTree = "<group>"; };
-		1AD038BF23F6BF6B00D5C90E /* EditMyInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditMyInfoView.m; sourceTree = "<group>"; };
 		1AD038C223F6C7FF00D5C90E /* MineQAPresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineQAPresenter.h; sourceTree = "<group>"; };
 		1AD038C323F6C7FF00D5C90E /* MineQAPresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineQAPresenter.m; sourceTree = "<group>"; };
 		1AD038C623F6C87E00D5C90E /* MineQAProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineQAProtocol.h; sourceTree = "<group>"; };
@@ -1490,8 +1491,6 @@
 		49F47CD126D423A100084196 /* FeedBackMainPage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = FeedBackMainPage.xcassets; sourceTree = "<group>"; };
 		6464F93226E4F6EE008562C5 /* BuyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyModel.h; sourceTree = "<group>"; };
 		6464F93326E4F6EE008562C5 /* BuyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuyModel.m; sourceTree = "<group>"; };
-		6464F98826F9F720008562C5 /* PMPMainPageHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPMainPageHeaderView.m; sourceTree = "<group>"; };
-		6464F98926F9F720008562C5 /* PMPMainPageHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMPMainPageHeaderView.h; sourceTree = "<group>"; };
 		6464F98B26F9F775008562C5 /* PMPSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPSegmentView.m; sourceTree = "<group>"; };
 		6464F98D26FA05A1008562C5 /* FansTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FansTableView.m; sourceTree = "<group>"; };
 		6464F98E26FA05A1008562C5 /* FollowingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowingTableView.h; sourceTree = "<group>"; };
@@ -1560,8 +1559,6 @@
 		736096F02701CA790052DF23 /* PMPIdentityTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMPIdentityTableViewController.m; sourceTree = "<group>"; };
 		7360973627030AF10052DF23 /* PMPIdentityTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMPIdentityTableViewCell.h; sourceTree = "<group>"; };
 		7360973727030AF20052DF23 /* PMPIdentityTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMPIdentityTableViewCell.m; sourceTree = "<group>"; };
-		73613F4226EF3CD300A88357 /* PMPMainPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMPMainPageViewController.h; sourceTree = "<group>"; };
-		73613F4326EF3CD300A88357 /* PMPMainPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMPMainPageViewController.m; sourceTree = "<group>"; };
 		73613F4726EF3DCB00A88357 /* UIView+JHFrameExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+JHFrameExtension.h"; sourceTree = "<group>"; };
 		73613F4826EF3DCB00A88357 /* UIView+JHFrameExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+JHFrameExtension.m"; sourceTree = "<group>"; };
 		73613F5326F0B3A200A88357 /* PMPInformationEditingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMPInformationEditingViewController.h; sourceTree = "<group>"; };
@@ -1572,6 +1569,19 @@
 		73613F5E26F0C40400A88357 /* PMPImagesSets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PMPImagesSets.xcassets; sourceTree = "<group>"; };
 		73613F6026F0CCFA00A88357 /* PMPFansAndFollowingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMPFansAndFollowingViewController.h; sourceTree = "<group>"; };
 		73613F6126F0CCFA00A88357 /* PMPFansAndFollowingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMPFansAndFollowingViewController.m; sourceTree = "<group>"; };
+		7363B4632710681500D667D5 /* UIScrollView+Gesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Gesture.h"; sourceTree = "<group>"; };
+		7363B4642710681500D667D5 /* UIScrollView+Gesture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Gesture.m"; sourceTree = "<group>"; };
+		7363B467271068F200D667D5 /* PMPHomePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMPHomePageViewController.h; sourceTree = "<group>"; };
+		7363B468271068F200D667D5 /* PMPHomePageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMPHomePageViewController.m; sourceTree = "<group>"; };
+		7363B46B2710709100D667D5 /* PMPHomePageHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMPHomePageHeaderView.h; sourceTree = "<group>"; };
+		7363B46C2710709100D667D5 /* PMPHomePageHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMPHomePageHeaderView.m; sourceTree = "<group>"; };
+		7363B46F2711830600D667D5 /* UIViewController+CanScroll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CanScroll.h"; sourceTree = "<group>"; };
+		7363B4752711956A00D667D5 /* JHPageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JHPageController.h; sourceTree = "<group>"; };
+		7363B4762711956A00D667D5 /* JHPageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JHPageController.m; sourceTree = "<group>"; };
+		7363B47A27119C6700D667D5 /* JHMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JHMenuView.h; sourceTree = "<group>"; };
+		7363B47B27119C6700D667D5 /* JHMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JHMenuView.m; sourceTree = "<group>"; };
+		7363B47D27119F1000D667D5 /* JHMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JHMenuItem.h; sourceTree = "<group>"; };
+		7363B47E27119F1000D667D5 /* JHMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JHMenuItem.m; sourceTree = "<group>"; };
 		738C15AF26E0B35600E24F8C /* FeedBackDefaultView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedBackDefaultView.h; sourceTree = "<group>"; };
 		738C15B026E0B35600E24F8C /* FeedBackDefaultView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedBackDefaultView.m; sourceTree = "<group>"; };
 		738C15B226E0BDFE00E24F8C /* HistoricalFBDefaultView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoricalFBDefaultView.h; sourceTree = "<group>"; };
@@ -3391,7 +3401,6 @@
 				1A30F38E23D0574F00FBBD83 /* IntegralStore */,
 				1AFD152C23819505004D9CEA /* CustomTransition */,
 				1ABE801F238D01A600E88C4E /* CheckIn */,
-				1AFD1513237D8166004D9CEA /* EditMyInformation */,
 				AA3B73D327018336004FF8EE /*  AuthenticationSetting */,
 			);
 			path = Mine;
@@ -3937,8 +3946,6 @@
 				1AFD1523237D826A004D9CEA /* EditMyInfoContentView.m */,
 				1AFD1525237D9A7E004D9CEA /* MineEditTextField.h */,
 				1AFD1526237D9A7E004D9CEA /* MineEditTextField.m */,
-				1AD038BE23F6BF6B00D5C90E /* EditMyInfoView.h */,
-				1AD038BF23F6BF6B00D5C90E /* EditMyInfoView.m */,
 				1A4A467524D16A800033734E /* UserInformationIntorductionView.h */,
 				1A4A467624D16A800033734E /* UserInformationIntorductionView.m */,
 			);
@@ -4470,21 +4477,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		7360973E270348330052DF23 /* HeaderView */ = {
-			isa = PBXGroup;
-			children = (
-				6464F98926F9F720008562C5 /* PMPMainPageHeaderView.h */,
-				6464F98826F9F720008562C5 /* PMPMainPageHeaderView.m */,
-				7315733526F4C867004E6214 /* PMPEditingButton.h */,
-				7315733626F4C867004E6214 /* PMPEditingButton.m */,
-				7315733226F4C1A6004E6214 /* PMPAvatarImgView.h */,
-				7315733326F4C1A6004E6214 /* PMPAvatarImgView.m */,
-				73BAFFBE26F22445007290B1 /* PMPTextButton.h */,
-				73BAFFBF26F22445007290B1 /* PMPTextButton.m */,
-			);
-			path = HeaderView;
-			sourceTree = "<group>";
-		};
 		7360973F270348A10052DF23 /* SegmentView */ = {
 			isa = PBXGroup;
 			children = (
@@ -4518,6 +4510,7 @@
 		73613F4626EF3D0A00A88357 /* PMPTools */ = {
 			isa = PBXGroup;
 			children = (
+				7363B4622710680000D667D5 /* GestureExtension */,
 				73613F4D26EF4D5600A88357 /* FrameExtension */,
 			);
 			path = PMPTools;
@@ -4544,12 +4537,12 @@
 		73613F4F26F0AC5E00A88357 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7360973F270348A10052DF23 /* SegmentView */,
-				7360973E270348330052DF23 /* HeaderView */,
 				736096E92701B4140052DF23 /* PMPDynamicTableViewCell.h */,
 				736096EA2701B4150052DF23 /* PMPDynamicTableViewCell.m */,
 				7360973627030AF10052DF23 /* PMPIdentityTableViewCell.h */,
 				7360973727030AF20052DF23 /* PMPIdentityTableViewCell.m */,
+				7363B46A27106F7C00D667D5 /* HeaderView */,
+				7360973F270348A10052DF23 /* SegmentView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4566,6 +4559,7 @@
 		73613F5126F0AE8500A88357 /* PMPSecondaryController */ = {
 			isa = PBXGroup;
 			children = (
+				1AFD1513237D8166004D9CEA /* EditMyInformation */,
 				73613F5926F0B63E00A88357 /* PMPFansAndFollower */,
 				73613F5226F0B34200A88357 /* PMPInformationEditing */,
 				73613F5C26F0B88700A88357 /* PMPTertiaryController */,
@@ -4605,12 +4599,10 @@
 		73613F5D26F0B93C00A88357 /* PMPMainPage */ = {
 			isa = PBXGroup;
 			children = (
-				73613F4226EF3CD300A88357 /* PMPMainPageViewController.h */,
-				73613F4326EF3CD300A88357 /* PMPMainPageViewController.m */,
-				736096EC2701CA660052DF23 /* PMPDynamicTableViewController.h */,
-				736096ED2701CA660052DF23 /* PMPDynamicTableViewController.m */,
-				736096EF2701CA790052DF23 /* PMPIdentityTableViewController.h */,
-				736096F02701CA790052DF23 /* PMPIdentityTableViewController.m */,
+				7363B467271068F200D667D5 /* PMPHomePageViewController.h */,
+				7363B468271068F200D667D5 /* PMPHomePageViewController.m */,
+				7363B4782711978500D667D5 /* JHPageController */,
+				7363B4662710683F00D667D5 /* ChildrenController */,
 				73613F4F26F0AC5E00A88357 /* View */,
 				73613F4E26F0AC5000A88357 /* Model */,
 			);
@@ -4643,6 +4635,63 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7363B4622710680000D667D5 /* GestureExtension */ = {
+			isa = PBXGroup;
+			children = (
+				7363B46F2711830600D667D5 /* UIViewController+CanScroll.h */,
+				7363B4632710681500D667D5 /* UIScrollView+Gesture.h */,
+				7363B4642710681500D667D5 /* UIScrollView+Gesture.m */,
+			);
+			path = GestureExtension;
+			sourceTree = "<group>";
+		};
+		7363B4662710683F00D667D5 /* ChildrenController */ = {
+			isa = PBXGroup;
+			children = (
+				736096EC2701CA660052DF23 /* PMPDynamicTableViewController.h */,
+				736096ED2701CA660052DF23 /* PMPDynamicTableViewController.m */,
+				736096EF2701CA790052DF23 /* PMPIdentityTableViewController.h */,
+				736096F02701CA790052DF23 /* PMPIdentityTableViewController.m */,
+			);
+			path = ChildrenController;
+			sourceTree = "<group>";
+		};
+		7363B46A27106F7C00D667D5 /* HeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				7363B46B2710709100D667D5 /* PMPHomePageHeaderView.h */,
+				7363B46C2710709100D667D5 /* PMPHomePageHeaderView.m */,
+				7315733526F4C867004E6214 /* PMPEditingButton.h */,
+				7315733626F4C867004E6214 /* PMPEditingButton.m */,
+				7315733226F4C1A6004E6214 /* PMPAvatarImgView.h */,
+				7315733326F4C1A6004E6214 /* PMPAvatarImgView.m */,
+				73BAFFBE26F22445007290B1 /* PMPTextButton.h */,
+				73BAFFBF26F22445007290B1 /* PMPTextButton.m */,
+			);
+			path = HeaderView;
+			sourceTree = "<group>";
+		};
+		7363B4782711978500D667D5 /* JHPageController */ = {
+			isa = PBXGroup;
+			children = (
+				7363B4792711979100D667D5 /* View */,
+				7363B4752711956A00D667D5 /* JHPageController.h */,
+				7363B4762711956A00D667D5 /* JHPageController.m */,
+			);
+			path = JHPageController;
+			sourceTree = "<group>";
+		};
+		7363B4792711979100D667D5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7363B47A27119C6700D667D5 /* JHMenuView.h */,
+				7363B47B27119C6700D667D5 /* JHMenuView.m */,
+				7363B47D27119F1000D667D5 /* JHMenuItem.h */,
+				7363B47E27119F1000D667D5 /* JHMenuItem.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		73AAA1A826C918240084E44D /* StampDetails */ = {
@@ -6287,6 +6336,7 @@
 				18CDF6A1257F91BD006E8E5C /* CQUPTMapAllImageCollectionViewCell.m in Sources */,
 				18CDF4C2257F8DBD006E8E5C /* changePassword.m in Sources */,
 				73AAA1D326C918250084E44D /* PurchaseinfoViewController.m in Sources */,
+				7363B47C27119C6700D667D5 /* JHMenuView.m in Sources */,
 				187DF4BA260310DD000BCDE9 /* LYEmptyBaseView.m in Sources */,
 				AA3B73DC27018DA0004FF8EE /* SegmentedPageView.m in Sources */,
 				AA3B739E26FD7D39004FF8EE /* MineTableViewCell.m in Sources */,
@@ -6425,6 +6475,7 @@
 				1A46C33F23DC65C2005DC1F3 /* MyAnswerReleasedCell.m in Sources */,
 				D026A81B23D5C119001A4774 /* QAListModel.m in Sources */,
 				18CDF4BA257F8DBD006E8E5C /* ChangePwdViewController.m in Sources */,
+				7363B4772711956A00D667D5 /* JHPageController.m in Sources */,
 				DB4064F92466D889006CE5BC /* DLTimeSelectView.m in Sources */,
 				B845735725C0390A005EFB91 /* SZHHotSearchButton.m in Sources */,
 				AAE3309925E4E5CD00324750 /* DeleteArticleTipView.m in Sources */,
@@ -6492,6 +6543,7 @@
 				1A799562252B43E400603253 /* SwiftyClient.swift in Sources */,
 				18CDF671257F91BD006E8E5C /* ExamArrangeModel.m in Sources */,
 				7311328526CCEC2400EF88C1 /* ExchangeCenterViewController.m in Sources */,
+				7363B47F27119F1000D667D5 /* JHMenuItem.m in Sources */,
 				1AC2550823C9B14F00DF0475 /* DidNotCheckInDot.m in Sources */,
 				AAC7CA1725F778AF00E6B5D5 /* RemarkModel.m in Sources */,
 				EE131C212471362E00B6ED97 /* URLController.m in Sources */,
@@ -6503,7 +6555,6 @@
 				4931630926CD7B6800140412 /* MyTableViewCellWithProgress.m in Sources */,
 				18CDF6B4257F91BD006E8E5C /* UICountingLabel.m in Sources */,
 				7F9A212726218E8800CA86B2 /* YYZTopicModel.m in Sources */,
-				6464F98A26F9F720008562C5 /* PMPMainPageHeaderView.m in Sources */,
 				18CDF712257F91BE006E8E5C /* TimeTableViewController.m in Sources */,
 				18CDF711257F91BE006E8E5C /* ActivityTableViewController.m in Sources */,
 				180DA9B526B440900094B8DC /* FollowGroupModel.m in Sources */,
@@ -6587,6 +6638,7 @@
 				1A1691FB2430ECA70076EDC7 /* ClassTabBarController.m in Sources */,
 				18CDF6B1257F91BD006E8E5C /* SCPieChart.m in Sources */,
 				D06AAEE124AC00BB00EE0892 /* QAReviewViewController.m in Sources */,
+				7363B4652710681500D667D5 /* UIScrollView+Gesture.m in Sources */,
 				18CDF716257F91BE006E8E5C /* VolunteerUnbinding.m in Sources */,
 				1A30F39423D057D000FBBD83 /* IntegralStoreViewController.m in Sources */,
 				1A30F39723D05AB200FBBD83 /* IntegralStoreTransitionAnimator.m in Sources */,
@@ -6652,7 +6704,6 @@
 				4999FA8326D44EA8005D0ADE /* HintView.m in Sources */,
 				18CDF6C1257F91BE006E8E5C /* ABScoreView.m in Sources */,
 				18CDF6D2257F91BE006E8E5C /* MGDSliderContentView.m in Sources */,
-				1AD038C023F6BF6B00D5C90E /* EditMyInfoView.m in Sources */,
 				18CDF6D0257F91BE006E8E5C /* MGDSliderBarItem.m in Sources */,
 				18CDF715257F91BE006E8E5C /* VolunteerActivity.m in Sources */,
 				18CDF71A257F91BE006E8E5C /* ActivityView.m in Sources */,
@@ -6704,6 +6755,7 @@
 				180DA98F26B440640094B8DC /* NewQAMainPageMainView.m in Sources */,
 				D0101F63243587A1004337ED /* GKScrollView.m in Sources */,
 				18CDF4C7257F8DBD006E8E5C /* sendCodeView.m in Sources */,
+				7363B46D2710709100D667D5 /* PMPHomePageHeaderView.m in Sources */,
 				49628E3226D52C6000805A08 /* FeedBackVC.m in Sources */,
 				1AEF3122245E9D5300487D40 /* MyGoodsItem.m in Sources */,
 				18CDF697257F91BD006E8E5C /* CQUPTVRMapController.m in Sources */,
@@ -6772,6 +6824,7 @@
 				187DF4BD260310DD000BCDE9 /* LYEmptyView.m in Sources */,
 				7FBF39F6257B79F30077494E /* ByWordViewController.m in Sources */,
 				1AD038D723FA691100D5C90E /* MineQAMyAnswerDraftItem.m in Sources */,
+				7363B469271068F200D667D5 /* PMPHomePageViewController.m in Sources */,
 				D0101D582433C885004337ED /* UIResponder+SDMask.m in Sources */,
 				18CDF709257F91BE006E8E5C /* segmentTableViewCell.m in Sources */,
 				B82CA6612631599900786685 /* DynamicDetailViewModel.m in Sources */,
@@ -6838,7 +6891,6 @@
 				18CDF4B9257F8DBD006E8E5C /* sendCodeViewController.m in Sources */,
 				735BC54426D3B64500F22678 /* FeedBackDetailsTableViewCell.m in Sources */,
 				18CDF68E257F91BD006E8E5C /* CQUPTMapModel.m in Sources */,
-				73613F4426EF3CD300A88357 /* PMPMainPageViewController.m in Sources */,
 				7311328726CCEC2400EF88C1 /* Balance.m in Sources */,
 				B845737925C0408E005EFB91 /* SZHSearchDataModel.m in Sources */,
 				1A141370235F524B0001417E /* UILabel+Adapter.m in Sources */,
@@ -6949,7 +7001,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -7003,7 +7055,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

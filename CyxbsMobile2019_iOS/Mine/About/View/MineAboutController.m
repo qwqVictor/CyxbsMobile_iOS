@@ -12,7 +12,6 @@
 #import <AFNetworking.h>
 
 
-#import "PMPMainPageViewController.h"
 #import "PMPFansAndFollowingViewController.h"
 
 @interface MineAboutController () <MineAboutContentViewDelegate>
@@ -38,17 +37,9 @@
     [self.view addSubview:btn1];
     btn1.backgroundColor = [UIColor redColor];
     [btn1 addTarget:self action:@selector(jump1) forControlEvents:UIControlEventTouchUpInside];
-    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(100, 150, 100, 50)];
-    [self.view addSubview:btn2];
-    btn2.backgroundColor = [UIColor redColor];
-    [btn2 addTarget:self action:@selector(jump2) forControlEvents:UIControlEventTouchUpInside];
 }
 - (void)jump1 {
     PMPFansAndFollowingViewController *vc = [[PMPFansAndFollowingViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-- (void)jump2 {
-    PMPMainPageViewController * vc = [[PMPMainPageViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

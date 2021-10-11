@@ -1,14 +1,14 @@
 //
-//  PMPMainPageHeaderView.m
+//  PMPHomePageHeaderView.m
 //  CyxbsMobile2019_iOS
 //
-//  Created by Edioth Jin on 2021/9/16.
+//  Created by Edioth Jin on 2021/10/8.
 //  Copyright © 2021 Redrock. All rights reserved.
 //
 
-#import "PMPMainPageHeaderView.h"
+#import "PMPHomePageHeaderView.h"
 
-@interface PMPMainPageHeaderView ()
+@interface PMPHomePageHeaderView ()
 
 /// 昵称下面的按钮
 @property (nonatomic, strong) NSArray <PMPTextButton *> * textButtonAry;
@@ -29,9 +29,14 @@
 /// 信息
 @property (nonatomic, strong) UILabel * infoLabel;
 
+/// 透明层
+@property (nonatomic, strong) PMPBasicActionView * transparentView;
+/// 白色的View
+@property (nonatomic, strong) UIView * whiteView;
+
 @end
 
-@implementation PMPMainPageHeaderView
+@implementation PMPHomePageHeaderView
 
 #pragma mark - init
 
@@ -45,15 +50,20 @@
 }
 
 - (void)configureView {
-    // self
-    self.backgroundColor = [UIColor colorNamed:@"white_0.95&black"];
+    self.backgroundColor = [UIColor clearColor];
     
-    //  textButtonAry
-    NSMutableArray * tempMAry = [NSMutableArray array];
-    for (NSUInteger i = 0; i < self.textButtonTitlesAry.count; i++) {
-        [tempMAry addObject:[self createTextButtonWithIndex:i]];
-    }
-    self.textButtonAry = [tempMAry copy];
+    // self.transparentView
+    [self addSubview:self.transparentView];
+    [self.transparentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.mas_equalTo(self);
+    }];
+    
+    // self.whiteView
+    [self addSubview:self.whiteView];
+    [self.whiteView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self);
+        make.height.mas_equalTo(self.mas_height).multipliedBy(0.64477);
+    }];
     
     // avatarImgButton
     [self addSubview:self.avatarImgButton];
@@ -61,7 +71,7 @@
     CGFloat height1 = width1;
     self.avatarImgButton.cornerRadius = width1/2;
     [self.avatarImgButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.mas_top);
+        make.centerY.mas_equalTo(self.whiteView.mas_top);
         make.left.mas_equalTo(self).offset(16);
         make.size.mas_equalTo(CGSizeMake(width1, height1));
     }];
@@ -69,7 +79,7 @@
     //  nicknameLabel
     [self addSubview:self.nicknameLabel];
     [self.nicknameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.mas_top).offset(-4);
+        make.bottom.mas_equalTo(self.whiteView.mas_top).offset(-4);
         make.right.mas_equalTo(self).offset(-14);
         make.left.mas_equalTo(self.avatarImgButton.mas_right).offset(14);
     }];
@@ -93,16 +103,20 @@
         make.size.mas_equalTo(CGSizeMake(width2, height2));
     }];
     
-    //
+    //  textButtonAry
+    NSMutableArray * tempMAry = [NSMutableArray array];
+    for (NSUInteger i = 0; i < self.textButtonTitlesAry.count; i++) {
+        [tempMAry addObject:[self createTextButtonWithIndex:i]];
+    }
+    self.textButtonAry = [tempMAry copy];
     CGFloat textButtonWidth = (SCREEN_WIDTH - 97 - 16) / 3;
     UIView * leftView = self.avatarImgButton;
     for (int i = 0; i < self.textButtonAry.count; i++) {
-//        PMPTextButton * button = [self createTextButtonWithIndex:i];
         PMPTextButton * button = self.textButtonAry[i];
         [self addSubview:button];
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(leftView.mas_right);
-            make.top.mas_equalTo(self);
+            make.top.mas_equalTo(self.whiteView);
             make.bottom.mas_equalTo(leftView);
             make.width.mas_equalTo(textButtonWidth);
         }];
@@ -141,6 +155,12 @@
     }
 }
 
+- (void)backgroundViewClicked {
+    if ([self.delegate respondsToSelector:@selector(backgroundViewClicked)]) {
+        [self.delegate backgroundViewClicked];
+    }
+}
+
 #pragma mark - private
 
 - (PMPTextButton *)createTextButtonWithIndex:(NSUInteger)index {
@@ -153,6 +173,24 @@
 }
 
 #pragma mark - lazy
+
+- (PMPBasicActionView *)transparentView {
+    if (_transparentView == nil) {
+        _transparentView = [[PMPBasicActionView alloc] init];
+        _transparentView.backgroundColor = [UIColor clearColor];
+        [_transparentView addTarget:self action:@selector(backgroundViewClicked)];
+    }
+    return _transparentView;
+}
+
+- (UIView *)whiteView {
+    if (_whiteView == nil) {
+        _whiteView = [[UIView alloc] init];
+        _whiteView.backgroundColor = [UIColor colorNamed:@"white_0.95&black"];
+        _whiteView.layer.cornerRadius = 8;
+    }
+    return _whiteView;
+}
 
 - (NSArray *)textButtonTitlesAry {
     if (_textButtonTitlesAry == nil) {
@@ -222,3 +260,4 @@
 }
 
 @end
+

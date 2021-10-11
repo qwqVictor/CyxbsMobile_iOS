@@ -62,7 +62,7 @@
 #pragma mark - configure
 
 - (void)configureView {
-    self.view.backgroundColor = [UIColor colorNamed:@"251_252_255_1&0_0_0_1"];
+    self.view.backgroundColor = [UIColor colorNamed:@"251_252_255_1&black"];
     self.VCTitleStr = @"详情";
     self.titleColor = [UIColor colorNamed:@"21_49_91_1&223_223_227_1"];
     self.titleFont = [UIFont fontWithName:PingFangSCBold size:22];
