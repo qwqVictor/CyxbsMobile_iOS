@@ -11,6 +11,9 @@
 #import "FansAndFollowingSegmentView.h"
 #import "FansTableView.h"
 #import "FollowingTableView.h"
+
+#import "FansModel.h"
+#import "FollowersModel.h"
 // pod
 #import <MJRefresh.h>
 @interface PMPFansAndFollowingViewController () <UITableViewDelegate, SegmentViewDelegate>
@@ -37,6 +40,11 @@
 @property (nonatomic, strong) MJRefreshStateHeader *followersRefreshHeader;
 /// 获取记录界面的上拉加载更多
 @property (nonatomic, strong) MJRefreshAutoStateFooter *fansLoadMoreFooter;
+
+/// 粉丝
+@property (nonatomic, copy) NSArray *fansAry;
+/// 关注
+@property (nonatomic, copy) NSArray *followAry;
 
 @end
 
@@ -132,6 +140,48 @@
 }
 //MARK:table view delegate
 
+
+#pragma mark - MJRefresh
+- (void)refreshFans {
+    [FansModel getDataArySuccess:^(NSArray * _Nonnull array) {
+        self.fansAry = array;
+        self.fansTableView.dataAry = self.fansAry;
+        if (array.count == 0) {
+            self.noFansLabel.hidden = NO;
+            self.noFansImgView.hidden = NO;
+        }else{
+            self.noFansLabel.hidden = YES;
+            self.noFansImgView.hidden = YES;
+        }
+        self.noFollowingLabel.hidden = YES;
+        self.noFollowingImgView.hidden = YES;
+        [self.fansRefreshHeader endRefreshing];
+        } failure:^{
+            self.noFansLabel.hidden = YES;//
+            self.noFansImgView.hidden = YES;//
+            [self.fansRefreshHeader endRefreshing];
+        }];
+}
+- (void)refreshFollowers {
+    [FollowersModel getDataArySuccess:^(NSArray * _Nonnull array) {
+            self.followAry = array;
+            self.followersTableView.dataAry = self.followAry;
+            if (array.count == 0) {
+                self.noFollowingLabel.hidden = NO;
+                self.noFollowingImgView.hidden = NO;
+            }else {
+                self.noFollowingLabel.hidden = YES;
+                self.noFollowingImgView.hidden = YES;
+            }
+        
+        
+            [self.followersRefreshHeader endRefreshing];
+        } Failure:^{
+            
+            
+            [self.followersRefreshHeader endRefreshing];
+        }];
+}
 #pragma mark - getter
 
 - (FansAndFollowingSegmentView *)segmentView {
@@ -161,18 +211,36 @@
         _fansTableView = [[FansTableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
         _fansTableView.delegate = self;
         _fansTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
+        _fansTableView.mj_header = self.fansRefreshHeader;
     }
     return _fansTableView;
 }
-
+- (MJRefreshStateHeader *)fansRefreshHeader {
+    if (_fansRefreshHeader == nil) {
+        _fansRefreshHeader = [MJRefreshStateHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshFans)];
+        [_fansRefreshHeader setTitle:@"松开手刷新" forState:MJRefreshStatePulling];
+        _fansRefreshHeader.lastUpdatedTimeLabel.hidden = YES;
+        _fansRefreshHeader.automaticallyChangeAlpha = YES;
+    }
+    return _fansRefreshHeader;
+}
 - (FollowingTableView *)followersTableView {
     if (_followersTableView == nil) {
         _followersTableView = [[FollowingTableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
         _followersTableView.delegate = self;
         _followersTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _followersTableView.mj_header = self.followersRefreshHeader;
     }
     return _followersTableView;
+}
+- (MJRefreshStateHeader *)followersRefreshHeader {
+    if (_followersRefreshHeader == nil) {
+        _followersRefreshHeader = [MJRefreshStateHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshFollowers)];
+        [_followersRefreshHeader setTitle:@"松开手刷新" forState:MJRefreshStatePulling];
+        _followersRefreshHeader.lastUpdatedTimeLabel.hidden = YES;
+        _followersRefreshHeader.automaticallyChangeAlpha = YES;
+    }
+    return _followersRefreshHeader;
 }
 ///无粉丝图片与文字
 - (UILabel *)noFansLabel {
