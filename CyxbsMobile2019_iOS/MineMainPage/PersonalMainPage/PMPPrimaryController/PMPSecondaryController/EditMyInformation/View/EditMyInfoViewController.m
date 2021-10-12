@@ -44,7 +44,6 @@
         make.bottom.leading.trailing.equalTo(self.view);
         make.top.mas_equalTo(self.topBarView.mas_bottom);
     }];
-    self.contentView.transform = CGAffineTransformMakeScale(0.9, 0.95);
 }
 
 - (void)dealloc

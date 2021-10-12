@@ -463,6 +463,8 @@
 		73AAA1D526C918250084E44D /* PurchaseInfoOrderIDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C226C918240084E44D /* PurchaseInfoOrderIDView.m */; };
 		73AAA1D626C918250084E44D /* DetailsBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C726C918240084E44D /* DetailsBaseTableViewCell.m */; };
 		73AAA1D726C918250084E44D /* DetailsCustomizeNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */; };
+		73AB459B27154C140047D7BE /* PMPPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AB459A27154C140047D7BE /* PMPPickerView.m */; };
+		73AB45A12715860D0047D7BE /* PMPDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AB45A02715860D0047D7BE /* PMPDatePicker.m */; };
 		73BAFFB726F21C42007290B1 /* PMPBasicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73BAFFB626F21C42007290B1 /* PMPBasicTableViewCell.m */; };
 		73BAFFBA26F21D49007290B1 /* PMPBasicActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73BAFFB926F21D49007290B1 /* PMPBasicActionView.m */; };
 		73BAFFC026F22445007290B1 /* PMPTextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 73BAFFBF26F22445007290B1 /* PMPTextButton.m */; };
@@ -1616,6 +1618,10 @@
 		73AAA1C726C918240084E44D /* DetailsBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsBaseTableViewCell.m; sourceTree = "<group>"; };
 		73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsCustomizeNavigationBar.m; sourceTree = "<group>"; };
 		73AAA1C926C918240084E44D /* DetailsBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsBaseTableViewCell.h; sourceTree = "<group>"; };
+		73AB459927154C140047D7BE /* PMPPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMPPickerView.h; sourceTree = "<group>"; };
+		73AB459A27154C140047D7BE /* PMPPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMPPickerView.m; sourceTree = "<group>"; };
+		73AB459F2715860D0047D7BE /* PMPDatePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMPDatePicker.h; sourceTree = "<group>"; };
+		73AB45A02715860D0047D7BE /* PMPDatePicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PMPDatePicker.m; sourceTree = "<group>"; };
 		73BAFFB526F21C42007290B1 /* PMPBasicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMPBasicTableViewCell.h; sourceTree = "<group>"; };
 		73BAFFB626F21C42007290B1 /* PMPBasicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPBasicTableViewCell.m; sourceTree = "<group>"; };
 		73BAFFB826F21D49007290B1 /* PMPBasicActionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMPBasicActionView.h; sourceTree = "<group>"; };
@@ -3948,6 +3954,10 @@
 				1AFD1526237D9A7E004D9CEA /* MineEditTextField.m */,
 				1A4A467524D16A800033734E /* UserInformationIntorductionView.h */,
 				1A4A467624D16A800033734E /* UserInformationIntorductionView.m */,
+				73AB459927154C140047D7BE /* PMPPickerView.h */,
+				73AB459A27154C140047D7BE /* PMPPickerView.m */,
+				73AB459F2715860D0047D7BE /* PMPDatePicker.h */,
+				73AB45A02715860D0047D7BE /* PMPDatePicker.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6445,6 +6455,7 @@
 				DB34EACD239BD4550052B65E /* WYCClassBookViewController.m in Sources */,
 				DB4064FE2466D889006CE5BC /* DLNextButton.m in Sources */,
 				180DA98C26B440640094B8DC /* NewQAMainPageTableViewController.m in Sources */,
+				73AB459B27154C140047D7BE /* PMPPickerView.m in Sources */,
 				735BC54726D3BF3000F22678 /* FeedBackDetailsModel.m in Sources */,
 				D0101D5A2433C885004337ED /* SDMaskNotificationName.m in Sources */,
 				18CDF690257F91BD006E8E5C /* CQUPTMapDataItem.m in Sources */,
@@ -6599,6 +6610,7 @@
 				18CDF6AB257F91BD006E8E5C /* SCLineChart.m in Sources */,
 				180DAA3C26B442B20094B8DC /* NewQATool.m in Sources */,
 				18CDF6B3257F91BD006E8E5C /* SCBarChart.m in Sources */,
+				73AB45A12715860D0047D7BE /* PMPDatePicker.m in Sources */,
 				18CDF66D257F91BD006E8E5C /* ElectricityView.m in Sources */,
 				AAC7CA2025F7797000E6B5D5 /* RemarkParseModel.m in Sources */,
 				18CDF707257F91BE006E8E5C /* AllYearsViewController.m in Sources */,

@@ -29,7 +29,9 @@
 @interface EditMyInfoContentView () <
 UITextFieldDelegate,
 UIPickerViewDelegate,
-UIPickerViewDataSource
+UIPickerViewDataSource,
+PMPPickerViewDelegate,
+PMPDatePickerDelegate
 >
 
 @property (nonatomic, weak) UIButton *introductionButton;
@@ -42,10 +44,10 @@ UIPickerViewDataSource
 @property (nonatomic, weak) UILabel *academyLabel;
 @property (nonatomic, weak) UILabel *explainLabel;
 
-@property (nonatomic, strong) UIPickerView * genderPickerView;
-@property (nonatomic, strong) NSArray * genderAry;
+@property (nonatomic, strong) PMPPickerView * genderPickerView;
+@property (nonatomic, strong) NSArray <NSString *> * genderAry;
 
-@property (nonatomic, strong) UIDatePicker * birthdayDatePicker;
+@property (nonatomic, strong) PMPDatePicker * birthdayDatePicker;
 
 @end
 
@@ -56,10 +58,7 @@ UIPickerViewDataSource
     self = [super init];
     if (self) {
         
-        self.backgroundColor = [UIColor colorNamed:@"Mine_EditInfo_BackgroundColor"];
-        
-        self.layer.cornerRadius = 16;
-        
+        self.backgroundColor = [UIColor clearColor];
         
         [self addContentScrollView];
     }
@@ -70,7 +69,11 @@ UIPickerViewDataSource
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     [self addSubview:scrollView];
     scrollView.showsVerticalScrollIndicator = NO;
+//    scrollView.backgroundColor = [UIColor colorNamed:@"Mine_EditInfo_BackgroundColor"];
+    scrollView.backgroundColor = [UIColor colorNamed:@"white&38_38_38_1"];
+    self.contentScrollView.layer.cornerRadius = 16;
     self.contentScrollView = scrollView;
+    self.contentScrollView.transform = CGAffineTransformMakeScale(0.9, 0.95);
     
     [self addGestureView];
     [self addHeaderImageView];
@@ -91,6 +94,12 @@ UIPickerViewDataSource
     [self addMyAcademyLabel];
     [self addExplainLabel];
     [self addSaveButton];
+    //----
+    [self addSubview:self.genderPickerView];
+    self.genderPickerView.hidden = YES;
+    
+    [self addSubview:self.birthdayDatePicker];
+    self.birthdayDatePicker.hidden = YES;
 }
 
 - (void)addGestureView{
@@ -352,7 +361,6 @@ UIPickerViewDataSource
     
 }
 
-
 #pragma mark - 添加约束
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -477,6 +485,14 @@ UIPickerViewDataSource
         make.top.leading.trailing.height.equalTo(self);
         make.bottom.equalTo(self.saveButton).offset(52);
     }];
+    
+    [self.genderPickerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.mas_equalTo(self);
+    }];
+    
+    [self.birthdayDatePicker mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.mas_equalTo(self);
+    }];
 }
 
 #pragma mark - 按钮调用
@@ -513,17 +529,21 @@ UIPickerViewDataSource
     }
 }
 
-///  这个方法从代理里面转过来
-- (void)textFieldClicked:(UITextField *)sender {
-    if ([sender isEqual:self.genderTextField]) {
-        
+///  从代理里面转过来
+- (void)genderTextFieldClicked {
+    
+    for (int i = 0; i < self.genderAry.count; i++) {
+        if ([self.genderTextField.placeholder isEqualToString:self.genderAry[i]]) {
+            [self.genderPickerView.pickerView selectedRowInComponent:i];
+            break;
+        }
     }
+    self.genderPickerView.hidden = NO;
 }
 
-#pragma mark - Hit test
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    UIView *view = [super hitTest:point withEvent:event];
-    return view;
+- (void)birthdayTextFieldClicked {
+    
+    self.birthdayDatePicker.hidden = NO;
 }
 
 #pragma mark - UITextFieldDelegate,
@@ -553,10 +573,13 @@ UIPickerViewDataSource
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
-    if ([textField isEqual:self.genderTextField] ||
-        [textField isEqual:self.birthdayTextField]) {
+    if ([textField isEqual:self.genderTextField]) {
         
-        [self textFieldClicked:textField];
+        [self genderTextFieldClicked];
+        return NO;
+    } else if ([textField isEqual:self.birthdayTextField]) {
+        
+        [self birthdayTextFieldClicked];
         return NO;
     }
         
@@ -568,7 +591,13 @@ UIPickerViewDataSource
 - (void)pickerView:(UIPickerView *)pickerView
       didSelectRow:(NSInteger)row
        inComponent:(NSInteger)component {
+//    NSLog(@"%zd", row);
     
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView
+rowHeightForComponent:(NSInteger)component {
+    return 40;
 }
 
 #pragma mark - UIPickerViewDataSource
@@ -587,14 +616,26 @@ UIPickerViewDataSource
     return self.genderAry[row];
 }
 
+#pragma mark - pmppickerview
+
+- (void)sureButtonClicked:(id)sender {
+    NSLog(@"picker view");
+}
+
+#pragma mark - pmpdatepicker
+
+- (void)datePickerSureButtonClicked:(id)sender {
+    NSLog(@"date picker");
+}
+
 #pragma mark - lazy
 
-- (UIPickerView *)genderPickerView  {
+- (PMPPickerView *)genderPickerView  {
     if (_genderPickerView == nil) {
-        _genderPickerView = [[UIPickerView alloc] init];
-        _genderPickerView.dataSource = self;
+        _genderPickerView = [[PMPPickerView alloc] init];
+        _genderPickerView.pickerView.dataSource = self;
+        _genderPickerView.pickerView.delegate = self;
         _genderPickerView.delegate = self;
-        
     }
     return _genderPickerView;
 }
@@ -610,9 +651,11 @@ UIPickerViewDataSource
     return _genderAry;
 }
 
-- (UIDatePicker *)birthdayDatePicker {
+- (PMPDatePicker *)birthdayDatePicker {
     if (_birthdayDatePicker == nil) {
-        _birthdayDatePicker = [[UIDatePicker alloc] init];
+        _birthdayDatePicker = [[PMPDatePicker alloc] init];
+        _birthdayDatePicker.datePicker.maximumDate = [NSDate date];
+        _birthdayDatePicker.datePicker.minimumDate = [NSDate dateWithString:@"1900-01-01 00:00:00" format:@"yyyy-MM-dd HH:mm:ss"];
     }
     return _birthdayDatePicker;
 }

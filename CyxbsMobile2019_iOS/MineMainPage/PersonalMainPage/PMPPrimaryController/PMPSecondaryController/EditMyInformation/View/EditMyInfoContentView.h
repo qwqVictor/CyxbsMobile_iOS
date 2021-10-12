@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MineEditTextField.h"
+#import "PMPPickerView.h"
+#import "PMPDatePicker.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
