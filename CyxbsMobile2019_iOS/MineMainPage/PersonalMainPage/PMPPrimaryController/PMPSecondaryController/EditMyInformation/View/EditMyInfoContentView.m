@@ -3,6 +3,7 @@
 //  CyxbsMobile2019_iOS
 //
 //  Created by 方昱恒 on 2019/11/14.
+//  Modified by Edioth on 2021/10/12
 //  Copyright © 2019 Redrock. All rights reserved.
 //
 
@@ -21,19 +22,30 @@
  @property (nonatomic, weak) MineEditTextField *QQTextField;
  @property (nonatomic, weak) MineEditTextField *phoneNumberTextField;
  @property (nonatomic, weak) UIButton *myAcademyLabel;
-
+ 
  @property (nonatomic, weak) UIButton *saveButton;
  */
 
-@interface EditMyInfoContentView () <UITextFieldDelegate>
+@interface EditMyInfoContentView () <
+UITextFieldDelegate,
+UIPickerViewDelegate,
+UIPickerViewDataSource
+>
 
 @property (nonatomic, weak) UIButton *introductionButton;
 @property (nonatomic, weak) UILabel *nicknameLabel;
 @property (nonatomic, weak) UILabel *introductionLabel;
+@property (nonatomic, weak) UILabel * genderLabel;
+@property (nonatomic, weak) UILabel * birthdayLabel;
 @property (nonatomic, weak) UILabel *QQLabel;
 @property (nonatomic, weak) UILabel *phoneNumberLabel;
 @property (nonatomic, weak) UILabel *academyLabel;
 @property (nonatomic, weak) UILabel *explainLabel;
+
+@property (nonatomic, strong) UIPickerView * genderPickerView;
+@property (nonatomic, strong) NSArray * genderAry;
+
+@property (nonatomic, strong) UIDatePicker * birthdayDatePicker;
 
 @end
 
@@ -43,14 +55,12 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        if (@available(iOS 11.0, *)) {
-            self.backgroundColor = [UIColor colorNamed:@"Mine_EditInfo_BackgroundColor"];
-        } else {
-            self.backgroundColor = [UIColor whiteColor];
-        }
+        
+        self.backgroundColor = [UIColor colorNamed:@"Mine_EditInfo_BackgroundColor"];
+        
         self.layer.cornerRadius = 16;
         
-
+        
         [self addContentScrollView];
     }
     return self;
@@ -69,6 +79,10 @@
     [self addNicknameTextField];
     [self addIntroductionLabel];
     [self addIntroductionTextField];
+    [self addGenderLabel];
+    [self addGenderTextField];
+    [self addBirthdayLabel ];
+    [self addBirthdayTextField];
     [self addQQLabel];
     [self addQQTextField];
     [self addPhoneNumberLabel];
@@ -78,6 +92,7 @@
     [self addExplainLabel];
     [self addSaveButton];
 }
+
 - (void)addGestureView{
     UIView *gestureView = [[UIView alloc] init];
     gestureView.backgroundColor = UIColor.clearColor;
@@ -88,36 +103,34 @@
 }
 
 - (void)addHeaderImageView {
-        UIImageView *headerImageView = [[UIImageView alloc] init];
-        [self.contentScrollView addSubview:headerImageView];
-        self.headerImageView = headerImageView;
-        NSString *headImgUrl_str = [UserItemTool defaultItem].headImgUrl;
-        NSURL *headImageUrl = [NSURL URLWithString:headImgUrl_str];
-        [headerImageView sd_setImageWithURL:headImageUrl placeholderImage:[UIImage imageNamed:@"默认头像"] options:SDWebImageFromCacheOnly context:nil progress:nil completed:nil];
-        headerImageView.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerImageTapped:)];
-        [headerImageView addGestureRecognizer:tap];
+    UIImageView *headerImageView = [[UIImageView alloc] init];
+    [self.contentScrollView addSubview:headerImageView];
+    self.headerImageView = headerImageView;
+    NSString *headImgUrl_str = [UserItemTool defaultItem].headImgUrl;
+    NSURL *headImageUrl = [NSURL URLWithString:headImgUrl_str];
+    [headerImageView sd_setImageWithURL:headImageUrl placeholderImage:[UIImage imageNamed:@"默认头像"] options:SDWebImageFromCacheOnly context:nil progress:nil completed:nil];
+    headerImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerImageTapped:)];
+    [headerImageView addGestureRecognizer:tap];
 }
 
 - (void)addIntroductionButton{
-        UIButton *introductionButton = [[UIButton alloc] init];
-        [introductionButton setImage:[UIImage imageNamed:@"编辑资料问号"] forState:UIControlStateNormal];
-        [introductionButton addTarget:self action:@selector(showUserInformationIntroduction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentScrollView addSubview:introductionButton];
-        self.introductionButton = introductionButton;
+    UIButton *introductionButton = [[UIButton alloc] init];
+    [introductionButton setImage:[UIImage imageNamed:@"编辑资料问号"] forState:UIControlStateNormal];
+    [introductionButton addTarget:self action:@selector(showUserInformationIntroduction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentScrollView addSubview:introductionButton];
+    self.introductionButton = introductionButton;
 }
 
 - (void)addNicknameLabel{
-        UILabel *nicknameLabel = [[UILabel alloc] init];
-        nicknameLabel.text = @"昵称(0/10)";
-        if (@available(iOS 11.0, *)) {
-            nicknameLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
-        } else {
-            nicknameLabel.textColor = LABELCOLOR;
-        }
-        nicknameLabel.font = LABELFONT;
-        [self.contentScrollView addSubview:nicknameLabel];
-        self.nicknameLabel = nicknameLabel;
+    UILabel *nicknameLabel = [[UILabel alloc] init];
+    nicknameLabel.text = @"昵称(0/10)";
+    
+    nicknameLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
+    
+    nicknameLabel.font = LABELFONT;
+    [self.contentScrollView addSubview:nicknameLabel];
+    self.nicknameLabel = nicknameLabel;
 }
 
 - (void)addNicknameTextField{
@@ -129,36 +142,28 @@
     
     NSString *oldNickname = [UserItemTool defaultItem].nickname;
     if (oldNickname==nil || [oldNickname isEqualToString:@""]) {
-        if (@available(iOS 11.0, *)) {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"完善你的个人信息哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
-            nicknameTextField.attributedPlaceholder = string;
-        } else {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"完善你的个人信息哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: [UIColor colorWithRed:154/255.0 green:165/255.0 blue:181/255.0 alpha:1]}];
-            nicknameTextField.attributedPlaceholder = string;
-        }
+        
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"完善你的个人信息哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
+        nicknameTextField.attributedPlaceholder = string;
+        
     } else {
-        if (@available(iOS 11.0, *)) {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldNickname attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
-            nicknameTextField.attributedPlaceholder = string;
-        } else {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldNickname attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: [UIColor colorWithRed:154/255.0 green:165/255.0 blue:181/255.0 alpha:1]}];
-            nicknameTextField.attributedPlaceholder = string;
-        }
+        
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldNickname attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
+        nicknameTextField.attributedPlaceholder = string;
+        
     }
-    
+    [self.nicknameTextField addTarget:self
+                               action:@selector(textFieldDidChange:)
+                     forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)addIntroductionLabel{
-        UILabel *introductionLabel = [[UILabel alloc] init];
-        introductionLabel.text = @"个性签名(0/20)";
-        if (@available(iOS 11.0, *)) {
-            introductionLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
-        } else {
-            introductionLabel.textColor = LABELCOLOR;
-        }
-        introductionLabel.font = LABELFONT;
-        [self.contentScrollView addSubview:introductionLabel];
-        self.introductionLabel = introductionLabel;
+    UILabel *introductionLabel = [[UILabel alloc] init];
+    introductionLabel.text = @"个性签名(0/20)";
+    introductionLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
+    introductionLabel.font = LABELFONT;
+    [self.contentScrollView addSubview:introductionLabel];
+    self.introductionLabel = introductionLabel;
 }
 
 - (void)addIntroductionTextField{
@@ -170,142 +175,174 @@
     
     NSString *oldIntroduction = [UserItemTool defaultItem].introduction;
     if (oldIntroduction==nil || [oldIntroduction isEqualToString:@""]) {
-        if (@available(iOS 11.0, *)) {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"完善你的个人信息哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
-            introductionField.attributedPlaceholder = string;
-        } else {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"完善你的个人信息哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: [UIColor colorWithRed:154/255.0 green:165/255.0 blue:181/255.0 alpha:1]}];
-            introductionField.attributedPlaceholder = string;
-        }
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"完善你的个人信息哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
+        introductionField.attributedPlaceholder = string;
     } else {
-        if (@available(iOS 11.0, *)) {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldIntroduction attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
-            introductionField.attributedPlaceholder = string;
-        } else {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldIntroduction attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: [UIColor colorWithRed:154/255.0 green:165/255.0 blue:181/255.0 alpha:1]}];
-            introductionField.attributedPlaceholder = string;
-        }
+        
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldIntroduction attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
+        introductionField.attributedPlaceholder = string;
+        
     }
+    [self.introductionTextField addTarget:self
+                                   action:@selector(textFieldDidChange:)
+                         forControlEvents:UIControlEventEditingChanged];
+}
+
+/// 性别和生日
+
+- (void)addGenderLabel {
+    UILabel *genderLabel = [[UILabel alloc] init];
+    genderLabel.text = @"性别";
+    genderLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
+    genderLabel.font = LABELFONT;
+    [self.contentScrollView addSubview:genderLabel];
+    self.genderLabel = genderLabel;
+}
+
+- (void)addGenderTextField {
+    MineEditTextField *genderTextField = [[MineEditTextField alloc] init];
+    [self.contentScrollView addSubview:genderTextField];
+    self.genderTextField = genderTextField;
     
+    genderTextField.delegate = self;
+    
+    NSString *oldGender = [UserItemTool defaultItem].gender;
+    if (oldGender==nil || [oldGender isEqualToString:@""]) {
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"请选择性别" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
+        genderTextField.attributedPlaceholder = string;
+    } else {
+        
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldGender attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
+        genderTextField.attributedPlaceholder = string;
+        
+    }
+}
+
+- (void)addBirthdayLabel {
+    UILabel *birthdayLabel = [[UILabel alloc] init];
+    birthdayLabel.text = @"生日";
+    birthdayLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
+    birthdayLabel.font = LABELFONT;
+    [self.contentScrollView addSubview:birthdayLabel];
+    self.birthdayLabel = birthdayLabel;
+}
+
+- (void)addBirthdayTextField {
+    MineEditTextField *birthdayTextField = [[MineEditTextField alloc] init];
+    [self.contentScrollView addSubview:birthdayTextField];
+    self.birthdayTextField = birthdayTextField;
+    
+    birthdayTextField.delegate = self;
+    
+    // 这里需要添加一个储存生日的本地储存
+    NSString *oldIntroduction = [UserItemTool defaultItem].birthday;
+    if (oldIntroduction==nil || [oldIntroduction isEqualToString:@""]) {
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"填写生日后会匹配出对应的星座哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
+        birthdayTextField.attributedPlaceholder = string;
+    } else {
+        
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldIntroduction attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
+        birthdayTextField.attributedPlaceholder = string;
+        
+    }
 }
 
 - (void)addQQLabel{
-        UILabel *QQLabel = [[UILabel alloc] init];
-        QQLabel.text = @"QQ";
-        if (@available(iOS 11.0, *)) {
-            QQLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
-        } else {
-            QQLabel.textColor = LABELCOLOR;
-        }
-        QQLabel.font = LABELFONT;
-        [self.contentScrollView addSubview:QQLabel];
-        self.QQLabel = QQLabel;
+    UILabel *QQLabel = [[UILabel alloc] init];
+    QQLabel.text = @"QQ";
+    
+    QQLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
+    
+    QQLabel.font = LABELFONT;
+    [self.contentScrollView addSubview:QQLabel];
+    self.QQLabel = QQLabel;
 }
 
 - (void)addQQTextField{
     MineEditTextField *QQTextField = [[MineEditTextField alloc] init];
     NSString *oldQQ = [UserItemTool defaultItem].qq;
     if (oldQQ==nil || [oldQQ isEqualToString:@""]) {
-        if (@available(iOS 11.0, *)) {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"完善你的个人信息哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
-            QQTextField.attributedPlaceholder = string;
-        } else {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"完善你的个人信息哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: [UIColor colorWithRed:154/255.0 green:165/255.0 blue:181/255.0 alpha:1]}];
-            QQTextField.attributedPlaceholder = string;
-        }
+        
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"完善你的个人信息哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
+        QQTextField.attributedPlaceholder = string;
+        
+        
     } else {
-        if (@available(iOS 11.0, *)) {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldQQ attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
-            QQTextField.attributedPlaceholder = string;
-        } else {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldQQ attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: [UIColor colorWithRed:154/255.0 green:165/255.0 blue:181/255.0 alpha:1]}];
-            QQTextField.attributedPlaceholder = string;
-        }
+        
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldQQ attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
+        QQTextField.attributedPlaceholder = string;
+        
     }
     [self.contentScrollView addSubview:QQTextField];
     self.QQTextField = QQTextField;
 }
 
 - (void)addPhoneNumberLabel{
-        UILabel *phoneNumberLabel = [[UILabel alloc] init];
-        phoneNumberLabel.text = @"电话";
-        if (@available(iOS 11.0, *)) {
-            phoneNumberLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
-        } else {
-            phoneNumberLabel.textColor = LABELCOLOR;
-        }
-        phoneNumberLabel.font = LABELFONT;
-        [self.contentScrollView addSubview:phoneNumberLabel];
-        self.phoneNumberLabel = phoneNumberLabel;
+    UILabel *phoneNumberLabel = [[UILabel alloc] init];
+    phoneNumberLabel.text = @"电话";
+    
+    phoneNumberLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
+    
+    phoneNumberLabel.font = LABELFONT;
+    [self.contentScrollView addSubview:phoneNumberLabel];
+    self.phoneNumberLabel = phoneNumberLabel;
 }
 
 - (void)addPhoneNumberTextField{
     MineEditTextField *phoneNumberTextField = [[MineEditTextField alloc] init];
     NSString *oldPhoneNumber = [UserItemTool defaultItem].phone;
     if (oldPhoneNumber==nil || [oldPhoneNumber isEqualToString:@""]) {
-        if (@available(iOS 11.0, *)) {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"完善你的个人信息哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
-            phoneNumberTextField.attributedPlaceholder = string;
-        } else {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"完善你的个人信息哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: [UIColor colorWithRed:154/255.0 green:165/255.0 blue:181/255.0 alpha:1]}];
-            phoneNumberTextField.attributedPlaceholder = string;
-        }
+        
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"完善你的个人信息哦" attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
+        phoneNumberTextField.attributedPlaceholder = string;
+        
     } else {
-        if (@available(iOS 11.0, *)) {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldPhoneNumber attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
-            phoneNumberTextField.attributedPlaceholder = string;
-        } else {
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldPhoneNumber attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: [UIColor colorWithRed:154/255.0 green:165/255.0 blue:181/255.0 alpha:1]}];
-            phoneNumberTextField.attributedPlaceholder = string;
-        }
+        
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:oldPhoneNumber attributes:@{NSFontAttributeName: PLACEHOLDERFONT, NSForegroundColorAttributeName: PLACEHOLDERCOLOR}];
+        phoneNumberTextField.attributedPlaceholder = string;
+        
     }
     [self.contentScrollView addSubview:phoneNumberTextField];
     self.phoneNumberTextField = phoneNumberTextField;
 }
 
 - (void)addAcademyLabel{
-        UILabel *academyLabel = [[UILabel alloc] init];
-        academyLabel.text = @"学院";
-        if (@available(iOS 11.0, *)) {
-            academyLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
-        } else {
-            academyLabel.textColor = LABELCOLOR;
-        }
-        academyLabel.font = LABELFONT;
-        [self.contentScrollView addSubview:academyLabel];
-        self.academyLabel = academyLabel;
+    UILabel *academyLabel = [[UILabel alloc] init];
+    academyLabel.text = @"学院";
+    
+    academyLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
+    
+    academyLabel.font = LABELFONT;
+    [self.contentScrollView addSubview:academyLabel];
+    self.academyLabel = academyLabel;
 }
 
 - (void)addMyAcademyLabel{
-        UILabel *myAcademyLabel = [[UILabel alloc] init];
-        myAcademyLabel.text = [UserItemTool defaultItem].college;
-        if (@available(iOS 11.0, *)) {
-            myAcademyLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
-        } else {
-            myAcademyLabel.textColor = LABELCOLOR;
-        }
-        myAcademyLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:16];
-        myAcademyLabel.numberOfLines = 0;
-        [self.contentScrollView addSubview:myAcademyLabel];
-        self.myAcademyLabel = myAcademyLabel;
+    UILabel *myAcademyLabel = [[UILabel alloc] init];
+    myAcademyLabel.text = [UserItemTool defaultItem].college;
+    
+    myAcademyLabel.textColor = [UIColor colorNamed:@"Mine_Store_LabelColor"];
+    
+    myAcademyLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:16];
+    myAcademyLabel.numberOfLines = 0;
+    [self.contentScrollView addSubview:myAcademyLabel];
+    self.myAcademyLabel = myAcademyLabel;
 }
 
 - (void)addExplainLabel{
-        UILabel *explainLabel = [[UILabel alloc] init];
-        explainLabel.text = @"写下你的联系方式，便于我们与您联系";
-        explainLabel.textColor = [UIColor colorWithRed:188/255.0 green:195/255.0 blue:206/255.0 alpha:0.9];
-        explainLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:12];
-        [self.contentScrollView addSubview:explainLabel];
-        self.explainLabel = explainLabel;
+    UILabel *explainLabel = [[UILabel alloc] init];
+    explainLabel.text = @"写下你的联系方式，便于我们与您联系";
+    explainLabel.textColor = [UIColor colorWithRed:188/255.0 green:195/255.0 blue:206/255.0 alpha:0.9];
+    explainLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:12];
+    [self.contentScrollView addSubview:explainLabel];
+    self.explainLabel = explainLabel;
 }
 
 - (void)addSaveButton{
     UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    if (@available(iOS 11.0, *)) {
-        saveButton.backgroundColor = [UIColor colorNamed:@"93_93_247&85_77_250"];
-    } else {
-        saveButton.backgroundColor = [UIColor colorWithRed:93/255.0 green:93/255.0 blue:247/255.0 alpha:1];
-    }
+    
+    saveButton.backgroundColor = [UIColor colorNamed:@"93_93_247&85_77_250"];
+    
     [saveButton setTitle:@"保 存" forState:UIControlStateNormal];
     [saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     saveButton.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
@@ -333,77 +370,101 @@
     }];
     self.headerImageView.clipsToBounds = YES;
     self.headerImageView.layer.cornerRadius = self.width * 0.19 * 0.5;
-
+    
     [self.introductionButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.headerImageView);
         make.trailing.equalTo(self).offset(-18);
         make.height.width.equalTo(@20);
     }];
-
+    
     [self.nicknameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self).offset(18);
         make.top.equalTo(self.headerImageView.mas_bottom).offset(34);
     }];
-
+    
     [self.nicknameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.nicknameLabel);
         make.trailing.equalTo(self).offset(-10);
         make.top.equalTo(self.nicknameLabel.mas_bottom).offset(3);
         make.height.equalTo(@45);
     }];
-
+    
     [self.introductionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.nicknameLabel);
         make.top.equalTo(self.nicknameTextField.mas_bottom).offset(30);
     }];
-
+    
     [self.introductionTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.nicknameLabel);
         make.trailing.equalTo(self).offset(-10);
         make.top.equalTo(self.introductionLabel.mas_bottom).offset(3);
         make.height.equalTo(@45);
     }];
-
+    
+    [self.genderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.nicknameLabel);
+        make.top.mas_equalTo(self.introductionTextField.mas_bottom).offset(30);
+    }];
+    
+    [self.genderTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.nicknameLabel);
+        make.trailing.equalTo(self).offset(-10);
+        make.top.equalTo(self.genderLabel.mas_bottom).offset(3);
+        make.height.equalTo(@45);
+    }];
+    
+    [self.birthdayLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.nicknameLabel);
+        make.top.mas_equalTo(self.genderTextField.mas_bottom).offset(30);
+    }];
+    
+    [self.birthdayTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.nicknameLabel);
+        make.trailing.equalTo(self).offset(-10);
+        make.top.equalTo(self.birthdayLabel.mas_bottom).offset(3);
+        make.height.equalTo(@45);
+    }];
+    
     [self.QQLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.nicknameLabel);
-        make.top.equalTo(self.introductionTextField.mas_bottom).offset(30);
+        make.top.equalTo(self.birthdayTextField.mas_bottom).offset(30);
     }];
-
+    
     [self.QQTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.nicknameLabel);
         make.trailing.equalTo(self).offset(-10);
         make.top.equalTo(self.QQLabel.mas_bottom).offset(3);
         make.height.equalTo(@45);
     }];
-
+    
     [self.phoneNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.nicknameLabel);
         make.top.equalTo(self.QQTextField.mas_bottom).offset(30);
     }];
-
+    
     [self.phoneNumberTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.nicknameLabel);
         make.trailing.equalTo(self).offset(-10);
         make.top.equalTo(self.phoneNumberLabel.mas_bottom).offset(3);
         make.height.equalTo(@45);
     }];
-
+    
     [self.academyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.nicknameLabel);
         make.top.equalTo(self.phoneNumberTextField.mas_bottom).offset(30);
     }];
-
+    
     [self.myAcademyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.academyLabel);
         make.trailing.equalTo(self).offset(-18);
         make.leading.greaterThanOrEqualTo(self.academyLabel.mas_trailing).offset(20);
     }];
-
+    
     [self.explainLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.myAcademyLabel.mas_bottom).offset(20);
         make.trailing.equalTo(self.myAcademyLabel);
     }];
-
+    
     [self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self.explainLabel.mas_bottom).offset(32);
@@ -417,7 +478,6 @@
         make.bottom.equalTo(self.saveButton).offset(52);
     }];
 }
-
 
 #pragma mark - 按钮调用
 - (void)saveButtonClicked:(UIButton *)sender {
@@ -444,6 +504,21 @@
     }
 }
 
+- (void)textFieldDidChange:(UITextField *)sender {
+    //    NSLog(@"%zd", sender.text.length);
+    if ([sender isEqual:self.nicknameTextField]) {
+        self.nicknameLabel.text = [NSString stringWithFormat:@"昵称(%zd/10)", sender.text.length];
+    } else if ([sender isEqual:self.introductionLabel]) {
+        self.introductionLabel.text = [NSString stringWithFormat:@"个性签名(%zd/20)", sender.text.length];
+    }
+}
+
+///  这个方法从代理里面转过来
+- (void)textFieldClicked:(UITextField *)sender {
+    if ([sender isEqual:self.genderTextField]) {
+        
+    }
+}
 
 #pragma mark - Hit test
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
@@ -451,7 +526,8 @@
     return view;
 }
 
-//MARK: - 代理方法：
+#pragma mark - UITextFieldDelegate,
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     long len;
     NSString *tipStr;
@@ -473,6 +549,72 @@
     }else {
         return YES;
     }
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
+    if ([textField isEqual:self.genderTextField] ||
+        [textField isEqual:self.birthdayTextField]) {
+        
+        [self textFieldClicked:textField];
+        return NO;
+    }
+        
+    return YES;
+}
+
+#pragma mark - UIPickerViewDelegate
+
+- (void)pickerView:(UIPickerView *)pickerView
+      didSelectRow:(NSInteger)row
+       inComponent:(NSInteger)component {
+    
+}
+
+#pragma mark - UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return 3;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView
+             titleForRow:(NSInteger)row
+            forComponent:(NSInteger)component {
+    return self.genderAry[row];
+}
+
+#pragma mark - lazy
+
+- (UIPickerView *)genderPickerView  {
+    if (_genderPickerView == nil) {
+        _genderPickerView = [[UIPickerView alloc] init];
+        _genderPickerView.dataSource = self;
+        _genderPickerView.delegate = self;
+        
+    }
+    return _genderPickerView;
+}
+
+- (NSArray *)genderAry {
+    if (_genderAry == nil) {
+        _genderAry = @[
+            @"男",
+            @"女",
+            @"X星人",
+        ];
+    }
+    return _genderAry;
+}
+
+- (UIDatePicker *)birthdayDatePicker {
+    if (_birthdayDatePicker == nil) {
+        _birthdayDatePicker = [[UIDatePicker alloc] init];
+    }
+    return _birthdayDatePicker;
 }
 
 

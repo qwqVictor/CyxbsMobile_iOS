@@ -36,6 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) MineEditTextField *introductionTextField;
 
 /// 编辑QQ的TextField
+@property (nonatomic, weak) MineEditTextField *genderTextField;
+
+/// 编辑手机号码的TextField
+@property (nonatomic, weak) MineEditTextField *birthdayTextField;
+
+/// 编辑QQ的TextField
 @property (nonatomic, weak) MineEditTextField *QQTextField;
 
 /// 编辑手机号码的TextField

@@ -55,7 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// QQ号
 @property (nonatomic, copy) NSString *qq;
 
-
+/// 生日
+@property (nonatomic, copy) NSString * birthday;
 
 //MARK: - 积分商城相关
 /// 已连续签到天数
