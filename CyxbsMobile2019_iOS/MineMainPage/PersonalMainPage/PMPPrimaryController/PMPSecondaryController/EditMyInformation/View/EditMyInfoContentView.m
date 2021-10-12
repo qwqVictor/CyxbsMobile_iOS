@@ -125,7 +125,7 @@ PMPDatePickerDelegate
 
 - (void)addIntroductionButton{
     UIButton *introductionButton = [[UIButton alloc] init];
-    [introductionButton setImage:[UIImage imageNamed:@"编辑资料问号"] forState:UIControlStateNormal];
+    [introductionButton setImage:[UIImage imageNamed:@"编辑资料的点"] forState:UIControlStateNormal];
     [introductionButton addTarget:self action:@selector(showUserInformationIntroduction:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentScrollView addSubview:introductionButton];
     self.introductionButton = introductionButton;

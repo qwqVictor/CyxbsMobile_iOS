@@ -11,7 +11,8 @@
 #import "JHMenuView.h"
 
 @interface JHPageController ()
-<JHMenuViewDelegate>
+<JHMenuViewDelegate,
+UIScrollViewDelegate>
 
 @property (nonatomic, strong) JHMenuView * menuView;
 
@@ -80,7 +81,24 @@
 #pragma mark - menu view delegate
 
 - (void)itemClickedIndex:(NSUInteger)index {
+    [UIView animateWithDuration:0.5
+                     animations:^{
+        self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width * index, 0);
+    }];
+}
+
+#pragma mark - scrollview
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // 判断当前滑动到哪一个控制器了,改变的界限就是宽度是否超过了屏幕的一半
+    NSInteger currentIndex = floor((scrollView.contentOffset.x / scrollView.frame.size.width) + 0.5);
+    self.menuView.selectedIndex = currentIndex;
     
+//    //主页面相对起始位置的位移
+//    CGFloat offSetX = scrollView.contentOffset.x;
+    
+    
+
 }
 
 #pragma mark - lazy
@@ -91,6 +109,7 @@
         _scrollView.backgroundColor = [UIColor clearColor];
         _scrollView.bounces = NO;
         _scrollView.pagingEnabled = YES;
+        _scrollView.delegate = self;
     }
     return _scrollView;
 }

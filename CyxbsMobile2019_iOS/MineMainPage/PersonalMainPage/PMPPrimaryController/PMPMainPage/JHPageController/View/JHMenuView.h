@@ -12,6 +12,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// 这个这个枚举用来扩展
+typedef NS_ENUM(NSUInteger, JHMenuViewItemStyle) {
+    JHMenuItemStyleDefault,
+    JHMenuItemStyleLine, // 底部一根线
+    JHMenuItemStyleNone, // 没有其他的变化
+};
+
 @protocol JHMenuViewDelegate <NSObject>
 /// 点击方法
 - (void)itemClickedIndex:(NSUInteger)index;
@@ -20,13 +27,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JHMenuView : UIView
 
+@property (nonatomic, strong) UIImageView * sliderLinePart;
+
+/// 选中的item
+@property (nonatomic, assign) NSUInteger selectedIndex;
+
 @property (nonatomic, copy) NSArray <NSString *> * titles;
-@property (nonatomic, assign, readonly) JHMenuItemStyle style;
+@property (nonatomic, assign, readonly) JHMenuViewItemStyle menuViewItemStyle;
 
 @property (nonatomic, weak) id <JHMenuViewDelegate> delegate;
 
 - (instancetype)initWithTitles:(NSArray <NSString *> *)titles
-                     ItemStyle:(JHMenuItemStyle)style;
+                     ItemStyle:(JHMenuViewItemStyle)menuViewItemStyle;
 
 @end
 

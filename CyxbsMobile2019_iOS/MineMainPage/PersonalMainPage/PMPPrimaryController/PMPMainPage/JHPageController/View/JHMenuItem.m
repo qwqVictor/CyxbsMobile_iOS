@@ -10,40 +10,20 @@
 
 @implementation JHMenuItem
 
-- (instancetype)initWithStyle:(JHMenuItemStyle)style
-                        Index:(NSUInteger)index{
+- (instancetype)initWithIndex:(NSUInteger)index{
     self = [super init];
     if (self) {
         _index = index;
         // 通用的一些配置
-        [self configureSelf];
-        // 每个风格的配置
-        switch (style) {
-            case JHMenuItemStyleLine:
-                [self configureLine];
-                break;
-            case JHMenuItemStyleNone:
-                [self configureNone];
-                break;
-            default:
-                [self configureLine];
-                break;
-        }
+        [self configureView];
     }
     return self;
 }
 
-- (void)configureSelf {
+- (void)configureView {
     
 }
 
-- (void)configureLine {
-    
-}
-
-- (void)configureNone {
-    
-}
 
 #pragma mark - public method
 

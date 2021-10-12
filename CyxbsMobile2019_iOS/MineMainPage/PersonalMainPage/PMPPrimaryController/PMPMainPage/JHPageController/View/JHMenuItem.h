@@ -10,20 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 这个这个枚举用来扩展
-typedef NS_ENUM(NSUInteger, JHMenuItemStyle) {
-    JHMenuItemStyleDefault,
-    JHMenuItemStyleLine, // 底部一根线
-    JHMenuItemStyleNone, // 没有其他的变化
-};
-
 @interface JHMenuItem : UIButton
 
-@property (nonatomic, assign) JHMenuItemStyle style;
+
 @property (nonatomic, assign) NSUInteger index;
 
-- (instancetype)initWithStyle:(JHMenuItemStyle)style
-                        Index:(NSUInteger)index;
+
+- (instancetype)initWithIndex:(NSUInteger)index;
 
 - (void)setTitleColorforStateNormal:(UIColor *)normalColor
                    forStateSelected:(UIColor *)SelectedColor;

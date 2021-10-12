@@ -22,11 +22,12 @@
 #pragma mark - init
 
 - (instancetype)initWithTitles:(NSArray<NSString *> *)titles
-                     ItemStyle:(JHMenuItemStyle)style {
+                     ItemStyle:(JHMenuViewItemStyle)menuViewItemStyle {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         _titles = titles;
-        _style = style;
+        _menuViewItemStyle = menuViewItemStyle;
+        _selectedIndex = 0;
         [self setupView];
     }
     return self;
@@ -41,7 +42,7 @@
     /// 创建所有的按钮
     NSMutableArray * tempMAry = [NSMutableArray array];
     for (NSUInteger i = 0; i < self.titles.count; i++) {
-        [tempMAry addObject:[self getMenuItemWithStyle:_style Index:i]];
+        [tempMAry addObject:[self getMenuItemWithIndex:i]];
     }
     self.menuItems = tempMAry;
     
@@ -62,15 +63,19 @@
         }];
         leftView = item;
     }
+    self.menuItems[_selectedIndex].selected = YES;
+    
+    [self addSubview:self.sliderLinePart];
+    [self.sliderLinePart mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+    }];
 
 }
 
 #pragma mark - private method
 
-- (JHMenuItem *)getMenuItemWithStyle:(JHMenuItemStyle)style
-                               Index:(NSUInteger)index{
-    JHMenuItem * item = [[JHMenuItem alloc] initWithStyle:style
-                                                    Index:index];
+- (JHMenuItem *)getMenuItemWithIndex:(NSUInteger)index{
+    JHMenuItem * item = [[JHMenuItem alloc] initWithIndex:index];
     // 设置颜色
     [item setTitleColorforStateNormal:[UIColor colorNamed:@"21_49_91_1&240_240_242_1"]
                      forStateSelected:[UIColor colorNamed:@"21_49_91_1&240_240_242_1"]];
@@ -91,6 +96,15 @@
     }
 }
 
+- (void)setSelectedIndex:(NSUInteger)selectedIndex {
+    if (_selectedIndex == selectedIndex) {
+        return;
+    }
+    self.menuItems[_selectedIndex].selected = NO;
+    _selectedIndex = selectedIndex;
+    self.menuItems[_selectedIndex].selected = YES;
+}
+
 #pragma mark - lazy
 
 - (UIScrollView *)scrollView{
@@ -99,6 +113,14 @@
         _scrollView.backgroundColor = [UIColor clearColor];
     }
     return _scrollView;
+}
+
+- (UIImageView *)sliderLinePart {
+    if (_sliderLinePart == nil) {
+        _sliderLinePart = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+        [_sliderLinePart sizeToFit];
+    }
+    return _sliderLinePart;
 }
 
 @end
