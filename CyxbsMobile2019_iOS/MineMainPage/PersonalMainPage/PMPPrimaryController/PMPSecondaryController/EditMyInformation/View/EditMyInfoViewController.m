@@ -12,7 +12,13 @@
 #import "MineViewController.h"
 #import "UserInformationIntorductionView.h"
 
-@interface EditMyInfoViewController () <EditMyInfoContentViewDelegate, UIScrollViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface EditMyInfoViewController ()
+<
+EditMyInfoContentViewDelegate,
+UIScrollViewDelegate,
+UINavigationControllerDelegate,
+UIImagePickerControllerDelegate
+>
 
 @property (nonatomic, strong) EditMyInfoPresenter *presenter;
 
@@ -88,7 +94,7 @@
 
 - (void)showUserInformationIntroduction:(UIButton *)sender {
     UserInformationIntorductionView *introductionView = [[UserInformationIntorductionView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, self.contentView.height)];
-    [self.view addSubview:introductionView];
+    [self.contentView addSubview:introductionView];
     
     introductionView.alpha = 0;
     [UIView animateWithDuration:0.3 animations:^{
@@ -106,7 +112,9 @@
         @"introduction": self.contentView.introductionTextField.text.length != 0 ? self.contentView.introductionTextField.text : self.contentView.introductionTextField.placeholder,
         @"qq": self.contentView.QQTextField.text.length != 0 ? self.contentView.QQTextField.text : self.contentView.QQTextField.placeholder,
         @"phone": self.contentView.phoneNumberTextField.text.length != 0 ? self.contentView.phoneNumberTextField.text : self.contentView.phoneNumberTextField.placeholder,
-        @"photo_src": [UserItemTool defaultItem].headImgUrl ? [UserItemTool defaultItem].headImgUrl : @""
+        @"photo_src": [UserItemTool defaultItem].headImgUrl ? [UserItemTool defaultItem].headImgUrl : @"",
+        @"gender": self.contentView.genderTextField.text.length != 0 ? self.contentView.genderTextField.text : self.contentView.genderTextField.placeholder,
+        @"birthday": self.contentView.birthdayTextField.text.length != 0 ? self.contentView.birthdayTextField.text : self.contentView.birthdayTextField.placeholder,
     };
     [self.presenter uploadUserInfo:uploadData];
 }
@@ -123,11 +131,10 @@
 
 
 - (void)userInfoUploadSuccess {
-    [UserItemTool refresh];         // 上传数据后刷新token
-    //让我的页面控制器刷新数据
-//    [((MineViewController *)self.transitioningDelegate) loadUserData];
-//    ((MineViewController *)self.transitioningDelegate).panGesture = nil;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    // 上传数据后刷新token
+    [UserItemTool refresh];
+
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

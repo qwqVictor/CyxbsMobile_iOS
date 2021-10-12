@@ -101,6 +101,30 @@
     return stuNum;
 }
 
+//添加这两个信息
++ (void)saveGender:(NSString *)gender {
+    [self saveValue:gender forKey:@"gender"];
+}
+
++(NSString *)getGender{
+    NSString* gender = [self valueWithKey:@"gender"];
+    if (gender == nil) {
+        gender = @"";
+    }
+    return gender;
+}
+
++ (void)saveBirthday:(NSString *)birthday {
+    [self saveValue:birthday forKey:@"birthday"];
+}
++(NSString *)getBirthday{
+    NSString* birthday = [self valueWithKey:@"birthday"];
+    if (birthday==nil) {
+        birthday = @"";
+    }
+    return birthday;
+}
+
 +(void)saveStuNum:(NSString *)stuNum{
     [self saveValue:stuNum forKey:@"stuNum"];
 }

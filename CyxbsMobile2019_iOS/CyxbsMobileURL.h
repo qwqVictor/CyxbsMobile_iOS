@@ -50,7 +50,7 @@
 #define UPLOADPROFILEAPI [CyxbsMobileBaseURL_1 stringByAppendingString:@"magipoke/person/upload/avatar"]
 
 /// 上传用户信息
-#define UPLOADUSERINFOAPI [CyxbsMobileBaseURL_1 stringByAppendingString:@"magipoke/Person/SetInfo"]
+#define UPLOADUSERINFOAPI [CyxbsMobileBaseURL_1 stringByAppendingString:@"magipoke/person/info"]
 
 //获取用户资料，POST
 #define getPersonData [CyxbsMobileBaseURL_1 stringByAppendingString:@"magipoke/Person/Search"]

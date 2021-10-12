@@ -21,7 +21,7 @@
     } failure:^(NSError * _Nonnull error) {
         [self.attachedView userInfoOrProfileUploadFailure];
     }];
-    
+
 }
 
 - (void)uploadUserInfo:(NSDictionary *)userInfo {
@@ -30,7 +30,9 @@
     [UserItemTool defaultItem].qq = userInfo[@"qq"];
     [UserItemTool defaultItem].phone = userInfo[@"phone"];
     [UserItemTool defaultItem].headImgUrl = userInfo[@"photo_src"];
-
+    [UserItemTool defaultItem].gender = userInfo[@"gender"];
+    [UserItemTool defaultItem].birthday = userInfo[@"birthday"];
+    
     [EditMyInfoModel uploadUserInfo:userInfo success:^(NSDictionary * _Nonnull responseObject) {
         [self.attachedView userInfoUploadSuccess];
     } failure:^(NSError * _Nonnull error) {

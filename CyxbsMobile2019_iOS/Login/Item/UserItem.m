@@ -96,6 +96,11 @@ static UserItem *item = nil;
     [NSKeyedArchiver archiveRootObject:self toFile:[UserItemTool userItemPath]];
 }
 
+- (void)setBirthday:(NSString *)birthday {
+    _birthday = birthday;
+    [NSKeyedArchiver archiveRootObject:self toFile:[UserItemTool userItemPath]];
+}
+
 - (void)setRedid:(NSString *)redid {
     _redid = redid;
     [NSKeyedArchiver archiveRootObject:self toFile:[UserItemTool userItemPath]];

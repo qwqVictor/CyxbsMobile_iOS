@@ -592,7 +592,7 @@ PMPDatePickerDelegate
       didSelectRow:(NSInteger)row
        inComponent:(NSInteger)component {
 //    NSLog(@"%zd", row);
-    
+    self.genderTextField.text = self.genderAry[row];
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView
@@ -619,13 +619,20 @@ rowHeightForComponent:(NSInteger)component {
 #pragma mark - pmppickerview
 
 - (void)sureButtonClicked:(id)sender {
-    NSLog(@"picker view");
+//    NSLog(@"picker view");
+    // 上传数据保存到本地
+    self.genderPickerView.hidden = YES;
 }
 
 #pragma mark - pmpdatepicker
 
 - (void)datePickerSureButtonClicked:(id)sender {
-    NSLog(@"date picker");
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
+    NSString * str = [dateFormatter stringFromDate:self.birthdayDatePicker.datePicker.date];
+    self.birthdayTextField.text = str;
+    // 上传数据并保存到本地
+    self.birthdayDatePicker.hidden = YES;
 }
 
 #pragma mark - lazy
@@ -654,8 +661,14 @@ rowHeightForComponent:(NSInteger)component {
 - (PMPDatePicker *)birthdayDatePicker {
     if (_birthdayDatePicker == nil) {
         _birthdayDatePicker = [[PMPDatePicker alloc] init];
+        _birthdayDatePicker.delegate = self;
         _birthdayDatePicker.datePicker.maximumDate = [NSDate date];
-        _birthdayDatePicker.datePicker.minimumDate = [NSDate dateWithString:@"1900-01-01 00:00:00" format:@"yyyy-MM-dd HH:mm:ss"];
+        _birthdayDatePicker.datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh_CHT"];
+        _birthdayDatePicker.datePicker.timeZone = NSTimeZone.localTimeZone;
+        _birthdayDatePicker.datePicker.datePickerMode = UIDatePickerModeDate;
+        if (@available(iOS 13.4, *)) {
+            _birthdayDatePicker.datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+        }
     }
     return _birthdayDatePicker;
 }
