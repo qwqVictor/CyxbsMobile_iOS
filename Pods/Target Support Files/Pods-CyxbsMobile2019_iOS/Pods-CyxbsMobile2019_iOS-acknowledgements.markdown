@@ -24,24 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## AMap3DMap-NO-IDFA
-
-Copyright © 2014 AutoNavi. All Rights Reserved.
-
-
-## AMapFoundation-NO-IDFA
-
-Copyright © 2014 AutoNavi. All Rights Reserved.
-
-
-## AMapLocation-NO-IDFA
-
-Copyright © 2014 AutoNavi. All Rights Reserved.
-
-
 ## Alamofire
 
-Copyright (c) 2014-2020 Alamofire Software Foundation (http://alamofire.org/)
+Copyright (c) 2014-2021 Alamofire Software Foundation (http://alamofire.org/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -564,7 +549,7 @@ SOFTWARE.
 
 ## SDWebImage
 
-Copyright (c) 2009-2018 Olivier Poitrey rs@dailymotion.com
+Copyright (c) 2009-2020 Olivier Poitrey rs@dailymotion.com
  
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -658,41 +643,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-
-
-## UMCAnalytics
-
-Copyright 2011 - 2019 umeng.com. All rights reserved.
-
-
-## UMCCommon
-
-Copyright 2011 - 2019 umeng.com. All rights reserved.
-
-
-## UMCCommonLog
-
-Copyright 2011 - 2018 umeng.com. All rights reserved.
-
-
-## UMCErrorCatch
-
-Copyright 2011 - 2018 umeng.com. All rights reserved.
-
-
-## UMCPush
-
-Copyright 2011 - 2018 umeng.com. All rights reserved.
-
-
-## UMCSecurityPlugins
-
-Copyright 2011 - 2018 umeng.com. All rights reserved.
-
-
-## UMCShare
-
-Copyright 2011 - 2018 umeng.com. All rights reserved.
 
 
 ## YBImageBrowser

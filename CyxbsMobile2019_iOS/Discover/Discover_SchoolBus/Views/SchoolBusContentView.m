@@ -7,12 +7,14 @@
 //
 
 #import "SchoolBusContentView.h"
+#if !TARGET_OS_MACCATALYST
 #import <MAMapKit/MAMapKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
+#endif
 #import "SchoolBusItem.h"
 
-
+#if !TARGET_OS_MACCATALYST
 @interface SchoolBusContentView () <AMapLocationManagerDelegate>
 
 /// 上一次的校车位置
@@ -22,7 +24,17 @@
 @property (nonatomic, copy) NSArray<SchoolBusItem *> *latestItemArray;
 
 @end
+#else
+@interface SchoolBusContentView () <NSObject>
 
+/// 上一次的校车位置
+@property (nonatomic, copy) NSArray<SchoolBusItem *> *lastItemArray;
+
+/// 最新一次的校车位置
+@property (nonatomic, copy) NSArray<SchoolBusItem *> *latestItemArray;
+
+@end
+#endif
 
 @implementation SchoolBusContentView
 
@@ -30,9 +42,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+#if !TARGET_OS_MACCATALYST
         // 这个key出问题了找我，QQ：1374872604，别再其他软件里用这个key，会出问题
         [AMapServices sharedServices].apiKey = @"7252742ad6f47069544dbf9213f68b56";
-        
         MAMapView *map = [[MAMapView alloc] initWithFrame:self.bounds];
         map.showsUserLocation = YES;
         map.userTrackingMode = MAUserTrackingModeFollow;
@@ -41,11 +53,12 @@
         map.centerCoordinate = CLLocationCoordinate2DMake(29.529332, 106.607517);
         map.scaleOrigin = CGPointMake(50, STATUSBARHEIGHT + 10);      // 比例尺位置
         map.showsCompass = NO;                      // 不显示指南针
+         
         [self addSubview:map];
         self.mapView = map;
-        
+#endif
         if([CLLocationManager locationServicesEnabled]){
-            
+#if !TARGET_OS_MACCATALYST
             AMapLocationManager *locationManager = [[AMapLocationManager alloc] init];
             
             [locationManager setDelegate:self];
@@ -59,7 +72,7 @@
             [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
             //开始定位服务
             [locationManager startUpdatingLocation];
-            
+#endif
         }
         
         UIView *darkBoard = [[UIView alloc] initWithFrame:frame];
@@ -165,7 +178,7 @@
     // 更新校车位置
     self.lastItemArray = self.latestItemArray;
     self.latestItemArray = busArray;
-    
+#if !TARGET_OS_MACCATALYST
     if (self.schoolBusPinA == nil) {
         MAPointAnnotation *pinA = [[MAPointAnnotation alloc] init];
         [self.mapView addAnnotation:pinA];
@@ -181,6 +194,7 @@
     }
     self.schoolBusPinB.coordinate = CLLocationCoordinate2DMake(self.latestItemArray[0].lat, self.latestItemArray[1].lon);
     self.schoolBusPinB.title = @"校车B";
+#endif
 }
 
 

@@ -8,7 +8,9 @@
 
 #import "UserItemTool.h"
 //#import "LoginViewController.h"
+#if !TARGET_OS_MACCATALYST
 #import <UMPush/UMessage.h>
+#endif
 #import "ArchiveTool.h"
 
 #import "PostArchiveTool.h"
@@ -78,7 +80,7 @@
     
     //清除课表数据和备忘数据
     [[NSFileManager defaultManager] removeItemAtPath:remAndLesDataDirectoryPath error:nil];
-    
+#if !TARGET_OS_MACCATALYST
     //清除所有已有的本地通知
     [[UNUserNotificationCenter currentNotificationCenter] removeAllDeliveredNotifications];
     [[UNUserNotificationCenter currentNotificationCenter] removeAllPendingNotificationRequests];
@@ -88,8 +90,8 @@
     
     // 退出后移除友盟推送别名
     [UMessage removeAlias:[UserItemTool defaultItem].stuNum type:@"cyxbs" response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
-        
     }];
+#endif
 }
 
 + (void)refresh {

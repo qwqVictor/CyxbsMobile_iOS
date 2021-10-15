@@ -7,7 +7,9 @@
 //个人主页面的tableView顶部的一大块View都是这个类，这个类会被设置成tableView的headview
 
 #import "MineHeaderView.h"
+#if !TARGET_OS_MACCATALYST
 #import <UMPush/UMessage.h>
+#endif
 
 @interface MineHeaderView ()
 

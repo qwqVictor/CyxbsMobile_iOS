@@ -7,11 +7,13 @@
 //
 
 #import "AppDelegate.h"
-#import <UMCommon/UMCommon.h>
-#import <UMPush/UMessage.h>
-#import <UMShare/UMShare.h>
-#import <UMAnalytics/MobClick.h>
-#import <UMCommonLog/UMCommonLogHeaders.h>
+#if !TARGET_OS_MACCATALYST
+    #import <UMCommon/UMCommon.h>
+    #import <UMPush/UMessage.h>
+    #import <UMShare/UMShare.h>
+    #import <UMAnalytics/MobClick.h>
+    #import <UMCommonLog/UMCommonLogHeaders.h>
+#endif
 #import "VolunteeringEventItem.h"
 #import "VolunteerItem.h"
 #import "DynamicDetailMainVC.h"
@@ -21,9 +23,11 @@
 #include "ArchiveTool.h"
 
 extern CFAbsoluteTime StartTime;
-@interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
+#if !TARGET_OS_MACCATALYST
+@interface AppDelegate ()<UNUserNotificationCenterDelegate>
 @end
+#endif
 
 @implementation AppDelegate
 
@@ -56,9 +60,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 //    #endif
     
     if ([UserDefaultTool getStuNum]) {
+#if !TARGET_OS_MACCATALYST
         [UMessage addAlias:[UserDefaultTool getStuNum] type:@"cyxbs" response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
             NSLog(@"%@", responseObject);
         }];
+#endif
     }
     
     // 如果打开应用时有学号密码，但是没有token，退出登录
@@ -116,7 +122,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
             
         }];
     }
-    
+
+#if !TARGET_OS_MACCATALYST
     //开发者需要显式的调用此函数，日志系统才能工作
     [UMCommonLogManager setUpUMCommonLogManager];
     //初始化umenge功能
@@ -162,7 +169,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 //    [self setupUSharePlatforms];   // required: setting platforms on demand
 //    [self setupUShareSettings];
 //
-
+#endif
     double launchTime = (CFAbsoluteTimeGetCurrent() - StartTime);
     NSLog(@"double======%f",launchTime);
     
@@ -234,6 +241,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 
 //设置每日推送课表的本地通知
 - (void)pushSchedulEveryday{
+#if !TARGET_OS_MACCATALYST
     //移除旧的每日推送课表
     [[UNUserNotificationCenter currentNotificationCenter] removePendingNotificationRequestsWithIdentifiers:@[@"deliverSchedulEverday"]];
     [[UNUserNotificationCenter currentNotificationCenter] removeDeliveredNotificationsWithIdentifiers:@[@"deliverSchedulEverday"]];
@@ -263,6 +271,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     //配置content
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc]init];
     content.title = @"明日课表已送达";
+
     [content setSound:[UNNotificationSound defaultSound]];
     
     
@@ -306,6 +315,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
             NSLog(@"添加%@成功",requestIDStr);
         }];
     }
+#endif
     
     /**
      {
@@ -387,13 +397,15 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 //iOS10以下使用这两个方法接收通知
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+#if !TARGET_OS_MACCATALYST
     [UMessage setAutoAlert:NO];
     if([[[UIDevice currentDevice] systemVersion]intValue] < 10){
         [UMessage didReceiveRemoteNotification:userInfo];
     }
     completionHandler(UIBackgroundFetchResultNewData);
+#endif
 }
-
+#if !TARGET_OS_MACCATALYST
 //iOS10新增：处理前台收到通知的代理方法
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
     
@@ -410,7 +422,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     }
     completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
 }
-
+#endif
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     
     NSString *urlStr = [url absoluteString];
@@ -429,7 +441,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
     }
     return YES;
 }
-
+#if !TARGET_OS_MACCATALYST
 //iOS10新增：处理后台点击通知的代理方法
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler{
     
@@ -476,6 +488,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
         }
     }
 }
-
+#endif
 @end
 

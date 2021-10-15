@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "未命名3.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -11,6 +12,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "未命名.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

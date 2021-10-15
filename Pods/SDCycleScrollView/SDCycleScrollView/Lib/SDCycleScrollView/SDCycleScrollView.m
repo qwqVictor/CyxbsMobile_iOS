@@ -176,7 +176,6 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
     
     self.backgroundImageView.image = placeholderImage;
-    [self.backgroundImageView setContentMode:UIViewContentModeScaleToFill];
 }
 
 - (void)setPageControlDotSize:(CGSize)pageControlDotSize
@@ -511,6 +510,13 @@ NSString * const ID = @"SDCycleScrollViewCell";
         size = [pageControl sizeForNumberOfPages:self.imagePathsGroup.count];
     } else {
         size = CGSizeMake(self.imagePathsGroup.count * self.pageControlDotSize.width * 1.5, self.pageControlDotSize.height);
+        // ios14 需要按照系统规则适配pageControl size
+        if (@available(iOS 14.0, *)) {
+            if ([self.pageControl isKindOfClass:[UIPageControl class]]) {
+                UIPageControl *pageControl = (UIPageControl *)_pageControl;
+                size.width = [pageControl sizeForNumberOfPages:self.imagePathsGroup.count].width;
+            }
+        }
     }
     CGFloat x = (self.sd_width - size.width) * 0.5;
     if (self.pageControlAliment == SDCycleScrollViewPageContolAlimentRight) {
@@ -587,7 +593,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     
     if (!self.onlyDisplayText && [imagePath isKindOfClass:[NSString class]]) {
         if ([imagePath hasPrefix:@"http"]) {
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage options:SDWebImageScaleDownLargeImages];
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
         } else {
             UIImage *image = [UIImage imageNamed:imagePath];
             if (!image) {
